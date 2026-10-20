@@ -1,10 +1,10 @@
 import { useEffect, useRef } from 'preact/hooks';
 import type { RefObject } from 'preact';
-import { createTimeline } from 'animejs';
+import { animate, createTimeline, stagger } from 'animejs';
 import { hasBooted, markBooted } from '@/lib/session';
 import { typeLine, type LineScript } from '@/lib/terminal-typing';
 
-const CHAR_MS = 16;
+const CHAR_MS = 14;
 
 type SequenceRefs = {
 	loader: RefObject<HTMLDivElement | null>;
@@ -28,11 +28,15 @@ export function useTerminalRefs(): SequenceRefs {
 
 function playBoot(
 	timeline: Timeline,
+	heading: HTMLElement | null,
 	bootItems: HTMLElement[],
 	bar: HTMLElement | null,
 	loader: HTMLElement,
 ) {
-	timeline.add(bootItems, { opacity: [0, 1], translateY: [4, 0], duration: 160 }, 120);
+	if (heading) {
+		timeline.add(heading, { opacity: [0, 1], translateY: [-4, 0], duration: 260 }, 0);
+	}
+	timeline.add(bootItems, { opacity: [0, 1], translateY: [4, 0], duration: 160 }, 140);
 	if (bar) timeline.add(bar, { scaleX: [0, 1], duration: 1500, ease: 'outQuad' }, 120);
 	timeline.add(loader, { opacity: [1, 0], duration: 320, ease: 'outQuad' }, 1750);
 }
@@ -63,11 +67,15 @@ export function useTerminalSequence(
 		promptEl.style.pointerEvents = 'none';
 
 		const bootItems = Array.from(bootEl.querySelectorAll<HTMLElement>('[data-boot-line]'));
+		const heading = loaderEl.querySelector<HTMLElement>('[data-boot-heading]');
 		const lines = Array.from(contentEl.querySelectorAll<HTMLElement>('[data-line]'));
+		const commandRows = Array.from(promptEl.querySelectorAll<HTMLElement>('[data-command]'));
 		const bar = loaderEl.querySelector<HTMLElement>('[data-bar]');
 
+		for (const row of commandRows) row.style.opacity = '0';
+
 		const timeline = createTimeline();
-		playBoot(timeline, bootItems, bar, loaderEl);
+		playBoot(timeline, heading, bootItems, bar, loaderEl);
 		timeline.add(contentEl, { opacity: [0, 1], duration: 240 }, 2050);
 
 		let cancelled = false;
@@ -90,6 +98,14 @@ export function useTerminalSequence(
 				if (cancelled) return;
 				promptEl.style.opacity = '1';
 				promptEl.style.pointerEvents = 'auto';
+				if (commandRows.length > 0) {
+					animate(commandRows, {
+						opacity: [0, 1],
+						translateY: [6, 0],
+						duration: 180,
+						delay: stagger(45),
+					});
+				}
 				const idle = document.activeElement === document.body;
 				if (idle && window.matchMedia('(pointer: fine)').matches) {
 					input.current?.focus({ preventScroll: true });

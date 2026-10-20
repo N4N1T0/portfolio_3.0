@@ -12,7 +12,7 @@ export default function CommandList({ commands, altLocale, language, newTab, onR
 	return (
 		<ul class="mt-5 divide-y divide-edge border-y border-edge font-mono text-sm">
 			{commands.map((command) => (
-				<li>
+				<li data-command>
 					<a
 						href={command.href}
 						onClick={(event) => {
@@ -30,7 +30,7 @@ export default function CommandList({ commands, altLocale, language, newTab, onR
 					</a>
 				</li>
 			))}
-			<li>
+			<li data-command>
 				<a
 					href={altLocale.href}
 					hreflang={altLocale.label}
