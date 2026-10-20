@@ -1,0 +1,214 @@
+{
+  "title": "Portfolio: visual world",
+  "question": "The roll assigned the Teletext Index Service. Keep it, take an alternate, or re-roll.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Teletext Index Service",
+      "kicker": "THE ROLL",
+      "lineage": "1980s broadcast teletext magazines (Ceefax, ITV index pages)",
+      "thesis": "The portfolio as a text service with numbered pages: an index you scan, not a site you scroll.",
+      "palette": [
+        "#000000",
+        "#ffffff",
+        "#0000c0",
+        "#ffff00",
+        "#00c000",
+        "#00c0c0"
+      ],
+      "materials": [
+        "block mosaic",
+        "phosphor glow"
+      ],
+      "viewport": "P100 index page: name and role in mosaic type, four numbered rows with their page numbers, key row at the bottom.",
+      "risk": "Reads as retro novelty if the 40x24 grid is not strictly honoured on mobile.",
+      "html": "\n<div style=\"background:#000;padding:14px;font-family:'Courier New',monospace;font-size:12px;line-height:1.45\">\n  \n  <div style=\"display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #fff;padding-bottom:4px\">\n    <span style=\"background:#0000c0;color:#fff;padding:1px 6px\">PORTFOLIO INDEX</span>\n    <span style=\"color:#ffff00\">P100</span><span>EN&nbsp;&nbsp;12:04</span>\n  </div>\n  <div style=\"margin:10px 0 4px;color:#00ffff;font-size:18px;letter-spacing:3px\">ADRIAN ALVAREZ</div>\n  <div style=\"color:#00ffff\">SOFTWARE ENGINEER / AUTOMATION</div>\n  <div style=\"height:2px;background:#fff;margin:10px 0\"></div>\n  <div style=\"display:grid;grid-template-columns:1fr 52px;gap:3px 12px\">\n    <span><span style=\"background:#c00000;color:#fff;padding:0 5px\">1</span> PROFILE</span><span style=\"color:#ffff00\">P100</span>\n    <span><span style=\"background:#00c000;color:#000;padding:0 5px\">2</span> WORK</span><span style=\"color:#ffff00\">P200</span>\n    <span><span style=\"background:#ffff00;color:#000;padding:0 5px\">3</span> STACK</span><span style=\"color:#ffff00\">P300</span>\n    <span><span style=\"background:#00c0c0;color:#000;padding:0 5px\">4</span> CONTACT</span><span style=\"color:#ffff00\">P400</span>\n  </div>\n  <div style=\"margin-top:10px;display:flex;gap:5px\"><span style=\"background:#c00000;color:#fff;padding:1px 6px\">R</span><span style=\"background:#00c000;color:#000;padding:1px 6px\">G</span><span style=\"background:#ffff00;color:#000;padding:1px 6px\">Y</span><span style=\"background:#00c0c0;color:#000;padding:1px 6px\">C</span><span style=\"background:#0000c0;color:#fff;padding:1px 6px\">B</span></div>\n</div>",
+      "raised": [
+        {
+          "from": "challenger-darkroom",
+          "raise": "Every project resolves like a print developing: staged and irreversible, never a fade-out."
+        },
+        {
+          "from": "challenger-cephalopod",
+          "raise": "Colour is signal only: the key row and the page numbers, never decoration."
+        },
+        {
+          "from": "challenger-alphabet-storm",
+          "raise": "Type is matter: the name is set as a mosaic word, not inside a logo box."
+        },
+        {
+          "from": "challenger-woodblock",
+          "raise": "The index inks in print order, row by row, like blocks pulled one at a time."
+        },
+        {
+          "from": "challenger-bbs",
+          "raise": "The character grid is the only geometry, and the whole service is keyboard operable."
+        },
+        {
+          "from": "challenger-reference-setting",
+          "raise": "Every rule is drawn, never implied: hairlines at one device pixel, states as printed marks."
+        }
+      ]
+    },
+    {
+      "id": "model-pick",
+      "label": "Green Phosphor VT100",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "DEC VT220 and Unix TTY sessions",
+      "thesis": "The portfolio as a live shell session: you read the output and the command is the call to action.",
+      "palette": [
+        "#0b0f0b",
+        "#33ff33",
+        "#22bb22"
+      ],
+      "materials": [
+        "phosphor persistence",
+        "scanline bloom"
+      ],
+      "viewport": "Black ground, a green prompt, a short listing of projects and the contact line at the bottom.",
+      "risk": "The direction most runs in this category land on: the most legible, and the least surprising.",
+      "html": "\n<div style=\"background:#0b0f0b;padding:14px;font-family:'Courier New',monospace;font-size:12px;line-height:1.45\">\n  \n  <div style=\"color:#22bb22\">portfolio v3.0 — /home/adrian</div>\n  <div style=\"margin:10px 0\">$ <span style=\"background:#33ff33;color:#0b0f0b\">&nbsp;</span></div>\n  <div style=\"color:#22bb22\">PROJECTS</div>\n  <div>01  n8n-automation ............. 2026</div>\n  <div>02  portfolio-3.0 ............... 2026</div>\n  <div>03  design-system ............... 2025</div>\n  <div style=\"margin-top:10px;color:#22bb22\">CONTACT</div>\n  <div>mail ..................... adrian@</div>\n  \n</div>"
+    },
+    {
+      "id": "challenger-bbs",
+      "label": "ANSI Bulletin Board",
+      "verdict": "competitive",
+      "lineage": "2 a.m. dial-up bulletin boards, CP437 title screens",
+      "thesis": "The portfolio as a board: numbered areas, block-character chrome, one caller online.",
+      "palette": [
+        "#000000",
+        "#00ffff",
+        "#ff00ff",
+        "#ffffff",
+        "#ffaa00"
+      ],
+      "materials": [
+        "CP437 block art",
+        "modem drip"
+      ],
+      "viewport": "Double-line frame, a block-art title, numbered areas and a presence line.",
+      "case": "Holds the peers axis: it is the most convincing world for developers, and it loses the recruiter axis, where a board of threads hides the work.",
+      "risk": "A board of threads is a poor shape for a body of work; the framing over the artefact.",
+      "html": "\n<div style=\"background:#000;padding:14px;font-family:'Courier New',monospace;font-size:12px;line-height:1.45\">\n  \n  <div style=\"border:2px double #00ffff;padding:10px\">\n    <div style=\"color:#ff00ff;text-align:center;letter-spacing:2px\">╔══════════════╗<br>║&nbsp;ADRIAN.SYS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;║<br>╚══════════════╝</div>\n    <div style=\"margin-top:10px;color:#ffffff\">MAIN BOARD</div>\n    <div style=\"color:#00ff00\">[1] PROJECTS</div>\n    <div style=\"color:#00ff00\">[2] ABOUT</div>\n    <div style=\"color:#00ff00\">[3] CONTACT</div>\n    <div style=\"margin-top:8px;color:#ffaa00\">1 CALLER ONLINE&nbsp;&nbsp;12:04</div>\n  </div>\n  \n</div>",
+      "hero": "https://impeccable.style/worlds/cards/medium-native-ansi-bbs-nightboard-hero.webp"
+    },
+    {
+      "id": "challenger-reference-setting",
+      "label": "Reference Setting",
+      "verdict": "competitive",
+      "lineage": "wide-margin reference editions, ruled by a setting engine",
+      "thesis": "The portfolio as a printed reference work: a keyed rail down the centre, everything annotated in the margin.",
+      "palette": [
+        "#f2ece0",
+        "#1a1a1a",
+        "#c03a20"
+      ],
+      "materials": [
+        "ruled hairlines",
+        "small-caps pearl"
+      ],
+      "viewport": "Two columns of small roman type around a vermilion key rail, notes in a wide margin.",
+      "case": "Holds the recruiter axis: the most legible and credible shape for a body of work. Loses the brief axis, its material is paper, not a machine.",
+      "risk": "Reads as a different category entirely: a reference book, not a terminal.",
+      "html": "\n<div style=\"background:#f2ece0;padding:16px;font-family:Georgia,'Times New Roman',serif;font-size:12px;line-height:1.5;color:#1a1a1a\">\n  <div style=\"display:grid;grid-template-columns:1fr 30px 1fr;gap:12px\">\n    <div>\n      <div style=\"font-variant:small-caps;letter-spacing:1px;color:#c03a20\">Curriculum</div>\n      <div style=\"height:1px;background:#1a1a1a;margin:5px 0 7px\"></div>\n      <div>Ten years building operational software and internal tools that other people depend on daily.</div>\n    </div>\n    <div style=\"background:#c03a20;color:#f2ece0;text-align:center;font-variant:small-caps;line-height:2.1\">A<br>B<br>C</div>\n    <div>\n      <div style=\"font-variant:small-caps;letter-spacing:1px;color:#c03a20\">Selected work</div>\n      <div style=\"height:1px;background:#1a1a1a;margin:5px 0 7px\"></div>\n      <div>Automation platforms, design systems and the small tools that keep a team moving.</div>\n    </div>\n  </div>\n  <div style=\"margin-top:12px;font-style:italic;color:#555\">a note ruled in the wide margin</div>\n</div>",
+      "hero": "https://impeccable.style/worlds/cards/rw-centre-rail-reference-setting-hero.webp"
+    },
+    {
+      "id": "challenger-darkroom",
+      "label": "Darkroom Safelight",
+      "verdict": "declined",
+      "lineage": "printing darkrooms under amber safelight",
+      "palette": [
+        "#3a2410",
+        "#ffb347",
+        "#8a8f98"
+      ],
+      "materials": [
+        "amber wash",
+        "wet silver"
+      ],
+      "case": "Loses both axes: a darkroom is not the world a visitor reads, and its grammar is chemical, not textual.",
+      "kept": "Staged, irreversible reveals.",
+      "hero": "https://impeccable.style/worlds/cards/signals-instruments-darkroom-safelight-bay-hero.webp"
+    },
+    {
+      "id": "challenger-cephalopod",
+      "label": "Chromatophore Skin",
+      "verdict": "declined",
+      "lineage": "living cephalopod display",
+      "palette": [
+        "#e8dcc4",
+        "#7a3b2e",
+        "#2fa89b"
+      ],
+      "materials": [
+        "expanding pigment",
+        "ridged skin"
+      ],
+      "case": "Loses both axes: the material fights the pinned world and hides the work behind living texture.",
+      "kept": "Colour as a state vocabulary.",
+      "hero": "https://impeccable.style/worlds/cards/reefs-bioluminescent-nocturnal-chromatophore-skin-language-hero.webp"
+    },
+    {
+      "id": "challenger-alphabet-storm",
+      "label": "Alphabet Storm",
+      "verdict": "declined",
+      "lineage": "surreal word-weather",
+      "palette": [
+        "#ffffff",
+        "#111111",
+        "#c0c0c0"
+      ],
+      "materials": [
+        "monumental grotesk",
+        "falling letters"
+      ],
+      "case": "Loses both axes: legibility of a body of work comes first, and this trades it for spectacle.",
+      "kept": "Type treated as matter.",
+      "hero": "https://impeccable.style/worlds/cards/dream-surreal-impossible-worlds-alphabet-storm-hero.webp"
+    },
+    {
+      "id": "challenger-woodblock",
+      "label": "Shell-Ground Woodblock",
+      "verdict": "declined",
+      "lineage": "folk woodblock prints on shell-coated paper",
+      "palette": [
+        "#efe3cf",
+        "#c0392b",
+        "#1f3a8a",
+        "#111111"
+      ],
+      "materials": [
+        "flat mineral pigment",
+        "shell paper"
+      ],
+      "case": "Loses both axes: beautiful, but a print shop has nothing to say about the work itself.",
+      "kept": "Print-order, layer-by-layer reveals.",
+      "hero": "https://impeccable.style/worlds/cards/posters-covers-sleeves-dong-ho-shell-ground-hero.webp"
+    }
+  ],
+  "reroll": {
+    "registers": [
+      "safer",
+      "bolder"
+    ]
+  },
+  "canon": true,
+  "canonCard": {
+    "label": "The category standard",
+    "thesis": "What this category ships, executed impeccably: light ground, clean grid, one headline, one button, a row of cards.",
+    "palette": [
+      "#ffffff",
+      "#111827",
+      "#2563eb"
+    ],
+    "materials": [
+      "clean grid",
+      "product photography"
+    ],
+    "viewport": "The arrangement a visitor expects, at full craft.",
+    "risk": "Indistinguishable from the competition by design.",
+    "html": "\n<div style=\"background:#fff;padding:22px;font-family:Inter,system-ui,sans-serif;color:#111827;text-align:center\">\n  <div style=\"font-size:24px;font-weight:700;letter-spacing:-0.5px\">Adrián Alvarez</div>\n  <div style=\"margin:8px 0 16px;color:#6b7280;font-size:13px\">Software engineer building reliable automation</div>\n  <div style=\"display:inline-block;background:#2563eb;color:#fff;padding:9px 18px;border-radius:6px;font-size:13px\">View projects</div>\n  <div style=\"display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px\">\n    <div style=\"border:1px solid #e5e7eb;border-radius:8px;padding:12px;font-size:12px;text-align:left\">Project one</div>\n    <div style=\"border:1px solid #e5e7eb;border-radius:8px;padding:12px;font-size:12px;text-align:left\">Project two</div>\n    <div style=\"border:1px solid #e5e7eb;border-radius:8px;padding:12px;font-size:12px;text-align:left\">Project three</div>\n  </div>\n</div>"
+  },
+  "steer": true
+}

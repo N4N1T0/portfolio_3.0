@@ -1,0 +1,55 @@
+---
+import '@fontsource/geist-pixel/400.css';
+import '@fontsource/geist-mono/400.css';
+import '@fontsource/geist-mono/500.css';
+import '../styles/global.css';
+import SeoHead from '@/components/SeoHead.astro';
+import { profile } from '@/data/profile';
+
+interface Props {
+	locale: 'en' | 'es';
+	title: string;
+	description: string;
+	ogAlt: string;
+}
+
+const { locale, title, description, ogAlt } = Astro.props;
+---
+
+<!doctype html>
+<html lang={locale}>
+	<head>
+		<SeoHead locale={locale} title={title} description={description} ogAlt={ogAlt} />
+	</head>
+	<body class="relative min-h-dvh overflow-x-hidden bg-ground font-mono text-phosphor antialiased">
+		<div
+			class="crt-scanlines pointer-events-none fixed inset-0 z-30 opacity-30"
+			aria-hidden="true"
+		></div>
+		<div class="crt-vignette pointer-events-none fixed inset-0 z-30" aria-hidden="true"></div>
+
+		<header class="relative z-10 flex items-center justify-between gap-4 border-b border-edge px-4 py-2 font-mono text-xs text-phosphor-dim">
+			<span class="font-display text-phosphor-bright">{profile.initials}</span>
+			<span class="hidden sm:inline">PORTFOLIO TERMINAL v3.0</span>
+			<time data-clock data-locale={locale} class="tabular-nums">
+				--:--:--
+			</time>
+		</header>
+
+		<main id="main" class="relative z-10">
+			<slot />
+		</main>
+
+		<script>
+			const clock = document.querySelector<HTMLElement>('[data-clock]');
+			if (clock) {
+				const locale = clock.dataset.locale === 'es' ? 'es-ES' : 'en-GB';
+				const tick = () => {
+					clock.textContent = new Date().toLocaleTimeString(locale, { hour12: false });
+				};
+				tick();
+				setInterval(tick, 1000);
+			}
+		</script>
+	</body>
+</html>

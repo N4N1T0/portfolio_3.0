@@ -1,0 +1,51 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import Terminal from '@/components/Terminal.tsx';
+import { type Command } from '@/data/commands';
+import { copy, type Locale } from '@/data/copy';
+import { profile } from '@/data/profile';
+import TerminalLayout from '@/layouts/TerminalLayout.astro';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = copy[locale];
+const altLocale: Locale = locale === 'en' ? 'es' : 'en';
+
+const socialUrl = (id: string) => profile.socials.find((social) => social.id === id)?.url ?? '#';
+
+const hrefFor: Record<string, string> = {
+	projects: profile.sections.projects,
+	blog: profile.sections.blog,
+	snippets: profile.sections.snippets,
+	email: `mailto:${profile.email}`,
+};
+
+const commands: Command[] = t.commands.map((command) => ({
+	id: command.id,
+	label: command.id,
+	hint: command.hint,
+	href: hrefFor[command.id] ?? socialUrl(command.id),
+	external: command.external,
+}));
+---
+
+<TerminalLayout
+	locale={locale}
+	title={t.meta.title}
+	description={t.meta.description}
+	ogAlt={t.meta.ogAlt}
+>
+	<Terminal
+		client:load
+		boot={t.boot}
+		lines={t.lines}
+		commands={commands}
+		altLocale={{ label: altLocale, href: getRelativeLocaleUrl(altLocale) }}
+		language={t.language}
+		prompt={t.prompt}
+		a11y={t.a11y}
+	/>
+</TerminalLayout>

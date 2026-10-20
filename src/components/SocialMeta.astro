@@ -1,0 +1,30 @@
+---
+import { profile } from '@/data/profile';
+
+interface Props {
+	locale: 'en' | 'es';
+	title: string;
+	description: string;
+	ogAlt: string;
+	canonical: string;
+	ogImage: string;
+}
+
+const { locale, title, description, ogAlt, canonical, ogImage } = Astro.props;
+---
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Adrian Alvarez" />
+<meta property="og:locale" content={locale === 'en' ? 'en_US' : 'es_ES'} />
+<meta property="og:locale:alternate" content={locale === 'en' ? 'es_ES' : 'en_US'} />
+<meta property="og:url" content={canonical} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:alt" content={ogAlt} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+<meta name="twitter:creator" content="@AdrianlvarezAl1" />
+<meta name="author" content={profile.name} />

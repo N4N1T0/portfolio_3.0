@@ -1,0 +1,68 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import SocialMeta from '@/components/SocialMeta.astro';
+import { profile } from '@/data/profile';
+
+interface Props {
+	locale: 'en' | 'es';
+	title: string;
+	description: string;
+	ogAlt: string;
+}
+
+const { locale, title, description, ogAlt } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const alternateEn = new URL(getRelativeLocaleUrl('en'), Astro.site).href;
+const alternateEs = new URL(getRelativeLocaleUrl('es'), Astro.site).href;
+const ogImage = new URL('/og.png', Astro.site).href;
+
+const jsonLd = {
+	'@context': 'https://schema.org',
+	'@graph': [
+		{
+			'@type': 'WebSite',
+			'@id': `${Astro.site}#website`,
+			url: canonical,
+			name: 'Adrian Alvarez Portfolio',
+			description,
+			inLanguage: locale,
+		},
+		{
+			'@type': 'Person',
+			'@id': `${Astro.site}#person`,
+			name: profile.name,
+			url: canonical,
+			jobTitle: profile.role,
+			email: `mailto:${profile.email}`,
+			telephone: profile.phone,
+			homeLocation: { '@type': 'Place', name: profile.location },
+			sameAs: profile.socials.map((social) => social.url),
+		},
+	],
+};
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="generator" content={Astro.generator} />
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href={canonical} />
+<link rel="alternate" hreflang="en" href={alternateEn} />
+<link rel="alternate" hreflang="es" href={alternateEs} />
+<link rel="alternate" hreflang="x-default" href={alternateEn} />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" href="/favicon.ico" />
+
+<SocialMeta
+	locale={locale}
+	title={title}
+	description={description}
+	ogAlt={ogAlt}
+	canonical={canonical}
+	ogImage={ogImage}
+/>
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

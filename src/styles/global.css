@@ -1,1 +1,94 @@
 @import 'tailwindcss';
+
+@theme {
+	--color-ground: #0a0805;
+	--color-panel: #12100b;
+	--color-edge: #2a2214;
+	--color-phosphor: #ffb000;
+	--color-phosphor-bright: #ffd894;
+	--color-phosphor-dim: #7d5a1a;
+	--color-signal: #ff5c5c;
+
+	--font-display: 'Geist Pixel', ui-monospace, monospace;
+	--font-mono: 'Geist Mono', ui-monospace, monospace;
+}
+
+@layer base {
+	html {
+		background-color: var(--color-ground);
+		color: var(--color-phosphor);
+		font-family: var(--font-mono);
+		-webkit-text-size-adjust: 100%;
+	}
+
+	body {
+		min-height: 100dvh;
+	}
+
+	::selection {
+		background-color: var(--color-phosphor);
+		color: var(--color-ground);
+	}
+
+	:focus-visible {
+		outline: 2px solid var(--color-phosphor-bright);
+		outline-offset: 2px;
+	}
+}
+
+/* Scanline and vignette overlays: the CRT material of the page. */
+@utility crt-scanlines {
+	background-image: repeating-linear-gradient(
+		to bottom,
+		rgb(0 0 0 / 0.28) 0 1px,
+		transparent 1px 3px
+	);
+}
+
+@utility crt-vignette {
+	background-image: radial-gradient(ellipse at center, transparent 45%, rgb(0 0 0 / 0.55) 100%);
+}
+
+@utility crt-glow {
+	text-shadow:
+		0 0 1px rgb(255 176 0 / 0.9),
+		0 0 12px rgb(255 176 0 / 0.35);
+}
+
+@utility caret-blink {
+	animation: caret-blink 1.05s steps(1, end) infinite;
+}
+
+@keyframes caret-blink {
+	0%,
+	49% {
+		opacity: 1;
+	}
+
+	50%,
+	100% {
+		opacity: 0;
+	}
+}
+
+@utility loader-bar {
+	background-image: linear-gradient(90deg, var(--color-phosphor-dim), var(--color-phosphor));
+}
+
+/* Fallback for the no-JS case: the loader clears itself and the text stays visible. */
+@utility loader-exit {
+	animation: loader-exit 400ms ease 3s forwards;
+}
+
+@keyframes loader-exit {
+	to {
+		opacity: 0;
+		visibility: hidden;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.caret-blink {
+		animation: none;
+	}
+}
