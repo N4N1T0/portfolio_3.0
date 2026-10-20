@@ -9,6 +9,7 @@ export default defineConfig({
 	site: 'https://www.adrian-alvarez.com',
 	trailingSlash: 'always',
 	devToolbar: {
+		enabled: true,
 		// the toolbar sits at the bottom: keep it away from the shell prompt
 		placement: 'bottom-left',
 	},
