@@ -1,0 +1,24 @@
+# yaml-language-server: $schema=https://lefthook.dev/schema.json
+
+pre-commit:
+  parallel: true
+  jobs:
+    - name: prettier
+      glob: '*.{js,ts,astro,css,json,md,yml,yaml}'
+      exclude: 'package-lock.json'
+      run: npx prettier --write {staged_files}
+      stage_fixed: true
+
+    - name: eslint
+      glob: '*.{js,ts,astro}'
+      run: npx eslint --fix {staged_files}
+      stage_fixed: true
+
+pre-push:
+  parallel: false
+  jobs:
+    - name: types
+      run: npm run check:types
+
+    - name: astro
+      run: npm run check:astro

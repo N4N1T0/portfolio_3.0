@@ -1,0 +1,9 @@
+dist
+.astro
+node_modules
+coverage
+public
+package-lock.json
+lefthook-local.yml
+.agents
+.opencode

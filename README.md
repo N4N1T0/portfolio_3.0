@@ -1,43 +1,58 @@
-# Astro Starter Kit: Minimal
+# portfolio_3.0
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Astro + Tailwind + TypeScript boilerplate with ESLint (astro plugin), Prettier, fallow and lefthook git hooks.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Stack
 
-## 🚀 Project Structure
+- **Astro 7** + **Tailwind 4** (`@tailwindcss/vite`, styles in `src/styles/global.css`)
+- **TypeScript** strict (`astro/tsconfigs/strict`)
+- **ESLint 10** flat config with `eslint-plugin-astro` + `typescript-eslint`
+- **Prettier 3** with `prettier-plugin-astro` and `prettier-plugin-tailwindcss`
+- **fallow** for dead code, duplication and health
+- **lefthook** for git hooks (pre-commit, pre-push)
 
-Inside of your Astro project, you'll see the following folders and files:
+## Commands
+
+| Command                    | Action                              |
+| :------------------------- | :---------------------------------- |
+| `npm run dev`              | Dev server at `localhost:4321`      |
+| `npm run build`            | Production build to `./dist/`       |
+| `npm run preview`          | Preview the production build        |
+| `npm run check`            | types + astro check + lint + format |
+| `npm run check:types`      | `tsc --noEmit`                      |
+| `npm run check:astro`      | `astro check`                       |
+| `npm run check:lint`       | `eslint .`                          |
+| `npm run check:lint:fix`   | `eslint . --fix`                    |
+| `npm run check:format`     | `prettier --check .`                |
+| `npm run check:format:fix` | `prettier --write .`                |
+| `npm run check:dead-code`  | `fallow dead-code`                  |
+| `npm run check:dupes`      | `fallow dupes`                      |
+| `npm run check:health`     | `fallow health`                     |
+| `npm run check:all`        | Every check plus the fallow reports |
+| `npm run hooks:install`    | Install the lefthook git hooks      |
+
+## Git hooks
+
+`lefthook.yml` defines the hooks, installed with `npm run hooks:install` (also runs on `npm install`).
+
+- **pre-commit**: Prettier and ESLint over the staged files, fixes are staged back.
+- **pre-push**: `check:types` (`tsc --noEmit`) and `check:astro` (`astro check`).
+
+## Layout
 
 ```text
 /
-├── public/
 ├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+│   ├── layouts/Layout.astro   # html shell + global.css
+│   ├── pages/                 # routes
+│   └── styles/global.css      # @import "tailwindcss"
+├── .fallowrc.json
+├── eslint.config.js
+├── lefthook.yml
+└── opencode.json              # ponytail plugin
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Agents
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Ponytail skills live in `.agents/skills` and `.opencode/skills`; `opencode.json` loads the
+`@dietrichgebert/ponytail` plugin so the ruleset applies on every turn.
