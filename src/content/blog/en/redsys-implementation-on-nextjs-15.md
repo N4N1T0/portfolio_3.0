@@ -3,8 +3,6 @@ title: 'Introduction to Redsys Integration with Next.js 15'
 date: 2025-02-11
 excerpt: 'Learn how to integrate Redsys with Next.js 15 for secure payment processing using Server Actions and the redirect form method.'
 author: 'Adrian "Nano" Alvarez'
-image: '@/assets/blog/pagos-redsys.webp'
-imageAlt: 'Redsys Logo on a gray background'
 counterpartId: 'es/introducion-a-redsys-en-nextjs-15'
 ---
 

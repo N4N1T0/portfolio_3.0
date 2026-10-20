@@ -3,8 +3,6 @@ title: 'SEO Optimization'
 date: 2023-07-20
 excerpt: 'Unify design and SEO for an effective website. From an intuitive structure to strategic keywords.'
 author: 'Adrian "Nano" Alvarez'
-image: '@/assets/blog/ferenc-almasi-eYpcLDXHVb0-unsplash.webp'
-imageAlt: 'A screen showing HTML code and SEO'
 counterpartId: 'es/optimizacion-seo'
 ---
 

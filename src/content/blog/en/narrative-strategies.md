@@ -3,8 +3,6 @@ title: 'Narrative Strategies'
 date: 2023-09-15
 excerpt: 'Stand out in the digital world with a compelling narrative. Enhance user experience, brand loyalty, and marketing goals.'
 author: 'Adrian "Nano" Alvarez'
-image: '@/assets/blog/scott-graham-OQMZwNd3ThU-unsplash.webp'
-imageAlt: 'A writer crafting an engaging narrative'
 counterpartId: 'es/estrategias-narrativas'
 ---
 

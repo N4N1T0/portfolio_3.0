@@ -3,8 +3,6 @@ title: 'The Power of Graphic Design in Digital Marketing'
 date: 2023-08-17
 excerpt: 'Elevate your digital presence with strategic graphic design. From visual identity to impactful content, maximize your brand&quote;s potential.'
 author: 'Adrian "Nano" Alvarez'
-image: '@/assets/blog/nordwood-themes-ubIWo074QlU-unsplash.webp'
-imageAlt: 'An Apple setup with an iMac and an AirBook'
 counterpartId: 'es/diseño-marketing-digital'
 ---
 

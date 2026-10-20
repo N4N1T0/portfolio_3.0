@@ -148,6 +148,61 @@
 	}
 }
 
+/* The pages arrive row by row, the way a terminal prints a listing. */
+@utility stagger-in {
+	--stagger-step: 45ms;
+}
+
+.stagger-in > * {
+	animation: stagger-in 320ms ease both;
+	animation-delay: calc(var(--i, 0) * var(--stagger-step, 45ms));
+}
+
+@keyframes stagger-in {
+	from {
+		opacity: 0;
+		transform: translateY(6px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* The code blocks are terminal windows, not cards. */
+.prose pre {
+	position: relative;
+	background-color: var(--color-panel) !important;
+	border: 1px solid var(--color-edge);
+	border-radius: 0;
+	padding: 0.9rem 1rem;
+}
+
+.prose pre::after {
+	content: attr(data-language);
+	position: absolute;
+	top: 0.3rem;
+	right: 0.6rem;
+	font-size: 0.6rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--color-phosphor-dim);
+}
+
+.prose pre code {
+	background: transparent !important;
+	padding: 0;
+	font-size: 0.85em;
+}
+
+.prose :not(pre) > code {
+	background-color: transparent;
+	color: var(--color-phosphor-bright);
+	border: 1px solid var(--color-edge);
+	padding: 0 0.25rem;
+}
+
 /* Fallback for the no-JS case: the loader clears itself and the text stays visible. */
 @utility loader-exit {
 	animation: loader-exit 400ms ease 3s forwards;

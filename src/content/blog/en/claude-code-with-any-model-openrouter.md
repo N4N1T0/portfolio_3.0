@@ -3,8 +3,6 @@ title: 'Claude Code with any model: OpenRouter as the gateway'
 date: 2026-09-30
 excerpt: 'Claude Code reads a handful of environment variables that decide where requests go and which model answers. Point them at OpenRouter and the harness stays while the model becomes a flag.'
 author: 'Adrian "Nano" Alvarez'
-image: '@/assets/blog/claude-code-with-any-model-openrouter.webp'
-imageAlt: "Dark title card reading 'Claude Code with any model' above a red rule and the ANTHROPIC_BASE_URL variable"
 counterpartId: 'es/claude-code-con-cualquier-modelo-openrouter'
 ---
 

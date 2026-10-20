@@ -35,6 +35,7 @@ type Props = {
 	homePath: string;
 	currentPath: string;
 	buildDate: string;
+	copyright: string;
 };
 
 export default function ShellPrompt({
@@ -48,6 +49,7 @@ export default function ShellPrompt({
 	homePath,
 	currentPath,
 	buildDate,
+	copyright,
 }: Props) {
 	const { output, value, setValue, run } = useTerminalCommands(commands, prompt, {
 		locale,
@@ -118,60 +120,63 @@ export default function ShellPrompt({
 			<div
 				aria-live="polite"
 				aria-label={a11y.output}
-				class="max-h-16 overflow-y-auto pt-1 font-mono text-xs text-phosphor-dim"
+				class="mx-auto max-h-16 w-full max-w-4xl overflow-y-auto pt-1 font-mono text-xs text-phosphor-dim"
 			>
 				{output.map((line, index) => (
 					<p key={index}>{line}</p>
 				))}
 			</div>
 
-			<form
-				class="flex items-center gap-2 py-1.5 font-mono text-sm"
-				onSubmit={(event) => {
-					event.preventDefault();
-					run(value);
-					setValue('');
-					setHistoryIndex(-1);
-				}}
-			>
-				<label class="sr-only" for="shell-input">
-					{prompt.label}
-				</label>
-				<span aria-hidden="true" class="text-accent">
-					$
-				</span>
-				<div class="relative min-w-0 flex-1">
-					<span
-						aria-hidden="true"
-						class="pointer-events-none absolute inset-x-0 truncate px-2 text-sm"
-					>
-						<span class="invisible">{value}</span>
-						<span class="text-phosphor-dim">{suggestion}</span>
-					</span>
-					<input
-						id="shell-input"
-						ref={inputRef}
-						value={value}
-						onInput={(event) => setValue((event.target as HTMLInputElement).value)}
-						onKeyDown={handleKeyDown}
-						placeholder={prompt.placeholder}
-						autocomplete="off"
-						spellcheck={false}
-						class="w-full border border-edge bg-transparent px-2 py-1 text-sm text-phosphor caret-block placeholder:text-phosphor-dim focus:border-accent focus:outline-none"
-					/>
-				</div>
-				{suggestion && (
-					<span class="hidden shrink-0 text-xs text-phosphor-dim sm:inline">{prompt.accept}</span>
-				)}
-				<button
-					type="button"
-					onClick={() => setHelpOpen(true)}
-					class="shrink-0 border border-edge px-2 py-1 text-xs text-phosphor-dim transition-colors hover:text-accent"
+			<div class="mx-auto grid w-full max-w-4xl grid-cols-[1fr_minmax(0,2fr)_1fr] items-center gap-4 py-1.5 font-mono text-xs">
+				<span class="hidden truncate text-phosphor-dim sm:inline">{copyright}</span>
+				<form
+					class="flex items-center gap-2 text-sm"
+					onSubmit={(event) => {
+						event.preventDefault();
+						run(value);
+						setValue('');
+						setHistoryIndex(-1);
+					}}
 				>
-					ctrl-b
-				</button>
-				<span class="hidden shrink-0 text-xs text-phosphor-dim md:inline">{buildDate}</span>
-			</form>
+					<label class="sr-only" for="shell-input">
+						{prompt.label}
+					</label>
+					<span aria-hidden="true" class="text-accent">
+						$
+					</span>
+					<div class="relative min-w-0 flex-1">
+						<span
+							aria-hidden="true"
+							class="pointer-events-none absolute inset-x-0 truncate px-2 text-sm"
+						>
+							<span class="invisible">{value}</span>
+							<span class="text-phosphor-dim">{suggestion}</span>
+						</span>
+						<input
+							id="shell-input"
+							ref={inputRef}
+							value={value}
+							onInput={(event) => setValue((event.target as HTMLInputElement).value)}
+							onKeyDown={handleKeyDown}
+							placeholder={prompt.placeholder}
+							autocomplete="off"
+							spellcheck={false}
+							class="w-full border border-edge bg-transparent px-2 py-1 text-sm text-phosphor caret-block placeholder:text-phosphor-dim focus:border-accent focus:outline-none"
+						/>
+					</div>
+					{suggestion && (
+						<span class="hidden shrink-0 text-xs text-phosphor-dim sm:inline">{prompt.accept}</span>
+					)}
+					<button
+						type="button"
+						onClick={() => setHelpOpen(true)}
+						class="shrink-0 border border-edge px-2 py-1 text-xs text-phosphor-dim transition-colors hover:text-accent"
+					>
+						ctrl-b
+					</button>
+				</form>
+				<span class="shrink-0 text-right text-phosphor-dim tabular-nums">{buildDate}</span>
+			</div>
 
 			{helpOpen && (
 				<div

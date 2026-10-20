@@ -3,8 +3,6 @@ title: 'El rate limiter era la caída'
 date: 2026-09-09
 excerpt: 'Un rate limiter sobre KV en Cloudflare Workers escribía una clave por petición contra un free tier de 1.000 escrituras diarias. Al agotarse la cuota, lo que protegía la API la tumbaba.'
 author: 'Adrian "Nano" Alvarez'
-image: '@/assets/blog/the-rate-limiter-was-the-outage.webp'
-imageAlt: "Portada oscura con el texto 'The rate limiter was the outage' junto a un medidor rojo agotándose"
 counterpartId: 'en/the-rate-limiter-was-the-outage'
 ---
 

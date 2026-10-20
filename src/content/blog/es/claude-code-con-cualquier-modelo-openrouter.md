@@ -3,8 +3,6 @@ title: 'Claude Code con cualquier modelo: OpenRouter como gateway'
 date: 2026-09-30
 excerpt: 'Claude Code lee unas pocas variables de entorno que deciden a dónde van las peticiones y qué modelo responde. Apúntalas a OpenRouter y el harness se queda mientras el modelo pasa a ser un argumento.'
 author: 'Adrian "Nano" Alvarez'
-image: '@/assets/blog/claude-code-with-any-model-openrouter.webp'
-imageAlt: "Portada oscura con el texto 'Claude Code with any model' sobre una línea roja y la variable ANTHROPIC_BASE_URL"
 counterpartId: 'en/claude-code-with-any-model-openrouter'
 ---
 

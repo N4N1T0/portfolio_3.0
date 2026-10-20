@@ -4,14 +4,12 @@ import { defineCollection } from 'astro:content';
 
 const blog = defineCollection({
 	loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
-	schema: ({ image }) =>
+	schema: () =>
 		z.object({
 			title: z.string().max(70),
 			date: z.date(),
 			excerpt: z.string(),
 			author: z.string(),
-			image: image(),
-			imageAlt: z.string(),
 			counterpartId: z.string(),
 		}),
 });

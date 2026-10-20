@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets';
 import { render } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 
@@ -24,24 +23,7 @@ const { Content } = await render(post);
 		</p>
 	</header>
 
-	<figure class="mt-5 max-w-2xl border border-edge">
-		<Image
-			src={post.data.image}
-			alt={post.data.imageAlt}
-			widths={[400, 800, 1200]}
-			sizes="(max-width: 896px) 100vw, 672px"
-			loading="eager"
-			fetchpriority="high"
-			decoding="async"
-			class="w-full"
-		/>
-		<figcaption class="border-t border-edge px-3 py-1.5 text-xs text-phosphor-dim">
-			{post.data.imageAlt}
-		</figcaption>
-	</figure>
-
 	<p class="mt-4 max-w-2xl text-sm leading-relaxed text-phosphor">{post.data.excerpt}</p>
-
 	<div class="prose prose-invert prose-terminal mt-6 max-w-2xl">
 		<Content />
 	</div>
