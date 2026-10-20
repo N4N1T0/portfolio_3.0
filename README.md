@@ -16,27 +16,27 @@ plugin), Prettier, fallow and lefthook git hooks.
 
 ## Commands
 
-| Command                    | Action                              |
-| :------------------------- | :---------------------------------- |
-| `npm run dev`              | Dev server at `localhost:4321`      |
-| `npm run build`            | Production build to `./dist/`       |
-| `npm run preview`          | Preview the production build        |
-| `npm run check`            | types + astro check + lint + format |
-| `npm run check:types`      | `tsc --noEmit`                      |
-| `npm run check:astro`      | `astro check`                       |
-| `npm run check:lint`       | `eslint .`                          |
-| `npm run check:lint:fix`   | `eslint . --fix`                    |
-| `npm run check:format`     | `prettier --check .`                |
-| `npm run check:format:fix` | `prettier --write .`                |
-| `npm run check:dead`       | `fallow dead-code`                  |
-| `npm run check:dupes`      | `fallow dupes`                      |
-| `npm run check:health`     | `fallow health`                     |
-| `npm run check:all`        | Every check plus the fallow reports |
-| `npm run hooks:install`    | Install the lefthook git hooks      |
+| Command                     | Action                              |
+| :-------------------------- | :---------------------------------- |
+| `pnpm run dev`              | Dev server at `localhost:4321`      |
+| `pnpm run build`            | Production build to `./dist/`       |
+| `pnpm run preview`          | Preview the production build        |
+| `pnpm run check`            | types + astro check + lint + format |
+| `pnpm run check:types`      | `tsc --noEmit`                      |
+| `pnpm run check:astro`      | `astro check`                       |
+| `pnpm run check:lint`       | `eslint .`                          |
+| `pnpm run check:lint:fix`   | `eslint . --fix`                    |
+| `pnpm run check:format`     | `prettier --check .`                |
+| `pnpm run check:format:fix` | `prettier --write .`                |
+| `pnpm run check:dead`       | `fallow dead-code`                  |
+| `pnpm run check:dupes`      | `fallow dupes`                      |
+| `pnpm run check:health`     | `fallow health`                     |
+| `pnpm run check:all`        | Every check plus the fallow reports |
+| `pnpm run hooks:install`    | Install the lefthook git hooks      |
 
 ## Git hooks
 
-`lefthook.yml` defines the hooks, installed with `npm run hooks:install` (also runs on `npm install`).
+`lefthook.yml` defines the hooks, installed with `pnpm run hooks:install` (also runs on `pnpm install`).
 
 - **pre-commit**: Prettier and ESLint over the staged files, fixes are staged back.
 - **pre-push**: `check:types` (`tsc --noEmit`) and `check:astro` (`astro check`).
