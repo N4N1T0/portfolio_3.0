@@ -1,0 +1,29 @@
+---
+import { profile } from '@/data/profile';
+
+interface Props {
+	locale: 'en' | 'es';
+}
+
+const { locale } = Astro.props;
+---
+
+<header class="relative z-10 flex items-center justify-between gap-4 border-b border-edge px-4 py-2 font-mono text-xs text-phosphor-dim">
+	<span class="font-display text-phosphor-bright">{profile.initials}</span>
+	<span class="hidden sm:inline">PORTFOLIO TERMINAL v3.0</span>
+	<time data-clock data-locale={locale} class="tabular-nums">
+		--:--:--
+	</time>
+</header>
+
+<script>
+	const clock = document.querySelector<HTMLElement>('[data-clock]');
+	if (clock) {
+		const locale = clock.dataset.locale === 'es' ? 'es-ES' : 'en-GB';
+		const tick = () => {
+			clock.textContent = new Date().toLocaleTimeString(locale, { hour12: false });
+		};
+		tick();
+		setInterval(tick, 1000);
+	}
+</script>

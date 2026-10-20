@@ -20,9 +20,7 @@
 		"check:dead": "fallow dead-code",
 		"check:dupes": "fallow dupes",
 		"check:health": "fallow health",
-		"check:all": "npm run check && npm run check:dead && npm run check:dupes && npm run check:health",
-		"hooks:install": "lefthook install",
-		"prepare": "lefthook install || exit 0"
+		"check:all": "npm run check && npm run check:dead && npm run check:dupes && npm run check:health"
 	},
 	"dependencies": {
 		"@astrojs/preact": "^6.1.0",

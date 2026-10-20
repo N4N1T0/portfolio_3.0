@@ -50,6 +50,12 @@ export type Copy = {
 		present: string;
 		commits: string;
 	};
+	footer: {
+		copyright: string;
+		stack: string;
+		build: string;
+		license: string;
+	};
 	commands: {
 		id: string;
 		hint: string;
@@ -125,6 +131,12 @@ export const copy: Record<Locale, Copy> = {
 			contributions: '$ git log --since=2026-01-01 --oneline',
 			present: 'present',
 			commits: 'commits in 2026',
+		},
+		footer: {
+			copyright: '© 2026 Adrián Álvarez',
+			stack: 'ASTRO 7 · TAILWIND 4 · PREACT 11',
+			build: 'build',
+			license: 'MIT',
 		},
 		commands: [
 			{ id: 'about', hint: 'who I am', external: false },
@@ -204,6 +216,12 @@ export const copy: Record<Locale, Copy> = {
 			contributions: '$ git log --since=2026-01-01 --oneline',
 			present: 'actualidad',
 			commits: 'commits en 2026',
+		},
+		footer: {
+			copyright: '© 2026 Adrián Álvarez',
+			stack: 'ASTRO 7 · TAILWIND 4 · PREACT 11',
+			build: 'build',
+			license: 'MIT',
 		},
 		commands: [
 			{ id: 'about', hint: 'quién soy', external: false },

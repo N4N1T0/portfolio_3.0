@@ -39,3 +39,6 @@ minimumReleaseAgeExclude:
   - typescript@5.9.3
   - typescript-eslint@8.72.0
   - wawoff2@2.0.1
+permissions:
+  fallow:
+    skills: true
