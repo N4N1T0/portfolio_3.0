@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'preact/hooks';
 import type { RefObject } from 'preact';
 import { createTimeline, stagger } from 'animejs';
+import { hasBooted, markBooted } from '@/lib/session';
 
 const CHAR_MS = 16;
 const LINE_GAP_MS = 90;
@@ -57,10 +58,11 @@ export function useTerminalSequence({ loader, bootLines, content, prompt, input 
 		const promptEl = prompt.current;
 		if (!loaderEl || !bootEl || !contentEl || !promptEl) return;
 
-		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || hasBooted()) {
 			loaderEl.remove();
 			contentEl.style.opacity = '1';
 			promptEl.style.opacity = '1';
+			promptEl.style.pointerEvents = 'auto';
 			return;
 		}
 
@@ -81,6 +83,9 @@ export function useTerminalSequence({ loader, bootLines, content, prompt, input 
 		timeline.call(() => {
 			promptEl.style.pointerEvents = 'auto';
 		}, cursor + 120);
+		timeline.call(() => {
+			markBooted();
+		}, 0);
 		timeline.call(() => {
 			const idle = document.activeElement === document.body;
 			if (idle && window.matchMedia('(pointer: fine)').matches)

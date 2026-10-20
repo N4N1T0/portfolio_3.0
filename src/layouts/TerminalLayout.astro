@@ -21,6 +21,16 @@ const { locale, title, description, ogAlt } = Astro.props;
 <html lang={locale}>
 	<head>
 		<SeoHead locale={locale} title={title} description={description} ogAlt={ogAlt} />
+		<script is:inline>
+			// the terminal boots once per session: hide the loader before it paints
+			try {
+				if (sessionStorage.getItem('terminal:booted')) {
+					document.documentElement.dataset.booted = 'true';
+				}
+			} catch {
+				// private mode: the boot plays again
+			}
+		</script>
 	</head>
 	<body class="relative flex min-h-dvh flex-col overflow-x-hidden bg-ground font-mono text-phosphor antialiased">
 		<div

@@ -74,6 +74,10 @@ ESLint (`no-restricted-imports`) blocks relative imports deeper than one hop: `.
 - anime.js runs inside Preact effects or client scripts, never in `.astro` frontmatter.
   Import from `'animejs'` (`import { animate, stagger } from 'animejs'`).
 - Keep the html shell in `src/layouts/TerminalLayout.astro`; pages compose it.
+- The terminal boots **once per session**: `src/lib/session.ts` keeps the `terminal:booted` flag in
+  `sessionStorage`, the layout marks `<html data-booted>` before the first paint, and the island
+  skips the whole sequence when the flag is set. The home then renders ready, with no loader and no
+  typewriter.
 - Collection views live in `src/components/collection`; each section has an index component and a
   detail component, and the route files under `src/pages/{en,es}` stay thin.
 - Prettier owns formatting: tabs, single quotes, print width 100. Do not hand-format, run

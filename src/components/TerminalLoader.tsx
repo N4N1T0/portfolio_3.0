@@ -24,7 +24,9 @@ export default function TerminalLoader({ boot, a11yLabel, loaderRef, bootLinesRe
 				))}
 			</div>
 			<div class="mt-3 h-2 w-48 border border-edge">
-				<div data-bar class="h-full w-full origin-left scale-x-0 loader-bar" />
+				{/* the fill is a transform, not a tailwind scale: tailwind v4 uses the
+				    separate `scale` property and would win over the animation */}
+				<div data-bar class="h-full w-full origin-left loader-bar" style="transform: scaleX(0)" />
 			</div>
 		</div>
 	);

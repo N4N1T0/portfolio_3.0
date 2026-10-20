@@ -2,6 +2,11 @@
 	"$schema": "https://raw.githubusercontent.com/fallow-rs/fallow/main/schema.json",
 	// build-time frameworks: imported by astro.config.mjs, never by app code
 	"ignoreDependencies": ["astro", "@astrojs/preact"],
+	"rules": {
+		// @resvg/resvg-js and wawoff2 render the OG image at build time and
+		// @tailwindcss/typography is a Tailwind plugin: none of them ship
+		"dev-dependencies-in-production": "off"
+	},
 	"health": {
 		// CRAP is estimated from export references, and this repo has no test
 		// runner, so the coverage term is always zero and every branch counts as

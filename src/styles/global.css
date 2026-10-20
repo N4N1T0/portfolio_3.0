@@ -121,6 +121,13 @@
 	animation: loader-exit 400ms ease 3s forwards;
 }
 
+/* The session already booted: the loader must never paint. */
+[data-booted] .loader-exit {
+	animation: none;
+	opacity: 0;
+	visibility: hidden;
+}
+
 @keyframes loader-exit {
 	to {
 		opacity: 0;
