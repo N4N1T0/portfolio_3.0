@@ -73,11 +73,17 @@ ESLint (`no-restricted-imports`) blocks relative imports deeper than one hop: `.
 - Preact components live in `src/components` and use `preact/hooks`; no React APIs.
 - anime.js runs inside Preact effects or client scripts, never in `.astro` frontmatter.
   Import from `'animejs'` (`import { animate, stagger } from 'animejs'`).
+- The identity lines are a **script**, not a list of strings: `src/data/copy.ts` holds
+  `LineScript[]` (`type`, `erase`, `wait` ops) and `src/lib/terminal-typing.ts` plays it, so the
+  terminal can write a word, erase it and write another one. The html still ships the finished
+  text for crawlers, and the engine empties every line before it starts typing.
 - Keep the html shell in `src/layouts/TerminalLayout.astro`; pages compose it.
 - The terminal boots **once per session**: `src/lib/session.ts` keeps the `terminal:booted` flag in
   `sessionStorage`, the layout marks `<html data-booted>` before the first paint, and the island
   skips the whole sequence when the flag is set. The home then renders ready, with no loader and no
   typewriter.
+- The prompt completes like an AI IDE: `src/lib/terminal-suggest.ts` offers the rest of the
+  command as ghost text and `Tab` accepts it. Enter always runs the command.
 - Collection views live in `src/components/collection`; each section has an index component and a
   detail component, and the route files under `src/pages/{en,es}` stay thin.
 - Prettier owns formatting: tabs, single quotes, print width 100. Do not hand-format, run

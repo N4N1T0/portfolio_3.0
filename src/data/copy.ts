@@ -1,3 +1,5 @@
+import type { LineScript } from '@/lib/terminal-typing';
+
 export type Locale = 'en' | 'es';
 
 export type Copy = {
@@ -11,11 +13,12 @@ export type Copy = {
 		heading: string;
 		lines: string[];
 	};
-	lines: string[];
+	lines: LineScript[];
 	prompt: {
 		label: string;
 		placeholder: string;
 		help: string;
+		accept: string;
 		notFound: string;
 		commandsLabel: string;
 	};
@@ -87,16 +90,27 @@ export const copy: Record<Locale, Copy> = {
 			],
 		},
 		lines: [
-			"Adrián 'Nano' Álvarez Alonso",
-			'Senior Fullstack Engineer',
-			'I build APIs, interfaces and data systems in production.',
-			'',
-			'Fullstack Engineer at Kreitech · Asturias, España',
+			[{ type: 'type', text: "Adrián 'Nano' Álvarez Alonso" }],
+			[
+				{ type: 'type', text: 'Senior ' },
+				{ type: 'type', text: 'Frontend' },
+				{ type: 'wait', ms: 340 },
+				{ type: 'erase', text: 'Frontend' },
+				{ type: 'type', text: 'Backend' },
+				{ type: 'wait', ms: 340 },
+				{ type: 'erase', text: 'Backend' },
+				{ type: 'type', text: 'Fullstack' },
+				{ type: 'type', text: ' Engineer' },
+			],
+			[{ type: 'type', text: 'I build APIs, interfaces and data systems in production.' }],
+			[],
+			[{ type: 'type', text: 'Fullstack Engineer at Kreitech · Asturias, España' }],
 		],
 		prompt: {
 			label: 'Terminal command',
 			placeholder: 'type a command…',
 			help: 'type help for the list',
+			accept: 'tab to accept',
 			notFound: 'command not found: {id}. type help for the list',
 			commandsLabel: 'commands',
 		},
@@ -172,16 +186,27 @@ export const copy: Record<Locale, Copy> = {
 			],
 		},
 		lines: [
-			"Adrián 'Nano' Álvarez Alonso",
-			'Ingeniero Fullstack Senior',
-			'Construyo APIs, interfaces y sistemas de datos en producción.',
-			'',
-			'Ingeniero Fullstack en Kreitech · Asturias, España',
+			[{ type: 'type', text: "Adrián 'Nano' Álvarez Alonso" }],
+			[
+				{ type: 'type', text: 'Ingeniero ' },
+				{ type: 'type', text: 'Frontend' },
+				{ type: 'wait', ms: 340 },
+				{ type: 'erase', text: 'Frontend' },
+				{ type: 'type', text: 'Backend' },
+				{ type: 'wait', ms: 340 },
+				{ type: 'erase', text: 'Backend' },
+				{ type: 'type', text: 'Fullstack' },
+				{ type: 'type', text: ' Senior' },
+			],
+			[{ type: 'type', text: 'Construyo APIs, interfaces y sistemas de datos en producción.' }],
+			[],
+			[{ type: 'type', text: 'Ingeniero Fullstack en Kreitech · Asturias, España' }],
 		],
 		prompt: {
 			label: 'Comando de terminal',
 			placeholder: 'escribe un comando…',
 			help: 'escribe help para ver la lista',
+			accept: 'tab para aceptar',
 			notFound: 'comando no encontrado: {id}. escribe help para ver la lista',
 			commandsLabel: 'comandos',
 		},

@@ -1,10 +1,10 @@
 import { useEffect, useRef } from 'preact/hooks';
 import type { RefObject } from 'preact';
-import { createTimeline, stagger } from 'animejs';
+import { createTimeline } from 'animejs';
 import { hasBooted, markBooted } from '@/lib/session';
+import { typeLine, type LineScript } from '@/lib/terminal-typing';
 
 const CHAR_MS = 16;
-const LINE_GAP_MS = 90;
 
 type SequenceRefs = {
 	loader: RefObject<HTMLDivElement | null>;
@@ -13,6 +13,8 @@ type SequenceRefs = {
 	prompt: RefObject<HTMLDivElement | null>;
 	input: RefObject<HTMLInputElement | null>;
 };
+
+type Timeline = ReturnType<typeof createTimeline>;
 
 export function useTerminalRefs(): SequenceRefs {
 	return {
@@ -23,8 +25,6 @@ export function useTerminalRefs(): SequenceRefs {
 		input: useRef<HTMLInputElement>(null),
 	};
 }
-
-type Timeline = ReturnType<typeof createTimeline>;
 
 function playBoot(
 	timeline: Timeline,
@@ -37,20 +37,11 @@ function playBoot(
 	timeline.add(loader, { opacity: [1, 0], duration: 320, ease: 'outQuad' }, 1750);
 }
 
-function typeLines(timeline: Timeline, lines: HTMLElement[]): number {
-	let cursor = 2150;
-	for (const line of lines) {
-		const chars = Array.from(line.querySelectorAll<HTMLElement>('[data-char]'));
-		if (chars.length === 0) continue;
-		for (const char of chars) char.style.opacity = '0';
-		timeline.add(chars, { opacity: [0, 1], duration: 60, delay: stagger(CHAR_MS) }, cursor);
-		cursor += chars.length * CHAR_MS + 60 + LINE_GAP_MS;
-	}
-	return cursor;
-}
-
 /** Boots the terminal: loader, then the typewriter, then the prompt. */
-export function useTerminalSequence({ loader, bootLines, content, prompt, input }: SequenceRefs) {
+export function useTerminalSequence(
+	{ loader, bootLines, content, prompt, input }: SequenceRefs,
+	scripts: LineScript[],
+) {
 	useEffect(() => {
 		const loaderEl = loader.current;
 		const bootEl = bootLines.current;
@@ -71,27 +62,49 @@ export function useTerminalSequence({ loader, bootLines, content, prompt, input 
 		promptEl.style.opacity = '0';
 		promptEl.style.pointerEvents = 'none';
 
-		const timeline = createTimeline();
 		const bootItems = Array.from(bootEl.querySelectorAll<HTMLElement>('[data-boot-line]'));
 		const lines = Array.from(contentEl.querySelectorAll<HTMLElement>('[data-line]'));
 		const bar = loaderEl.querySelector<HTMLElement>('[data-bar]');
 
+		const timeline = createTimeline();
 		playBoot(timeline, bootItems, bar, loaderEl);
 		timeline.add(contentEl, { opacity: [0, 1], duration: 240 }, 2050);
-		const cursor = typeLines(timeline, lines);
-		timeline.add(promptEl, { opacity: [0, 1], duration: 300 }, cursor + 120);
+
+		let cancelled = false;
+		const jobs: { cancel: () => void }[] = [];
+
 		timeline.call(() => {
-			promptEl.style.pointerEvents = 'auto';
-		}, cursor + 120);
+			// the html ships the finished text for crawlers: empty every line
+			// before typing starts, so nothing is revealed before its turn
+			for (const line of lines) {
+				const text = line.querySelector<HTMLElement>('[data-text]');
+				if (text) text.textContent = '';
+			}
+			void (async () => {
+				for (const [index, line] of lines.entries()) {
+					if (cancelled) return;
+					const job = typeLine(line, scripts[index] ?? [], CHAR_MS);
+					jobs.push(job);
+					await job.done;
+				}
+				if (cancelled) return;
+				promptEl.style.opacity = '1';
+				promptEl.style.pointerEvents = 'auto';
+				const idle = document.activeElement === document.body;
+				if (idle && window.matchMedia('(pointer: fine)').matches) {
+					input.current?.focus({ preventScroll: true });
+				}
+			})();
+		}, 2050);
+
 		timeline.call(() => {
 			markBooted();
 		}, 0);
-		timeline.call(() => {
-			const idle = document.activeElement === document.body;
-			if (idle && window.matchMedia('(pointer: fine)').matches)
-				input.current?.focus({ preventScroll: true });
-		}, cursor + 420);
 
-		return () => timeline.revert();
+		return () => {
+			cancelled = true;
+			for (const job of jobs) job.cancel();
+			timeline.revert();
+		};
 	}, [loader, bootLines, content, prompt, input]);
 }

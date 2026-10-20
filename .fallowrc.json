@@ -15,7 +15,8 @@
 		"ignore": [
 			"src/components/useTerminalSequence.ts",
 			"src/components/CommandList.tsx",
-			"src/components/useTerminalCommands.ts"
+			"src/components/useTerminalCommands.ts",
+			"src/lib/terminal-typing.ts"
 		]
 	}
 }

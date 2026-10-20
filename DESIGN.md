@@ -54,8 +54,17 @@ One orchestrated sequence, driven by anime.js, and nothing else moves:
 
 1. Loader: BIOS lines fade in with a stagger, the progress bar fills over 1.5s.
 2. The loader clears at 2.07s.
-3. The identity types itself, 16ms per character, line by line.
+3. The identity types itself, 16ms per character, line by line, with a block cursor in front of the
+   next character. The script can correct itself: it writes `Senior Frontend`, erases it, writes
+   `Backend`, erases that too, and settles on `Fullstack`.
 4. The prompt appears, the input takes focus on pointer devices when nothing else holds it.
+
+The block cursor is drawn in CSS, not typed as a glyph, so it never depends on the font covering
+U+2588. The input owns its caret: `caret-color` and `caret-shape: block` give it the same look
+where the browser supports it.
+
+The prompt completes like an AI IDE: the rest of a matching command appears as ghost text and `Tab`
+accepts it. `Enter` always runs what is typed.
 
 `prefers-reduced-motion` skips the whole thing: the loader is removed and the terminal is
 immediately usable. Without JavaScript the loader clears itself through CSS at 3s and the text is

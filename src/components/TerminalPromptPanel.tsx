@@ -9,6 +9,7 @@ type Props = {
 	language: string;
 	newTab: string;
 	prompt: { label: string; placeholder: string; help: string };
+	acceptLabel: string;
 	a11y: { commands: string; output: string };
 	value: string;
 	output: string[];
@@ -25,6 +26,7 @@ export default function TerminalPromptPanel({
 	newTab,
 	prompt,
 	a11y,
+	acceptLabel,
 	value,
 	output,
 	inputRef,
@@ -48,8 +50,10 @@ export default function TerminalPromptPanel({
 				hint={prompt.help}
 				value={value}
 				output={output}
+				commandIds={commands.map((command) => command.id)}
 				inputRef={inputRef}
 				outputLabel={a11y.output}
+				acceptLabel={acceptLabel}
 				onInput={onInput}
 				onSubmit={onSubmit}
 			/>

@@ -19,7 +19,7 @@ export default function Terminal({
 	const refs = useTerminalRefs();
 	const { output, value, setValue, run } = useTerminalCommands(commands, promptCopy);
 
-	useTerminalSequence(refs);
+	useTerminalSequence(refs, lines);
 
 	return (
 		<div class="relative mx-auto flex h-full w-full max-w-4xl flex-col px-4 py-6 sm:px-6">
@@ -41,6 +41,7 @@ export default function Terminal({
 							language={language}
 							newTab={newTab}
 							prompt={promptCopy}
+							acceptLabel={promptCopy.accept}
 							a11y={a11y}
 							value={value}
 							output={output}

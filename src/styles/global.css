@@ -118,6 +118,36 @@
 	}
 }
 
+/* The block cursor of the terminal: a drawn block, not a glyph, so it never
+   depends on the font covering U+2588. */
+@utility terminal-cursor {
+	display: inline-block;
+	width: 0.62em;
+	height: 1.05em;
+	margin-left: 0.08em;
+	vertical-align: text-bottom;
+	background-color: var(--color-accent);
+	animation: caret-blink 1.05s steps(1, end) infinite;
+}
+
+/* Block caret in the input, where the browser owns the caret. */
+@utility caret-block {
+	caret-color: var(--color-accent);
+	caret-shape: block;
+}
+
+@keyframes caret-blink {
+	0%,
+	49% {
+		opacity: 1;
+	}
+
+	50%,
+	100% {
+		opacity: 0;
+	}
+}
+
 /* Fallback for the no-JS case: the loader clears itself and the text stays visible. */
 @utility loader-exit {
 	animation: loader-exit 400ms ease 3s forwards;
