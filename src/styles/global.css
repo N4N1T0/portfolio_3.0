@@ -52,7 +52,7 @@
 }
 
 @utility crt-vignette {
-	background-image: radial-gradient(ellipse at center, transparent 45%, rgb(0 0 0 / 0.55) 100%);
+	background-image: radial-gradient(ellipse at center, transparent 42%, rgb(0 0 0 / 0.63) 100%);
 }
 
 @utility loader-bar {

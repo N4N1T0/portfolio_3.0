@@ -22,7 +22,7 @@ export default function Terminal({
 	useTerminalSequence(refs, lines);
 
 	return (
-		<div class="relative mx-auto flex h-full w-full max-w-4xl flex-col px-4 py-6 sm:px-6">
+		<div class="relative mx-auto flex min-h-[calc(100dvh-4.25rem)] w-full max-w-4xl flex-col px-4 py-6 sm:px-6">
 			<TerminalLoader
 				boot={boot}
 				a11yLabel={a11y.loader}
