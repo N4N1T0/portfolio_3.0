@@ -131,7 +131,7 @@ The user-level copies in `~/.claude/skills` have the full runtime.
 ```text
 /
 ├── src/
-│   ├── assets/            # blog, project and profile images (13MB, webp/png/jpg)
+│   ├── assets/            # blog, project and profile images (webp/jpg, 9MB)
 │   ├── components/        # terminal island (.tsx) + collection views (.astro)
 │   ├── content/           # content collections, one folder per locale
 │   │   ├── blog/{en,es}   # 19 posts, markdown
@@ -166,6 +166,11 @@ The user-level copies in `~/.claude/skills` have the full runtime.
   the tech stack, the certifications and the GitHub contribution history. It is upstream data with
   its original shape (arrays of `{ en, es }` objects): read it, do not restructure it, and keep the
   import of the profile image as the only Astro asset import.
+- Images are webp. The source files were converted once; do not add new PNGs, convert them with
+  sharp at quality 85 instead.
+- The OG images are rendered at build time by `src/lib/og.ts`: it expands the Geist woff2 subsets to
+  ttf (resvg cannot read woff2) and renders the SVG with the site's own typefaces. The layout
+  points to `/og.png` for English and `/og-es.png` for Spanish.
 
 ## Quality gates
 

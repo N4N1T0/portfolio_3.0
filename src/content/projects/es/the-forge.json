@@ -4,11 +4,11 @@
 	"excerpt": "Boilerplate SaaS listo para producción con arquitectura Edge API serverless (Hono), infraestructura backend Appwrite y control de acceso basado en roles (RBAC). Optimizado para escalabilidad en gestión de workspaces y proyectos con modelado de datos type-safe.",
 	"images": [
 		{
-			"src": "@/assets/projects/the-forge-1.png",
+			"src": "@/assets/projects/the-forge-1.webp",
 			"alt": "The Forge Auth Screen"
 		},
 		{
-			"src": "@/assets/projects/the-forge-2.png",
+			"src": "@/assets/projects/the-forge-2.webp",
 			"alt": "The Forge Dashboard Overview"
 		}
 	],

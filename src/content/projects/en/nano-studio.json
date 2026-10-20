@@ -4,11 +4,11 @@
 	"excerpt": "Premium portfolio platform with Astro static site generation, advanced motion choreography (GSAP), and backend email infrastructure using Astro Actions and Resend for transactional communication.",
 	"images": [
 		{
-			"src": "@/assets/projects/nano-studio-1.png",
+			"src": "@/assets/projects/nano-studio-1.webp",
 			"alt": "NANO-9 Interactive Hero and Preloader"
 		},
 		{
-			"src": "@/assets/projects/nano-studio-2.png",
+			"src": "@/assets/projects/nano-studio-2.webp",
 			"alt": "NANO-9 Minimal Slider and Project Showcase"
 		}
 	],

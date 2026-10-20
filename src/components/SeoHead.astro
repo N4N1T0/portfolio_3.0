@@ -15,7 +15,7 @@ const { locale, title, description, ogAlt } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const alternateEn = new URL(getRelativeLocaleUrl('en'), Astro.site).href;
 const alternateEs = new URL(getRelativeLocaleUrl('es'), Astro.site).href;
-const ogImage = new URL('/og.png', Astro.site).href;
+const ogImage = new URL(locale === 'en' ? '/og.png' : '/og-es.png', Astro.site).href;
 
 const jsonLd = {
 	'@context': 'https://schema.org',
