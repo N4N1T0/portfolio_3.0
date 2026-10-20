@@ -127,10 +127,10 @@ export default function ShellPrompt({
 				))}
 			</div>
 
-			<div class="mx-auto grid w-full max-w-4xl grid-cols-[1fr_minmax(0,2fr)_1fr] items-center gap-4 py-1.5 font-mono text-xs">
-				<span class="hidden truncate text-phosphor-dim sm:inline">{copyright}</span>
+			<div class="grid grid-cols-[1fr_minmax(0,56rem)_1fr] items-center gap-4 py-1.5 font-mono text-xs">
+				<span class="truncate text-phosphor-dim">{copyright}</span>
 				<form
-					class="flex items-center gap-2 text-sm"
+					class="flex w-full min-w-0 items-center gap-2 justify-self-center text-sm"
 					onSubmit={(event) => {
 						event.preventDefault();
 						run(value);
@@ -175,7 +175,7 @@ export default function ShellPrompt({
 						ctrl-b
 					</button>
 				</form>
-				<span class="shrink-0 text-right text-phosphor-dim tabular-nums">{buildDate}</span>
+				<span class="min-w-0 text-right text-phosphor-dim tabular-nums">{buildDate}</span>
 			</div>
 
 			{helpOpen && (

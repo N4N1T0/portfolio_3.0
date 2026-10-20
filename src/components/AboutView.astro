@@ -44,134 +44,140 @@ const levelClass = ['bg-edge', 'bg-accent/25', 'bg-accent/45', 'bg-accent/70', '
 >
 	<div class="mx-auto w-full max-w-4xl px-4 py-6 sm:px-6">
 		<TerminalWindow path="~/about">
-			<h1 class="text-phosphor-bright text-xl">{t.about.title}</h1>
-			<p class="mt-1 text-sm text-phosphor-dim">{t.about.subtitle}</p>
+			<div class="stagger-in">
+				<h1 class="text-phosphor-bright text-xl" style="--i: 0">
+					{t.about.title}
+				</h1>
+				<p class="mt-1 text-sm text-phosphor-dim" style="--i: 1">
+					{t.about.subtitle}
+				</p>
 
-			<section class="mt-6 font-mono">
-				<p class="text-accent">{t.about.profile}</p>
-				<div class="mt-2 flex gap-4">
-					<img
-						src={USER_DATA.avatar.src}
-						alt={USER_DATA.displayName}
-						width={USER_DATA.avatar.width}
-						height={USER_DATA.avatar.height}
-						loading="lazy"
-						decoding="async"
-						class="size-20 shrink-0 border border-edge object-cover grayscale"
-					/>
-					<div class="min-w-0 space-y-2 text-sm leading-relaxed text-phosphor">
-						<p class="text-accent">{profile.name}</p>
-						<p>{USER_DATA.sentences[locale]}</p>
-						{USER_DATA.about[locale].map((paragraph) => (
-							<p>{paragraph}</p>
+				<section class="mt-6 font-mono" style="--i: 2">
+					<p class="text-accent">{t.about.profile}</p>
+					<div class="mt-2 flex gap-4">
+						<img
+							src={USER_DATA.avatar.src}
+							alt={USER_DATA.displayName}
+							width={USER_DATA.avatar.width}
+							height={USER_DATA.avatar.height}
+							loading="lazy"
+							decoding="async"
+							class="size-20 shrink-0 border border-edge object-cover grayscale"
+						/>
+						<div class="min-w-0 space-y-2 text-sm leading-relaxed text-phosphor">
+							<p class="text-accent">{profile.name}</p>
+							<p>{USER_DATA.sentences[locale]}</p>
+							{USER_DATA.about[locale].map((paragraph) => (
+								<p>{paragraph}</p>
+							))}
+						</div>
+					</div>
+				</section>
+
+				<section class="mt-6 font-mono" style="--i: 3">
+					<p class="text-accent">{t.about.whoami}</p>
+					<ul class="mt-2 space-y-1 text-sm text-phosphor">
+						{USER_DATA.overview.map((item) => (
+							<li>
+								{item.href ? (
+									<a href={item.href} class="underline underline-offset-4">
+										{overviewText(item)}
+									</a>
+								) : (
+									overviewText(item)
+								)}
+							</li>
+						))}
+					</ul>
+				</section>
+
+				<section class="mt-6 font-mono" style="--i: 4">
+					<p class="text-accent">{t.about.experience}</p>
+					{EXPERIENCES.map((experience) =>
+						experience.positions.map((position) => (
+							<article class="mt-3 border-l border-edge pl-3">
+								<h2 class="text-sm text-phosphor-bright">
+									{position.title[locale]}
+									<span class="text-phosphor-dim">
+										{' @ '}
+										{experience.companyName} · {position.employmentPeriod.start}—
+										{position.employmentPeriod.end ?? t.about.present}
+									</span>
+								</h2>
+								<ul class="mt-1 list-disc space-y-1 pl-4 text-sm leading-relaxed text-phosphor-dim marker:text-accent">
+									{position.description[locale].map((line) => (
+										<li>{line}</li>
+									))}
+								</ul>
+								<p class="mt-1 text-xs text-phosphor-dim">{position.skills.join(' · ')}</p>
+							</article>
+						)),
+					)}
+				</section>
+
+				<section class="mt-6 font-mono" style="--i: 5">
+					<p class="text-accent">{t.about.stack}</p>
+					<ul class="mt-2 grid gap-x-6 gap-y-1 text-sm sm:grid-cols-2">
+						{TECH_STACK.map((tech) => (
+							<li class="flex items-baseline gap-2">
+								<a
+									href={tech.href}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="text-accent underline underline-offset-4"
+								>
+									{tech.title}
+								</a>
+								<span class="text-xs text-phosphor-dim">{tech.categories.join(' · ')}</span>
+							</li>
+						))}
+					</ul>
+				</section>
+
+				<section class="mt-6 font-mono" style="--i: 6">
+					<p class="text-accent">{t.about.certifications}</p>
+					<ul class="mt-2 space-y-1 text-sm">
+						{CERTIFICATIONS.map((certification) => (
+							<li class="flex flex-wrap items-baseline gap-x-3">
+								<a
+									href={certification.credentialURL}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="text-accent underline underline-offset-4"
+								>
+									{certification.title[locale]}
+								</a>
+								<span class="text-phosphor-dim">
+									{certification.issuer} · {formatIssueDate(certification.issueDate)}
+								</span>
+							</li>
+						))}
+					</ul>
+				</section>
+
+				<section class="mt-6 font-mono" style="--i: 7">
+					<p class="text-accent">{t.about.contributions}</p>
+					<p class="mt-2 text-sm text-phosphor-dim">
+						{commits.toLocaleString(locale)} {t.about.commits}
+					</p>
+					<div class="mt-2 grid grid-flow-col grid-rows-7 gap-0.5 overflow-x-auto pb-1">
+						{GITHUB_CONTRIBUTIONS.map((day) => (
+							<span
+								class={`size-2 shrink-0 ${levelClass[day.level] ?? levelClass[0]}`}
+								title={`${day.date}: ${day.count}`}
+							/>
 						))}
 					</div>
+				</section>
+
+				<div class="mt-6" style="--i: 8">
+					<BackRow
+						backHref={getRelativeLocaleUrl(locale)}
+						backLabel={t.collections.back}
+						altLocale={{ label: alt, href: getRelativeLocaleUrl(alt, 'about') }}
+						language={t.language}
+					/>
 				</div>
-			</section>
-
-			<section class="mt-6 font-mono">
-				<p class="text-accent">{t.about.whoami}</p>
-				<ul class="mt-2 space-y-1 text-sm text-phosphor">
-					{USER_DATA.overview.map((item) => (
-						<li>
-							{item.href ? (
-								<a href={item.href} class="underline underline-offset-4">
-									{overviewText(item)}
-								</a>
-							) : (
-								overviewText(item)
-							)}
-						</li>
-					))}
-				</ul>
-			</section>
-
-			<section class="mt-6 font-mono">
-				<p class="text-accent">{t.about.experience}</p>
-				{EXPERIENCES.map((experience) =>
-					experience.positions.map((position) => (
-						<article class="mt-3 border-l border-edge pl-3">
-							<h2 class="text-sm text-phosphor-bright">
-								{position.title[locale]}
-								<span class="text-phosphor-dim">
-									{' @ '}
-									{experience.companyName} · {position.employmentPeriod.start}—
-									{position.employmentPeriod.end ?? t.about.present}
-								</span>
-							</h2>
-							<ul class="mt-1 list-disc space-y-1 pl-4 text-sm leading-relaxed text-phosphor-dim marker:text-accent">
-								{position.description[locale].map((line) => (
-									<li>{line}</li>
-								))}
-							</ul>
-							<p class="mt-1 text-xs text-phosphor-dim">{position.skills.join(' · ')}</p>
-						</article>
-					)),
-				)}
-			</section>
-
-			<section class="mt-6 font-mono">
-				<p class="text-accent">{t.about.stack}</p>
-				<ul class="mt-2 grid gap-x-6 gap-y-1 text-sm sm:grid-cols-2">
-					{TECH_STACK.map((tech) => (
-						<li class="flex items-baseline gap-2">
-							<a
-								href={tech.href}
-								target="_blank"
-								rel="noopener noreferrer"
-								class="text-accent underline underline-offset-4"
-							>
-								{tech.title}
-							</a>
-							<span class="text-xs text-phosphor-dim">{tech.categories.join(' · ')}</span>
-						</li>
-					))}
-				</ul>
-			</section>
-
-			<section class="mt-6 font-mono">
-				<p class="text-accent">{t.about.certifications}</p>
-				<ul class="mt-2 space-y-1 text-sm">
-					{CERTIFICATIONS.map((certification) => (
-						<li class="flex flex-wrap items-baseline gap-x-3">
-							<a
-								href={certification.credentialURL}
-								target="_blank"
-								rel="noopener noreferrer"
-								class="text-accent underline underline-offset-4"
-							>
-								{certification.title[locale]}
-							</a>
-							<span class="text-phosphor-dim">
-								{certification.issuer} · {formatIssueDate(certification.issueDate)}
-							</span>
-						</li>
-					))}
-				</ul>
-			</section>
-
-			<section class="mt-6 font-mono">
-				<p class="text-accent">{t.about.contributions}</p>
-				<p class="mt-2 text-sm text-phosphor-dim">
-					{commits.toLocaleString(locale)} {t.about.commits}
-				</p>
-				<div class="mt-2 grid grid-flow-col grid-rows-7 gap-0.5 overflow-x-auto pb-1">
-					{GITHUB_CONTRIBUTIONS.map((day) => (
-						<span
-							class={`size-2 shrink-0 ${levelClass[day.level] ?? levelClass[0]}`}
-							title={`${day.date}: ${day.count}`}
-						/>
-					))}
-				</div>
-			</section>
-
-			<div class="mt-6">
-				<BackRow
-					backHref={getRelativeLocaleUrl(locale)}
-					backLabel={t.collections.back}
-					altLocale={{ label: alt, href: getRelativeLocaleUrl(alt, 'about') }}
-					language={t.language}
-				/>
 			</div>
 		</TerminalWindow>
 	</div>
