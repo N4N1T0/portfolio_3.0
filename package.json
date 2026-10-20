@@ -17,10 +17,10 @@
 		"check:lint:fix": "eslint . --fix",
 		"check:format": "prettier --check .",
 		"check:format:fix": "prettier --write .",
-		"check:dead-code": "fallow dead-code",
+		"check:dead": "fallow dead-code",
 		"check:dupes": "fallow dupes",
 		"check:health": "fallow health",
-		"check:all": "npm run check && npm run check:dead-code && npm run check:dupes && npm run check:health",
+		"check:all": "npm run check && npm run check:dead && npm run check:dupes && npm run check:health",
 		"hooks:install": "lefthook install",
 		"prepare": "lefthook install || exit 0"
 	},

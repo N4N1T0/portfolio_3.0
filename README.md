@@ -28,7 +28,7 @@ plugin), Prettier, fallow and lefthook git hooks.
 | `npm run check:lint:fix`   | `eslint . --fix`                    |
 | `npm run check:format`     | `prettier --check .`                |
 | `npm run check:format:fix` | `prettier --write .`                |
-| `npm run check:dead-code`  | `fallow dead-code`                  |
+| `npm run check:dead`       | `fallow dead-code`                  |
 | `npm run check:dupes`      | `fallow dupes`                      |
 | `npm run check:health`     | `fallow health`                     |
 | `npm run check:all`        | Every check plus the fallow reports |
@@ -72,3 +72,7 @@ maximum allowed.
 
 Ponytail skills live in `.agents/skills` and `.opencode/skills`; `opencode.json` loads the
 `@dietrichgebert/ponytail` plugin so the ruleset applies on every turn.
+
+[`AGENTS.md`](AGENTS.md) is the source of truth for agents working on this repo: Tailwind first,
+`check:dead` + `check:dupes` at the end of every task, and the `impeccable`,
+`design-taste-frontend` and `seo` skills required for every new page.

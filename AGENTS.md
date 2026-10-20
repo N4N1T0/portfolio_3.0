@@ -34,7 +34,7 @@ npm run check:lint       # eslint .
 npm run check:lint:fix   # eslint . --fix
 npm run check:format     # prettier --check .
 npm run check:format:fix # prettier --write .
-npm run check:dead-code  # fallow dead-code
+npm run check:dead       # fallow dead-code
 npm run check:dupes      # fallow dupes
 npm run check:health     # fallow health
 npm run check:all        # all of the above
@@ -73,11 +73,50 @@ ESLint (`no-restricted-imports`) blocks relative imports deeper than one hop: `.
 - Preact components live in `src/components` and use `preact/hooks`; no React APIs.
 - anime.js runs inside Preact effects or client scripts, never in `.astro` frontmatter.
   Import from `'animejs'` (`import { animate, stagger } from 'animejs'`).
-- Styling is Tailwind utility classes in the markup. Only `src/styles/global.css` holds CSS, and
-  it is imported by `src/layouts/Layout.astro`.
 - Keep the html shell in `src/layouts/Layout.astro`; pages compose it.
 - Prettier owns formatting: tabs, single quotes, print width 100. Do not hand-format, run
   `npm run check:format:fix`.
+
+## Styles
+
+Tailwind is the default and the only styling tool for layout, spacing, color, typography and
+responsive behaviour. Write utility classes in the markup, reuse the scale of the design system
+(`max-w-3xl`, `text-neutral-600`, `dark:` variants, gap and spacing tokens), and let
+`prettier-plugin-tailwindcss` sort the classes.
+
+Native Astro `<style>` blocks are the exception, only for:
+
+- styles that must be scoped to a component and cannot be expressed as utilities
+  (`is:global` is not a reason to use it, only true component scoping)
+- `@keyframes` and complex pseudo-element states that Tailwind has no utility for
+- styling a third-party widget from the outside (`@apply` inside a `<style>` block)
+- print styles or a one-off reset for that page only
+
+If a rule needs a `<style>` block, it needs a reason: the class it replaces must be impossible or
+ugly in Tailwind. Everything else goes in the markup.
+
+## End of every task
+
+Always finish a task with:
+
+```bash
+npm run check:dead   # unused files, exports, dependencies
+npm run check:dupes  # copy-paste and structural duplication
+```
+
+Both must stay clean. A finding is either fixed (delete, reuse, or extract to a shared module) or
+explicitly justified in `.fallowrc.json`. Do not finish a task with open dead code or duplicated
+blocks.
+
+## Skills
+
+For every new page, load and apply these skills before writing markup:
+
+- `impeccable` — UX, hierarchy, accessibility, states, responsive behaviour
+- `design-taste-frontend` — visual direction, no templated look, spacing and type rhythm
+- `seo` — metadata, structured data, headings, performance and indexability
+
+They are user-level skills (`~/.claude/skills`, `~/.agents/skills`), so they are already available.
 
 ## Layout
 
@@ -99,8 +138,8 @@ ESLint (`no-restricted-imports`) blocks relative imports deeper than one hop: `.
 ## Quality gates
 
 Run `npm run check:all` before opening a PR and `npm run check` before every commit.
-`fallow dead-code` must stay clean: an unused file, export or dependency is a finding to fix or an
-explicit entry in `.fallowrc.json`.
+`npm run check:dead` and `npm run check:dupes` close every task, with no open findings: an unused
+file, export or dependency is a finding to fix or an explicit entry in `.fallowrc.json`.
 
 ## Agent tooling
 
