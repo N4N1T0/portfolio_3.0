@@ -38,6 +38,18 @@ Astro + Tailwind + TypeScript boilerplate with ESLint (astro plugin), Prettier, 
 - **pre-commit**: Prettier and ESLint over the staged files, fixes are staged back.
 - **pre-push**: `check:types` (`tsc --noEmit`) and `check:astro` (`astro check`).
 
+## Paths
+
+`tsconfig.json` maps the `@/` alias to `src/`, Astro and `tsc` pick it up automatically:
+
+```ts
+import Layout from '@/layouts/Layout.astro';
+import '@/styles/global.css';
+```
+
+ESLint blocks deep relative imports (`../../...`) with `no-restricted-imports`, so one `../` hop is the
+maximum allowed.
+
 ## Layout
 
 ```text

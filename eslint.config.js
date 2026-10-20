@@ -25,6 +25,17 @@ export default defineConfig(
 				{ argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
 			],
 			'no-console': ['warn', { allow: ['warn', 'error'] }],
+			'no-restricted-imports': [
+				'error',
+				{
+					patterns: [
+						{
+							group: ['../../**', '../*/../*', '../*/../**'],
+							message: 'Deep relative import. Use the @/ alias instead.',
+						},
+					],
+				},
+			],
 		},
 	},
 	prettier,
