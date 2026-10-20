@@ -1,12 +1,14 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import AnimatedWords from '@/components/AnimatedWords.tsx';
 ---
 
-<Layout title="Portfolio" description="Astro + Tailwind boilerplate">
+<Layout title="Portfolio" description="Astro + Tailwind + Preact boilerplate">
 	<main class="mx-auto flex min-h-screen max-w-3xl flex-col items-center justify-center gap-4 px-6 text-center">
 		<h1 class="text-4xl font-bold tracking-tight">Portfolio</h1>
+		<AnimatedWords words={['Astro', 'Preact', 'Tailwind', 'TypeScript', 'anime.js']} client:load />
 		<p class="text-neutral-600 dark:text-neutral-400">
-			Astro, Tailwind, TypeScript, ESLint, Prettier and fallow.
+			Static Astro shell with a Preact island animated with anime.js.
 		</p>
 	</main>
 </Layout>

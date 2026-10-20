@@ -1,5 +1,5 @@
 {
 	"$schema": "https://raw.githubusercontent.com/fallow-rs/fallow/main/schema.json",
-	// astro is the build-time framework: imported by astro.config.mjs, never by app code
-	"ignoreDependencies": ["astro"]
+	// build-time frameworks: imported by astro.config.mjs, never by app code
+	"ignoreDependencies": ["astro", "@astrojs/preact"]
 }

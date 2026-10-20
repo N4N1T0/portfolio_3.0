@@ -1,10 +1,13 @@
 # portfolio_3.0
 
-Astro + Tailwind + TypeScript boilerplate with ESLint (astro plugin), Prettier, fallow and lefthook git hooks.
+Astro + Tailwind + TypeScript boilerplate with Preact islands, anime.js animations, ESLint (astro
+plugin), Prettier, fallow and lefthook git hooks.
 
 ## Stack
 
 - **Astro 7** + **Tailwind 4** (`@tailwindcss/vite`, styles in `src/styles/global.css`)
+- **Preact 11** via `@astrojs/preact`, for interactive islands only
+- **anime.js 4** for animations (v4 named exports: `animate`, `stagger`, `createTimeline`)
 - **TypeScript** strict (`astro/tsconfigs/strict`)
 - **ESLint 10** flat config with `eslint-plugin-astro` + `typescript-eslint`
 - **Prettier 3** with `prettier-plugin-astro` and `prettier-plugin-tailwindcss`
@@ -55,6 +58,7 @@ maximum allowed.
 ```text
 /
 ├── src/
+│   ├── components/       # Preact islands (.tsx)
 │   ├── layouts/Layout.astro   # html shell + global.css
 │   ├── pages/                 # routes
 │   └── styles/global.css      # @import "tailwindcss"
