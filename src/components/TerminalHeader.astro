@@ -8,7 +8,7 @@ interface Props {
 const { locale } = Astro.props;
 ---
 
-<header class="relative z-10 flex items-center justify-between gap-4 border-b border-edge px-4 py-2 font-mono text-xs text-phosphor-dim">
+<header class="fixed inset-x-0 top-0 z-20 flex h-9 items-center justify-between gap-4 border-b border-edge bg-ground px-4 font-mono text-xs text-phosphor-dim">
 	<span class="font-display text-phosphor-bright">{profile.initials}</span>
 	<span class="hidden sm:inline">PORTFOLIO TERMINAL v3.0</span>
 	<time data-clock data-locale={locale} class="tabular-nums">

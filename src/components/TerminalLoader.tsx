@@ -15,7 +15,7 @@ export default function TerminalLoader({ boot, a11yLabel, loaderRef, bootLinesRe
 			role="status"
 			aria-label={a11yLabel}
 		>
-			<p data-boot-heading class="font-display text-xs text-phosphor-bright sm:text-sm">
+			<p data-boot-heading class="font-display text-xs text-phosphor-bright opacity-0 sm:text-sm">
 				{boot.heading}
 			</p>
 			<div ref={bootLinesRef} class="space-y-1">

@@ -38,8 +38,10 @@ moves is the blue, and it moves between three roles, never as decoration.
 
 ## Structure
 
-- `src/layouts/TerminalLayout.astro` — the html shell, the CRT overlays, the top bar with the pixel
-  monogram and the live clock, and the SEO head.
+- `src/layouts/TerminalLayout.astro` — the html shell, the CRT overlays, the fixed top bar with the
+  pixel monogram and the live clock, the fixed bottom status bar, and the SEO head. The two bars
+  are pinned to the edges of the viewport and the body reserves their height, so the chrome never
+  scrolls away and the content never hides under it.
 - `src/components/TerminalFrame.tsx` — the window: square buttons, title `adrian@portfolio:~`.
 - `src/components/TerminalLoader.tsx` — the boot overlay: heading, BIOS lines, progress bar.
 - `src/components/TerminalContent.tsx` — the identity block. The first line is the `h1`.
