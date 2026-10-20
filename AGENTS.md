@@ -116,7 +116,13 @@ For every new page, load and apply these skills before writing markup:
 - `design-taste-frontend` — visual direction, no templated look, spacing and type rhythm
 - `seo` — metadata, structured data, headings, performance and indexability
 
-They are user-level skills (`~/.claude/skills`, `~/.agents/skills`), so they are already available.
+They are vendored in `.agents/skills/`, the path every agent harness (OpenCode, Claude Code, Codex)
+discovers automatically. Do not edit them here: they are upstream copies, update them from their
+source.
+
+Not vendored on purpose: the `seo` Python environment (`.venv`) and the Playwright browsers
+(`ms-playwright`), and the `impeccable` engine binary (`scripts/bin/`), all downloaded on first run.
+The user-level copies in `~/.claude/skills` have the full runtime.
 
 ## Layout
 
@@ -143,8 +149,9 @@ file, export or dependency is a finding to fix or an explicit entry in `.fallowr
 
 ## Agent tooling
 
-- Ponytail skills: `.agents/skills/ponytail*` and `.opencode/skills/ponytail*`; `opencode.json`
-  loads the `@dietrichgebert/ponytail` plugin, so the ruleset applies every turn.
+- Ponytail skills and the page skills (`impeccable`, `design-taste-frontend`, `seo`) live in
+  `.agents/skills/`; `opencode.json` loads the `@dietrichgebert/ponytail` plugin, so the ruleset
+  applies every turn.
 - Dev server: `astro dev --background`, then `astro dev stop`, `astro dev status`, `astro dev logs`.
 
 ## Development

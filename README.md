@@ -70,8 +70,9 @@ maximum allowed.
 
 ## Agents
 
-Ponytail skills live in `.agents/skills` and `.opencode/skills`; `opencode.json` loads the
-`@dietrichgebert/ponytail` plugin so the ruleset applies on every turn.
+Ponytail skills and the page skills (`impeccable`, `design-taste-frontend`, `seo`) live in
+`.agents/skills`; `opencode.json` loads the `@dietrichgebert/ponytail` plugin so the ruleset applies
+on every turn.
 
 [`AGENTS.md`](AGENTS.md) is the source of truth for agents working on this repo: Tailwind first,
 `check:dead` + `check:dupes` at the end of every task, and the `impeccable`,
