@@ -10,6 +10,7 @@ export default defineConfig(
 		ignores: [
 			'dist/**',
 			'.astro/**',
+			'.vercel/**',
 			'node_modules/**',
 			'public/**',
 			'coverage/**',

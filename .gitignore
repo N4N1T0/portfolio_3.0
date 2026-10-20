@@ -1,5 +1,7 @@
 # build output
 dist/
+# vercel build output
+.vercel/
 # generated types
 .astro/
 
@@ -31,3 +33,6 @@ lefthook-local.yml
 
 # fallow cache
 .fallow/
+
+# impeccable review captures: working evidence, not part of the site
+.impeccable/review/

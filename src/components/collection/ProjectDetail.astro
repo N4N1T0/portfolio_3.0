@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 
 type Labels = {
@@ -39,11 +40,11 @@ const { data } = project;
 	{data.images.map((image) =>
 		image.src ? (
 			<figure class="mt-5 max-w-2xl border border-edge">
-				<img
-					src={image.src.src}
+				<Image
+					src={image.src}
 					alt={image.alt}
-					width={image.src.width}
-					height={image.src.height}
+					widths={[400, 800, 1200]}
+					sizes="(max-width: 896px) 100vw, 672px"
 					loading="lazy"
 					decoding="async"
 					class="w-full"

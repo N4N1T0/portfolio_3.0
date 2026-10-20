@@ -97,3 +97,14 @@ on every turn.
 [`AGENTS.md`](AGENTS.md) is the source of truth for agents working on this repo: Tailwind first,
 `check:dead` + `check:dupes` at the end of every task, and the `impeccable`,
 `design-taste-frontend` and `seo` skills required for every new page.
+
+## Deploy
+
+Vercel, with the `@astrojs/vercel` adapter and `vercel.json` (the root redirects to `/en/`, the
+security headers and the immutable cache for `/_astro/*`). The build is static, so the adapter only
+serves the output and the redirects.
+
+```bash
+vercel link
+vercel --prod
+```
