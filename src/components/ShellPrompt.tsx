@@ -107,11 +107,18 @@ export default function ShellPrompt({
 			if (document.activeElement === document.body)
 				inputRef.current?.focus({ preventScroll: true });
 		};
+		// coming back with the browser history restores the focus in the input:
+		// on a page change the prompt must not steal it back
+		const onPageShow = (event: PageTransitionEvent) => {
+			if (event.persisted) inputRef.current?.blur();
+		};
 		document.addEventListener('keydown', onKey);
 		window.addEventListener('terminal:ready', onReady);
+		window.addEventListener('pageshow', onPageShow);
 		return () => {
 			document.removeEventListener('keydown', onKey);
 			window.removeEventListener('terminal:ready', onReady);
+			window.removeEventListener('pageshow', onPageShow);
 		};
 	}, []);
 
@@ -120,14 +127,14 @@ export default function ShellPrompt({
 			<div
 				aria-live="polite"
 				aria-label={a11y.output}
-				class="mx-auto max-h-16 w-full max-w-4xl overflow-y-auto pt-1 font-mono text-xs text-phosphor-dim"
+				class="mx-auto max-h-16 w-full max-w-4xl overflow-y-auto pt-2 font-mono text-xs text-phosphor-dim"
 			>
 				{output.map((line, index) => (
 					<p key={index}>{line}</p>
 				))}
 			</div>
 
-			<div class="grid grid-cols-[1fr_minmax(0,56rem)_1fr] items-center gap-4 py-1.5 font-mono text-xs">
+			<div class="grid grid-cols-[1fr_minmax(0,56rem)_1fr] items-center gap-4 py-3 font-mono text-xs">
 				<span class="truncate text-phosphor-dim">{copyright}</span>
 				<form
 					class="flex w-full min-w-0 items-center gap-2 justify-self-center text-sm"

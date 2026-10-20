@@ -1,45 +1,67 @@
 ---
 interface Props {
+	preview: string;
 	tryLabel: string;
 }
 
-const { tryLabel } = Astro.props;
+const { preview, tryLabel } = Astro.props;
 ---
 
 <div class="border border-edge p-4">
 	<p class="text-xs text-phosphor-dim">{tryLabel}</p>
-	<form id="snippet-form" class="mt-3 flex flex-col gap-3 sm:flex-row" novalidate>
-		<label class="sr-only" for="snippet-input">
-			email
-		</label>
-		<input
-			id="snippet-input"
-			type="text"
-			name="email"
-			placeholder="you@example.com"
-			pattern="[^\s@]+@[^\s@]+\.[^\s@]+$"
-			required
-			class="w-full max-w-sm border border-edge bg-transparent px-3 py-2 text-sm text-phosphor placeholder:text-phosphor-dim/60 focus:outline-2 focus:outline-accent aria-invalid:animate-shake-x aria-valid:animate-border-success"
-		/>
-		<button
-			type="submit"
-			class="border border-edge px-3 py-2 text-sm text-phosphor-bright transition-colors hover:bg-accent/10"
-		>
-			&gt;
-		</button>
-	</form>
-	<p id="snippet-status" aria-live="polite" class="mt-2 min-h-4 text-xs text-phosphor-dim"></p>
+
+	{preview === 'terminal-caret' && (
+		<p class="mt-3 font-mono text-sm text-phosphor">
+			<span class="terminal-cursor" aria-hidden="true" />
+			<span class="text-phosphor-dim">type here</span>
+		</p>
+	)}
+
+	{preview === 'scanline-overlay' && (
+		<div class="relative mt-3 h-24 overflow-hidden border border-edge bg-ground">
+			<div class="crt-scanlines absolute inset-0 opacity-60" aria-hidden="true" />
+			<div class="crt-vignette absolute inset-0" aria-hidden="true" />
+			<p class="relative px-3 py-2 font-mono text-sm text-phosphor">scanlines + vignette</p>
+		</div>
+	)}
+
+	{preview === 'typewriter-text' && (
+		<p class="mt-3 font-mono text-sm text-phosphor" data-typewriter>
+			Senior Fullstack Engineer
+		</p>
+	)}
+
+	{preview === 'input-state-animation' && (
+		<form id="snippet-form" class="mt-3 flex flex-col gap-3 sm:flex-row" novalidate>
+			<label class="sr-only" for="snippet-input">
+				email
+			</label>
+			<input
+				id="snippet-input"
+				type="text"
+				name="email"
+				placeholder="you@example.com"
+				pattern="[^\s@]+@[^\s@]+\.[^\s@]+$"
+				required
+				class="w-full max-w-sm border border-edge bg-transparent px-3 py-2 text-sm text-phosphor placeholder:text-phosphor-dim/60 focus:outline-2 focus:outline-phosphor-bright aria-invalid:animate-shake-x aria-valid:animate-border-success"
+			/>
+			<button
+				type="submit"
+				class="border border-edge px-3 py-2 text-sm text-phosphor-bright transition-colors hover:bg-accent/10"
+			>
+				&gt;
+			</button>
+		</form>
+	)}
 </div>
 
 <script>
 	const form = document.querySelector<HTMLFormElement>('#snippet-form');
 	const input = document.querySelector<HTMLInputElement>('#snippet-input');
-	const status = document.querySelector<HTMLElement>('#snippet-status');
 
 	input?.addEventListener('input', () => {
 		input.removeAttribute('aria-invalid');
 		input.removeAttribute('aria-valid');
-		if (status) status.textContent = '';
 	});
 
 	form?.addEventListener('submit', (event) => {
@@ -47,10 +69,29 @@ const { tryLabel } = Astro.props;
 		if (!input) return;
 		const valid = input.checkValidity();
 		input.setAttribute(valid ? 'aria-valid' : 'aria-invalid', 'true');
-		if (status) {
-			status.textContent = valid
-				? 'aria-valid="true" · border-success animation'
-				: 'aria-invalid="true" · shake-x animation';
-		}
 	});
+
+	// the typewriter demo: writes the line, erases it and writes it again
+	const target = document.querySelector<HTMLElement>('[data-typewriter]');
+	if (target) {
+		const words = ['Senior Frontend', 'Senior Backend', 'Senior Fullstack Engineer'];
+		let word = 0;
+		const type = async () => {
+			while (word < words.length) {
+				const text = words[word];
+				for (let i = 0; i <= text.length; i++) {
+					target.textContent = text.slice(0, i);
+					await new Promise((resolve) => setTimeout(resolve, 18));
+				}
+				await new Promise((resolve) => setTimeout(resolve, 500));
+				for (let i = text.length; i >= 0; i--) {
+					target.textContent = text.slice(0, i);
+					await new Promise((resolve) => setTimeout(resolve, 12));
+				}
+				await new Promise((resolve) => setTimeout(resolve, 180));
+				word += 1;
+			}
+		};
+		void type();
+	}
 </script>

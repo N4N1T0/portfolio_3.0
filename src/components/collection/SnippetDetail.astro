@@ -18,7 +18,7 @@ const { Content } = await render(snippet);
 		<p class="mt-2 max-w-2xl text-sm leading-relaxed text-phosphor">{snippet.data.excerpt}</p>
 	</header>
 
-	<SnippetPreview tryLabel={tryLabel} />
+	<SnippetPreview preview={snippet.data.preview} tryLabel={tryLabel} />
 
 	<div class="prose prose-invert prose-terminal mt-6 max-w-2xl">
 		<Content />
