@@ -4,10 +4,11 @@ type Props = {
 	commands: Command[];
 	altLocale: { label: string; href: string };
 	language: string;
+	newTab: string;
 	onRun: (id: string) => void;
 };
 
-export default function CommandList({ commands, altLocale, language, onRun }: Props) {
+export default function CommandList({ commands, altLocale, language, newTab, onRun }: Props) {
 	return (
 		<ul class="mt-5 divide-y divide-edge border-y border-edge font-mono text-sm">
 			{commands.map((command) => (
@@ -24,9 +25,9 @@ export default function CommandList({ commands, altLocale, language, onRun }: Pr
 						<span class="w-20 shrink-0 text-phosphor-bright group-hover:underline">
 							{command.label}
 						</span>
-						<span class="truncate text-phosphor-dim">{command.hint}</span>
-						<span class="ml-auto hidden text-phosphor-dim sm:inline">
-							{command.external ? '↗' : '→'}
+						<span class="min-w-0 break-words text-phosphor-dim">{command.hint}</span>
+						<span class="ml-auto hidden shrink-0 text-phosphor-dim sm:inline">
+							{command.external ? `[${newTab}]` : '->'}
 						</span>
 					</a>
 				</li>

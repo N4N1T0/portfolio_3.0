@@ -7,7 +7,11 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://www.adrian-alvarez.com',
-	integrations: [preact(), sitemap()],
+	integrations: [
+		preact(),
+		// the root is a meta-refresh to /en/, it must not be in the sitemap
+		sitemap({ filter: (page) => page !== 'https://www.adrian-alvarez.com/' }),
+	],
 	i18n: {
 		locales: ['en', 'es'],
 		defaultLocale: 'en',

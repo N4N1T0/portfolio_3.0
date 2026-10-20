@@ -16,8 +16,11 @@ export type Copy = {
 		label: string;
 		placeholder: string;
 		help: string;
+		notFound: string;
+		commandsLabel: string;
 	};
 	language: string;
+	newTab: string;
 	commands: {
 		id: string;
 		hint: string;
@@ -59,8 +62,11 @@ export const copy: Record<Locale, Copy> = {
 			label: 'Terminal command',
 			placeholder: 'type a command…',
 			help: 'type help for the list',
+			notFound: 'command not found: {id}. type help for the list',
+			commandsLabel: 'commands',
 		},
-		language: 'language',
+		language: 'Spanish',
+		newTab: 'new tab',
 		commands: [
 			{ id: 'projects', hint: 'case studies', external: false },
 			{ id: 'blog', hint: 'writing', external: false },
@@ -98,14 +104,17 @@ export const copy: Record<Locale, Copy> = {
 			'Ingeniero Fullstack Senior',
 			'Construyo APIs, interfaces y sistemas de datos en producción.',
 			'',
-			'Fullstack Engineer en Kreitech · Asturias, España',
+			'Ingeniero Fullstack en Kreitech · Asturias, España',
 		],
 		prompt: {
 			label: 'Comando de terminal',
 			placeholder: 'escribe un comando…',
 			help: 'escribe help para ver la lista',
+			notFound: 'comando no encontrado: {id}. escribe help para ver la lista',
+			commandsLabel: 'comandos',
 		},
-		language: 'idioma',
+		language: 'inglés',
+		newTab: 'pestaña nueva',
 		commands: [
 			{ id: 'projects', hint: 'casos de estudio', external: false },
 			{ id: 'blog', hint: 'escritos', external: false },

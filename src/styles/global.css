@@ -6,7 +6,7 @@
 	--color-edge: #2a2214;
 	--color-phosphor: #ffb000;
 	--color-phosphor-bright: #ffd894;
-	--color-phosphor-dim: #7d5a1a;
+	--color-phosphor-dim: #a87a1f;
 	--color-signal: #ff5c5c;
 
 	--font-display: 'Geist Pixel', ui-monospace, monospace;
@@ -49,30 +49,8 @@
 	background-image: radial-gradient(ellipse at center, transparent 45%, rgb(0 0 0 / 0.55) 100%);
 }
 
-@utility crt-glow {
-	text-shadow:
-		0 0 1px rgb(255 176 0 / 0.9),
-		0 0 12px rgb(255 176 0 / 0.35);
-}
-
-@utility caret-blink {
-	animation: caret-blink 1.05s steps(1, end) infinite;
-}
-
-@keyframes caret-blink {
-	0%,
-	49% {
-		opacity: 1;
-	}
-
-	50%,
-	100% {
-		opacity: 0;
-	}
-}
-
 @utility loader-bar {
-	background-image: linear-gradient(90deg, var(--color-phosphor-dim), var(--color-phosphor));
+	background-color: var(--color-phosphor);
 }
 
 /* Fallback for the no-JS case: the loader clears itself and the text stays visible. */
@@ -88,7 +66,11 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.caret-blink {
-		animation: none;
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
 	}
 }

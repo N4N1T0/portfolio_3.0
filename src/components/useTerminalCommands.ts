@@ -1,7 +1,12 @@
 import { useState } from 'preact/hooks';
 import type { Command } from '@/data/commands';
 
-export function useTerminalCommands(commands: Command[]) {
+type PromptCopy = {
+	notFound: string;
+	commandsLabel: string;
+};
+
+export function useTerminalCommands(commands: Command[], prompt: PromptCopy) {
 	const [output, setOutput] = useState<string[]>([]);
 	const [value, setValue] = useState('');
 
@@ -16,9 +21,14 @@ export function useTerminalCommands(commands: Command[]) {
 	function run(raw: string) {
 		const id = raw.trim().toLowerCase();
 		if (!id) return;
+		if (id === 'help' || id === 'ls') {
+			const list = commands.map((item) => item.id).join(', ');
+			setOutput((prev) => [...prev, `${prompt.commandsLabel}: ${list}`]);
+			return;
+		}
 		const command = commands.find((item) => item.id === id);
 		if (!command) {
-			setOutput((prev) => [...prev, `$ ${id}`, `command not found: ${id}. type help for the list`]);
+			setOutput((prev) => [...prev, `$ ${id}`, prompt.notFound.replace('{id}', id)]);
 			return;
 		}
 		setOutput((prev) => [...prev, `$ ${id}`]);

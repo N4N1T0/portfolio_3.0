@@ -1,3 +1,19 @@
 ---
-return Astro.redirect('/en/');
+const target = '/en/';
 ---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="refresh" content={`0;url=${target}`} />
+		<meta name="robots" content="noindex, follow" />
+		<link rel="canonical" href="https://www.adrian-alvarez.com/en/" />
+		<title>Adrián Álvarez — Senior Fullstack Engineer</title>
+	</head>
+	<body>
+		<p>
+			<a href={target}>Continue to the portfolio</a>
+		</p>
+	</body>
+</html>

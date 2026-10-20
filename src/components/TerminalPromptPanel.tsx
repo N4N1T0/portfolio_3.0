@@ -7,7 +7,8 @@ type Props = {
 	commands: Command[];
 	altLocale: { label: string; href: string };
 	language: string;
-	prompt: { label: string; placeholder: string };
+	newTab: string;
+	prompt: { label: string; placeholder: string; help: string };
 	a11y: { commands: string; output: string };
 	value: string;
 	output: string[];
@@ -21,6 +22,7 @@ export default function TerminalPromptPanel({
 	commands,
 	altLocale,
 	language,
+	newTab,
 	prompt,
 	a11y,
 	value,
@@ -33,10 +35,17 @@ export default function TerminalPromptPanel({
 	return (
 		<>
 			<p class="sr-only">{a11y.commands}</p>
-			<CommandList commands={commands} altLocale={altLocale} language={language} onRun={onRun} />
+			<CommandList
+				commands={commands}
+				altLocale={altLocale}
+				language={language}
+				newTab={newTab}
+				onRun={onRun}
+			/>
 			<TerminalPrompt
 				label={prompt.label}
 				placeholder={prompt.placeholder}
+				hint={prompt.help}
 				value={value}
 				output={output}
 				inputRef={inputRef}

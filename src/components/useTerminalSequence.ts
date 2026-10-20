@@ -1,4 +1,4 @@
-import { useEffect } from 'preact/hooks';
+import { useEffect, useRef } from 'preact/hooks';
 import type { RefObject } from 'preact';
 import { createTimeline, stagger } from 'animejs';
 
@@ -12,6 +12,16 @@ type SequenceRefs = {
 	prompt: RefObject<HTMLDivElement | null>;
 	input: RefObject<HTMLInputElement | null>;
 };
+
+export function useTerminalRefs(): SequenceRefs {
+	return {
+		loader: useRef<HTMLDivElement>(null),
+		bootLines: useRef<HTMLDivElement>(null),
+		content: useRef<HTMLDivElement>(null),
+		prompt: useRef<HTMLDivElement>(null),
+		input: useRef<HTMLInputElement>(null),
+	};
+}
 
 type Timeline = ReturnType<typeof createTimeline>;
 
@@ -57,6 +67,7 @@ export function useTerminalSequence({ loader, bootLines, content, prompt, input 
 		loaderEl.style.animation = 'none';
 		contentEl.style.opacity = '0';
 		promptEl.style.opacity = '0';
+		promptEl.style.pointerEvents = 'none';
 
 		const timeline = createTimeline();
 		const bootItems = Array.from(bootEl.querySelectorAll<HTMLElement>('[data-boot-line]'));
@@ -68,7 +79,11 @@ export function useTerminalSequence({ loader, bootLines, content, prompt, input 
 		const cursor = typeLines(timeline, lines);
 		timeline.add(promptEl, { opacity: [0, 1], duration: 300 }, cursor + 120);
 		timeline.call(() => {
-			if (window.matchMedia('(pointer: fine)').matches)
+			promptEl.style.pointerEvents = 'auto';
+		}, cursor + 120);
+		timeline.call(() => {
+			const idle = document.activeElement === document.body;
+			if (idle && window.matchMedia('(pointer: fine)').matches)
 				input.current?.focus({ preventScroll: true });
 		}, cursor + 420);
 

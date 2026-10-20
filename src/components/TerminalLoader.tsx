@@ -11,7 +11,7 @@ export default function TerminalLoader({ boot, a11yLabel, loaderRef, bootLinesRe
 	return (
 		<div
 			ref={loaderRef}
-			class="absolute inset-0 z-20 flex loader-exit flex-col justify-center gap-2 bg-ground px-6 font-mono text-sm text-phosphor sm:text-base"
+			class="pointer-events-none absolute inset-0 z-20 flex loader-exit flex-col justify-center gap-2 bg-ground px-6 font-mono text-sm text-phosphor sm:text-base"
 			role="status"
 			aria-label={a11yLabel}
 		>

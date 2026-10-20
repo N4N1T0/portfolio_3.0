@@ -1,13 +1,11 @@
 export const profile = {
 	name: "Adrián 'Nano' Álvarez Alonso",
-	shortName: 'Adrián Álvarez',
 	initials: 'AAA',
 	role: 'Senior Fullstack Engineer',
 	company: 'Kreitech',
 	location: 'Asturias, España',
 	email: 'adrian.alvarezalonso1991@gmail.com',
 	phone: '+34647317214',
-	phoneDisplay: '+34 647 317 214',
 	socials: [
 		{
 			id: 'github',

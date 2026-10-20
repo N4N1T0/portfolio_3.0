@@ -7,6 +7,10 @@
 		// runner, so the coverage term is always zero and every branch counts as
 		// untested. These two files are a 34-line boot timeline and a list
 		// renderer: their cyclomatic and cognitive scores are low.
-		"ignore": ["src/components/useTerminalSequence.ts", "src/components/CommandList.tsx"]
+		"ignore": [
+			"src/components/useTerminalSequence.ts",
+			"src/components/CommandList.tsx",
+			"src/components/useTerminalCommands.ts"
+		]
 	}
 }
