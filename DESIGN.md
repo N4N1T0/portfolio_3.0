@@ -2,7 +2,7 @@
 
 <!-- impeccable:design-schema 1 -->
 
-The terminal. One world: an amber phosphor CRT that you boot and then talk to.
+The terminal. One world: a blue screen you boot and then talk to.
 
 ## Principles
 
@@ -19,19 +19,22 @@ Defined in `src/styles/global.css` under `@theme`, consumed as Tailwind utilitie
 
 | Token             | Value     | Role                                           |
 | :---------------- | :-------- | :--------------------------------------------- |
-| `ground`          | `#0a0805` | the page, warm near-black                      |
-| `panel`           | `#12100b` | the terminal window body, 40% over ground      |
-| `edge`            | `#2a2214` | hairlines, window frame, row separators        |
-| `phosphor`        | `#ffb000` | body text, 10.9:1 on ground                    |
-| `phosphor-bright` | `#ffd894` | headings, focus ring, 14.8:1 on ground         |
-| `phosphor-dim`    | `#a87a1f` | chrome, hints, secondary text, 5.2:1 on ground |
-| `signal`          | `#ff5c5c` | reserved for errors, currently unused          |
+| `ground`          | `#070a12` | the page, dark blue-black                      |
+| `panel`           | `#0b1018` | the terminal window body, 40% over ground      |
+| `edge`            | `#1b2333` | hairlines, window frame, row separators        |
+| `phosphor`        | `#c7d5f2` | body text, 12.6:1 on ground                    |
+| `phosphor-bright` | `#e9f0ff` | headings, the monogram, 16.4:1 on ground       |
+| `phosphor-dim`    | `#6d809f` | chrome, hints, secondary text, 5.1:1 on ground |
+| `accent`          | `#4d9dff` | the brand blue: links, commands, bar, focus    |
+| `signal`          | `#ff6b6b` | reserved for errors, currently unused          |
+
+Dark only, on purpose: the brand is blue and the terminal has one screen.
 
 Type: `Geist Mono` for the terminal body and every command, `Geist Pixel` for the monogram and the
 loader heading. Both are self-hosted latin subsets from Fontsource. No other family ships.
 
 Radius: none, anywhere. Shadow: none, anywhere. Gradient: none, anywhere. The only colour that
-moves is the amber, and it moves between three roles, never as decoration.
+moves is the blue, and it moves between three roles, never as decoration.
 
 ## Structure
 
@@ -64,6 +67,6 @@ already in the HTML.
   reason: the CRT material (scanlines, vignette, loader fallback) is the only one.
 - The text lives in the HTML. The typewriter only reveals what is already there.
 - Every command is a real anchor with a real `href`. A command that opens a new tab says so.
-- Colour is signal: the amber marks state, the dim amber marks chrome, the bright amber marks the
+- Colour is signal: the blue marks the interactive, the dim blue marks chrome, the bright marks the
   name and the focus.
 - No glyph outside the Geist subsets. Arrows are `->`, not `→`.

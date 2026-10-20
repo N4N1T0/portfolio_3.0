@@ -57,20 +57,20 @@ const { data } = project;
 
 	{data.challenge && (
 		<section class="mt-6">
-			<h2 class="text-phosphor-bright">## {labels.challenge}</h2>
+			<h2 class="text-accent">## {labels.challenge}</h2>
 			<p class="mt-1 max-w-2xl text-sm leading-relaxed">{data.challenge}</p>
 		</section>
 	)}
 
 	{data.solution && (
 		<section class="mt-6">
-			<h2 class="text-phosphor-bright">## {labels.solution}</h2>
+			<h2 class="text-accent">## {labels.solution}</h2>
 			<p class="mt-1 max-w-2xl text-sm leading-relaxed">{data.solution}</p>
 		</section>
 	)}
 
 	<section class="mt-6">
-		<h2 class="text-phosphor-bright">## {labels.stack}</h2>
+		<h2 class="text-accent">## {labels.stack}</h2>
 		<ul class="mt-2 flex flex-wrap gap-2">
 			{data.techStack.map((tech) => (
 				<li class="border border-edge px-2 py-0.5 text-xs text-phosphor-dim">

@@ -20,13 +20,11 @@ export default function CommandList({ commands, altLocale, language, newTab, onR
 							event.preventDefault();
 							onRun(command.id);
 						}}
-						class="group flex min-w-0 items-baseline gap-3 px-1 py-1.5 transition-colors hover:bg-phosphor/10"
+						class="group flex min-w-0 items-baseline gap-3 px-1 py-1.5 transition-colors hover:bg-accent/10"
 					>
-						<span class="w-20 shrink-0 text-phosphor-bright group-hover:underline">
-							{command.label}
-						</span>
+						<span class="w-20 shrink-0 text-accent group-hover:underline">{command.label}</span>
 						<span class="min-w-0 break-words text-phosphor-dim">{command.hint}</span>
-						<span class="ml-auto hidden shrink-0 text-phosphor-dim sm:inline">
+						<span class="ml-auto hidden shrink-0 text-accent sm:inline">
 							{command.external ? `[${newTab}]` : '->'}
 						</span>
 					</a>
@@ -36,11 +34,9 @@ export default function CommandList({ commands, altLocale, language, newTab, onR
 				<a
 					href={altLocale.href}
 					hreflang={altLocale.label}
-					class="group flex min-w-0 items-baseline gap-3 px-1 py-1.5 transition-colors hover:bg-phosphor/10"
+					class="group flex min-w-0 items-baseline gap-3 px-1 py-1.5 transition-colors hover:bg-accent/10"
 				>
-					<span class="w-20 shrink-0 text-phosphor-bright group-hover:underline">
-						{altLocale.label}
-					</span>
+					<span class="w-20 shrink-0 text-accent group-hover:underline">{altLocale.label}</span>
 					<span class="truncate text-phosphor-dim">{language}</span>
 				</a>
 			</li>

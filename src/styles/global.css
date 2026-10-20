@@ -5,13 +5,15 @@
 @custom-variant aria-valid (&[aria-valid='true']);
 
 @theme {
-	--color-ground: #0a0805;
-	--color-panel: #12100b;
-	--color-edge: #2a2214;
-	--color-phosphor: #ffb000;
-	--color-phosphor-bright: #ffd894;
-	--color-phosphor-dim: #a87a1f;
-	--color-signal: #ff5c5c;
+	/* the brand is blue: a dark blue-black ground with a blue screen */
+	--color-ground: #070a12;
+	--color-panel: #0b1018;
+	--color-edge: #1b2333;
+	--color-phosphor: #c7d5f2;
+	--color-phosphor-bright: #e9f0ff;
+	--color-phosphor-dim: #6d809f;
+	--color-accent: #4d9dff;
+	--color-signal: #ff6b6b;
 
 	--font-display: 'Geist Pixel', ui-monospace, monospace;
 	--font-mono: 'Geist Mono', ui-monospace, monospace;
@@ -54,7 +56,7 @@
 }
 
 @utility loader-bar {
-	background-color: var(--color-phosphor);
+	background-color: var(--color-accent);
 }
 
 /* Prose inside the terminal: the article reads as terminal output, not as a magazine. */
@@ -62,7 +64,7 @@
 	--tw-prose-body: var(--color-phosphor);
 	--tw-prose-headings: var(--color-phosphor-bright);
 	--tw-prose-lead: var(--color-phosphor);
-	--tw-prose-links: var(--color-phosphor-bright);
+	--tw-prose-links: var(--color-accent);
 	--tw-prose-bold: var(--color-phosphor-bright);
 	--tw-prose-counters: var(--color-phosphor-dim);
 	--tw-prose-bullets: var(--color-phosphor-dim);

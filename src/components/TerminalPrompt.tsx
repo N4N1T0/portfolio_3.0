@@ -36,7 +36,7 @@ export default function TerminalPrompt({
 				<label class="sr-only" for="terminal-input">
 					{label}
 				</label>
-				<span aria-hidden="true" class="text-phosphor-bright">
+				<span aria-hidden="true" class="text-accent">
 					$
 				</span>
 				<input
@@ -47,7 +47,7 @@ export default function TerminalPrompt({
 					placeholder={placeholder}
 					autocomplete="off"
 					spellcheck={false}
-					class="w-full bg-transparent text-phosphor placeholder:text-phosphor-dim focus:outline-2 focus:outline-phosphor-bright"
+					class="w-full bg-transparent text-phosphor placeholder:text-phosphor-dim focus:outline-2 focus:outline-accent"
 				/>
 			</form>
 
