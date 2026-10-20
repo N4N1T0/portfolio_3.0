@@ -1,0 +1,46 @@
+---
+import { render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+	post: CollectionEntry<'blog'>;
+	publishedLabel: string;
+	locale: string;
+}
+
+const { post, publishedLabel, locale } = Astro.props;
+const { Content } = await render(post);
+---
+
+<article class="font-mono">
+	<header>
+		<h1 class="text-phosphor-bright text-xl sm:text-2xl">{post.data.title}</h1>
+		<p class="mt-2 text-sm text-phosphor-dim">
+			<time datetime={post.data.date.toISOString()}>
+				{post.data.date.toLocaleDateString(locale, { dateStyle: 'long' })}
+			</time>
+			· {post.data.author} · {publishedLabel}
+		</p>
+	</header>
+
+	<figure class="mt-5 max-w-2xl border border-edge">
+		<img
+			src={post.data.image.src}
+			alt={post.data.imageAlt}
+			width={post.data.image.width}
+			height={post.data.image.height}
+			loading="lazy"
+			decoding="async"
+			class="w-full"
+		/>
+		<figcaption class="border-t border-edge px-3 py-1.5 text-xs text-phosphor-dim">
+			{post.data.imageAlt}
+		</figcaption>
+	</figure>
+
+	<p class="mt-4 max-w-2xl text-sm leading-relaxed text-phosphor">{post.data.excerpt}</p>
+
+	<div class="prose prose-invert prose-terminal mt-6 max-w-2xl">
+		<Content />
+	</div>
+</article>

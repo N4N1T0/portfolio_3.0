@@ -21,6 +21,23 @@ export type Copy = {
 	};
 	language: string;
 	newTab: string;
+	collections: {
+		projectsTitle: string;
+		projectsSubtitle: string;
+		blogTitle: string;
+		blogSubtitle: string;
+		snippetsTitle: string;
+		snippetsSubtitle: string;
+		back: string;
+		live: string;
+		stack: string;
+		challenge: string;
+		solution: string;
+		testimonial: string;
+		try: string;
+		entries: string;
+		published: string;
+	};
 	commands: {
 		id: string;
 		hint: string;
@@ -67,6 +84,24 @@ export const copy: Record<Locale, Copy> = {
 		},
 		language: 'Spanish',
 		newTab: 'new tab',
+		collections: {
+			projectsTitle: 'Projects',
+			projectsSubtitle:
+				'Product and platform work in production: eCommerce, APIs, data and interfaces.',
+			blogTitle: 'Blog',
+			blogSubtitle: 'Notes on Astro, eCommerce, performance and engineering practice.',
+			snippetsTitle: 'Snippets',
+			snippetsSubtitle: 'Small components and experiments, ready to copy.',
+			back: 'back to the terminal',
+			live: 'live site',
+			stack: 'stack',
+			challenge: 'challenge',
+			solution: 'solution',
+			testimonial: 'testimonial',
+			try: 'try it',
+			entries: 'entries',
+			published: 'published',
+		},
 		commands: [
 			{ id: 'projects', hint: 'case studies', external: false },
 			{ id: 'blog', hint: 'writing', external: false },
@@ -115,6 +150,24 @@ export const copy: Record<Locale, Copy> = {
 		},
 		language: 'inglés',
 		newTab: 'pestaña nueva',
+		collections: {
+			projectsTitle: 'Proyectos',
+			projectsSubtitle:
+				'Producto y plataformas en producción: eCommerce, APIs, datos e interfaces.',
+			blogTitle: 'Blog',
+			blogSubtitle: 'Notas sobre Astro, eCommerce, rendimiento y práctica de ingeniería.',
+			snippetsTitle: 'Snippets',
+			snippetsSubtitle: 'Componentes y experimentos pequeños, listos para copiar.',
+			back: 'volver a la terminal',
+			live: 'sitio en vivo',
+			stack: 'stack',
+			challenge: 'reto',
+			solution: 'solución',
+			testimonial: 'testimonio',
+			try: 'pruébalo',
+			entries: 'entradas',
+			published: 'publicado',
+		},
 		commands: [
 			{ id: 'projects', hint: 'casos de estudio', external: false },
 			{ id: 'blog', hint: 'escritos', external: false },

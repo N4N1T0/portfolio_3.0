@@ -58,15 +58,34 @@ maximum allowed.
 ```text
 /
 ├── src/
-│   ├── components/       # Preact islands (.tsx)
-│   ├── layouts/Layout.astro   # html shell + global.css
-│   ├── pages/                 # routes
-│   └── styles/global.css      # @import "tailwindcss"
+│   ├── assets/                # blog and project images
+│   ├── components/            # terminal island (.tsx) + collection views (.astro)
+│   ├── content/               # blog, projects and snippets, one folder per locale
+│   ├── data/                  # profile and copy
+│   ├── layouts/               # TerminalLayout.astro (html shell, SEO head, top bar)
+│   ├── lib/content.ts         # collection queries by locale
+│   ├── pages/                 # en/ and es/ routes
+│   └── styles/global.css      # tailwind import, tokens, CRT utilities
 ├── .fallowrc.json
+├── DESIGN.md                  # the design system
 ├── eslint.config.js
 ├── lefthook.yml
 └── opencode.json              # ponytail plugin
 ```
+
+## Pages
+
+| Route                            | Content                                                                       |
+| :------------------------------- | :---------------------------------------------------------------------------- |
+| `/en/`, `/es/`                   | the terminal home: boot loader, typewriter, command list                      |
+| `/en/projects/`, `/es/projects/` | 6 case studies, newest first                                                  |
+| `/en/projects/[id]/`             | one case study: excerpt, screenshots, challenge, solution, stack, testimonial |
+| `/en/blog/`, `/es/blog/`         | 19 posts, newest first                                                        |
+| `/en/blog/[id]/`                 | one post, rendered as terminal output                                         |
+| `/en/snippets/`, `/es/snippets/` | small components, with a live preview                                         |
+
+The URLs are the ones the previous site already served, so the indexed pages keep their address.
+The file name of a content entry is its slug: renaming a file breaks a URL, add a redirect instead.
 
 ## Agents
 

@@ -1,0 +1,98 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+type Labels = {
+	live: string;
+	stack: string;
+	challenge: string;
+	solution: string;
+	testimonial: string;
+};
+
+interface Props {
+	project: CollectionEntry<'projects'>;
+	labels: Labels;
+}
+
+const { project, labels } = Astro.props;
+const { data } = project;
+---
+
+<article class="font-mono">
+	<header class="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+		<h1 class="text-phosphor-bright text-xl sm:text-2xl">{data.title}</h1>
+		<time datetime={data.date} class="text-sm text-phosphor-dim">
+			{data.date}
+		</time>
+		<a
+			href={data.liveLink}
+			target="_blank"
+			rel="noopener noreferrer"
+			class="text-sm text-phosphor-bright underline underline-offset-4"
+		>
+			{labels.live} ↗
+		</a>
+	</header>
+
+	<p class="mt-3 max-w-2xl text-sm leading-relaxed text-phosphor">{data.excerpt}</p>
+
+	{data.images.map((image) =>
+		image.src ? (
+			<figure class="mt-5 max-w-2xl border border-edge">
+				<img
+					src={image.src.src}
+					alt={image.alt}
+					width={image.src.width}
+					height={image.src.height}
+					loading="lazy"
+					decoding="async"
+					class="w-full"
+				/>
+				<figcaption class="border-t border-edge px-3 py-1.5 text-xs text-phosphor-dim">
+					{image.alt}
+				</figcaption>
+			</figure>
+		) : null,
+	)}
+
+	{data.challenge && (
+		<section class="mt-6">
+			<h2 class="text-phosphor-bright">## {labels.challenge}</h2>
+			<p class="mt-1 max-w-2xl text-sm leading-relaxed">{data.challenge}</p>
+		</section>
+	)}
+
+	{data.solution && (
+		<section class="mt-6">
+			<h2 class="text-phosphor-bright">## {labels.solution}</h2>
+			<p class="mt-1 max-w-2xl text-sm leading-relaxed">{data.solution}</p>
+		</section>
+	)}
+
+	<section class="mt-6">
+		<h2 class="text-phosphor-bright">## {labels.stack}</h2>
+		<ul class="mt-2 flex flex-wrap gap-2">
+			{data.techStack.map((tech) => (
+				<li class="border border-edge px-2 py-0.5 text-xs text-phosphor-dim">
+					<a
+						href={tech.link}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="hover:text-phosphor-bright"
+					>
+						{tech.title}
+					</a>
+				</li>
+			))}
+		</ul>
+	</section>
+
+	{data.testimonial && (
+		<blockquote class="mt-6 border-l border-phosphor-dim pl-4">
+			<p class="max-w-2xl text-sm leading-relaxed">“{data.testimonial.quote}”</p>
+			<footer class="mt-2 text-xs text-phosphor-dim">
+				{data.testimonial.name} — {data.testimonial.role}
+			</footer>
+		</blockquote>
+	)}
+</article>

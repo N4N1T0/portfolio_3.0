@@ -1,0 +1,44 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import BackRow from '@/components/collection/BackRow.astro';
+import SnippetDetail from '@/components/collection/SnippetDetail.astro';
+import TerminalWindow from '@/components/TerminalWindow.astro';
+import { copy, type Locale } from '@/data/copy';
+import TerminalLayout from '@/layouts/TerminalLayout.astro';
+import { getSnippet } from '@/lib/content';
+
+interface Props {
+	locale: Locale;
+	id: string;
+}
+
+const { locale, id } = Astro.props;
+const t = copy[locale];
+const alt: Locale = locale === 'en' ? 'es' : 'en';
+const snippet = await getSnippet(locale, id);
+---
+
+<TerminalLayout
+	locale={locale}
+	title={snippet ? `${snippet.data.title} — Adrián Álvarez` : 'Not found'}
+	description={snippet?.data.excerpt ?? t.collections.snippetsSubtitle}
+	ogAlt={snippet?.data.title ?? t.collections.snippetsTitle}
+>
+	<div class="mx-auto w-full max-w-4xl px-4 py-6 sm:px-6">
+		<TerminalWindow path={`~/snippets/${id}`}>
+			{snippet ? (
+				<SnippetDetail snippet={snippet} tryLabel={t.collections.try} />
+			) : (
+				<p class="text-sm text-phosphor-dim">404 · not found</p>
+			)}
+			<div class="mt-6">
+				<BackRow
+					backHref={getRelativeLocaleUrl(locale, 'snippets')}
+					backLabel={t.collections.back}
+					altLocale={{ label: alt, href: getRelativeLocaleUrl(alt, `snippets/${id}`) }}
+					language={t.language}
+				/>
+			</div>
+		</TerminalWindow>
+	</div>
+</TerminalLayout>

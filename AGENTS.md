@@ -73,7 +73,9 @@ ESLint (`no-restricted-imports`) blocks relative imports deeper than one hop: `.
 - Preact components live in `src/components` and use `preact/hooks`; no React APIs.
 - anime.js runs inside Preact effects or client scripts, never in `.astro` frontmatter.
   Import from `'animejs'` (`import { animate, stagger } from 'animejs'`).
-- Keep the html shell in `src/layouts/Layout.astro`; pages compose it.
+- Keep the html shell in `src/layouts/TerminalLayout.astro`; pages compose it.
+- Collection views live in `src/components/collection`; each section has an index component and a
+  detail component, and the route files under `src/pages/{en,es}` stay thin.
 - Prettier owns formatting: tabs, single quotes, print width 100. Do not hand-format, run
   `npm run check:format:fix`.
 
@@ -129,17 +131,37 @@ The user-level copies in `~/.claude/skills` have the full runtime.
 ```text
 /
 ├── src/
-│   ├── components/      # Preact islands (.tsx)
-│   ├── layouts/         # Layout.astro (html shell + global.css)
-│   ├── pages/           # routes (.astro)
-│   ├── styles/          # global.css (@import "tailwindcss")
-│   └── utils/           # shared helpers
-├── .fallowrc.json       # fallow config
+│   ├── assets/            # blog and project images (12MB, webp/png)
+│   ├── components/        # terminal island (.tsx) + collection views (.astro)
+│   ├── content/           # content collections, one folder per locale
+│   │   ├── blog/{en,es}   # 19 posts, markdown
+│   │   ├── projects/{en,es} # 6 case studies, json
+│   │   └── snippets/{en,es} # 1 snippet, markdown
+│   ├── data/              # profile and copy (all the text lives here)
+│   ├── layouts/           # TerminalLayout.astro (html shell, SEO head, top bar)
+│   ├── lib/content.ts     # collection queries by locale
+│   ├── pages/             # en/ and es/ routes
+│   ├── styles/global.css  # tailwind import, tokens, CRT utilities
+│   └── utils/
+├── .fallowrc.json         # fallow config
+├── DESIGN.md              # the design system, written from the build
 ├── eslint.config.js
 ├── lefthook.yml
-├── opencode.json        # ponytail plugin
+├── opencode.json          # ponytail plugin
 └── tsconfig.json
 ```
+
+## Content
+
+- Collections are defined in `src/content.config.ts`; every entry lives under a locale folder
+  (`en/`, `es/`) and the locale prefix is part of the id.
+- **The file name is the URL.** `src/content/blog/en/8-tips-to-optimize-your-ecommerce.md` serves
+  `/en/blog/8-tips-to-optimize-your-ecommerce/`. Renaming a file breaks an indexed URL: add a
+  redirect instead, and keep the `counterpartId` in the frontmatter pointing at the other language.
+- The content was migrated from portfolio_2.0 unchanged. Do not rewrite the copy in the markdown;
+  the new site's own strings live in `src/data/copy.ts`.
+- `src/data/profile.ts` holds the facts about the owner (name, email, socials) and
+  `src/data/copy.ts` holds every visible string in both languages. Change the data, not the markup.
 
 ## Quality gates
 

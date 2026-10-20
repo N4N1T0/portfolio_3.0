@@ -1,0 +1,13 @@
+---
+import BlogPage from '@/components/collection/BlogPage.astro';
+import { getPosts } from '@/lib/content';
+
+export async function getStaticPaths() {
+	const entries = await getPosts('en');
+	return entries.map((entry) => ({ params: { id: entry.id } }));
+}
+
+const { id } = Astro.params;
+---
+
+<BlogPage locale="en" id={id ?? ''} />

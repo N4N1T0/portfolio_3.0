@@ -1,0 +1,48 @@
+{
+	"title": "Termogar",
+	"date": "2024-12-20",
+	"excerpt": "Enterprise e-commerce platform with robust backend authentication (NextAuth), headless CMS integration (Sanity), and server-side API data fetching for scalable product management and customer analytics.",
+	"images": [
+		{
+			"src": "@/assets/projects/termogar-1.webp",
+			"alt": "Termogar Website"
+		},
+		{
+			"src": "@/assets/projects/termogar-2.webp",
+			"alt": "Termogar Website"
+		}
+	],
+	"liveLink": "https://termogar.es",
+	"colors": "#ff0000",
+	"techStack": [
+		{
+			"title": "Next.js (API Routes & SSR)",
+			"link": "https://nextjs.org/"
+		},
+		{
+			"title": "NextAuth (Authentication)",
+			"link": "https://authjs.dev/"
+		},
+		{
+			"title": "Sanity (Headless CMS)",
+			"link": "https://www.sanity.io/"
+		},
+		{
+			"title": "Docker",
+			"link": "https://www.docker.com/"
+		},
+		{
+			"title": "Resend (Transactional Email)",
+			"link": "https://resend.com/"
+		}
+	],
+	"testimonial": {
+		"name": "Alvaro Perez Muñoz",
+		"quote": "It has been a pleasure working with Adrian; his dedication and professionalism are exemplary in the development of Termogar.",
+		"role": "CEO of Termogar"
+	},
+	"challenge": "Completely overhaul an outdated WordPress website with modern technologies",
+	"solution": "Architected a modern e-commerce backend using Next.js API routes with NextAuth for secure session-based authentication and role-based user management. Integrated Sanity CMS as the data warehouse for product inventory, pricing, and content management with real-time synchronization via webhooks. Implemented server-side rendering (SSR) and incremental static regeneration (ISR) for SEO optimization and performance. Built transactional email infrastructure using Resend for order confirmations and customer notifications.",
+	"comingSoon": false,
+	"counterpartId": "es/termogar"
+}

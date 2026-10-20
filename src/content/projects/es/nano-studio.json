@@ -1,0 +1,56 @@
+{
+	"title": "NANO-9",
+	"date": "2025-01-10",
+	"excerpt": "Plataforma portafolio premium con generación de sitios estáticos en Astro, coreografía avanzada de motion (GSAP), e infraestructura de email backend usando Astro Actions y Resend para comunicación transaccional.",
+	"images": [
+		{
+			"src": "@/assets/projects/nano-studio-1.png",
+			"alt": "NANO-9 Interactive Hero and Preloader"
+		},
+		{
+			"src": "@/assets/projects/nano-studio-2.png",
+			"alt": "NANO-9 Minimal Slider and Project Showcase"
+		}
+	],
+	"liveLink": "https://github.com/N4N1T0/nano-studio",
+	"colors": "#98AEEB",
+	"techStack": [
+		{
+			"title": "Astro (Static Site Generation)",
+			"link": "https://astro.build/"
+		},
+		{
+			"title": "Astro Actions (Backend)",
+			"link": "https://astro.build/"
+		},
+		{
+			"title": "Resend (Email Infrastructure)",
+			"link": "https://resend.com/"
+		},
+		{
+			"title": "Redis (Rate Limiting)",
+			"link": "https://redis.io/"
+		},
+		{
+			"title": "Docker",
+			"link": "https://www.docker.com/"
+		},
+		{
+			"title": "GSAP (Motion Design)",
+			"link": "https://greensock.com/gsap/"
+		},
+		{
+			"title": "TypeScript",
+			"link": "https://www.typescriptlang.org"
+		},
+		{
+			"title": "Tailwind CSS v4",
+			"link": "https://tailwindcss.com/"
+		}
+	],
+	"testimonial": null,
+	"challenge": "Desarrollar una experiencia de usuario que simulara la estética de lujo y movimiento refinado de las agencias de diseño de alta gama, manteniendo al mismo tiempo un rendimiento excelente. El desafío clave fue orquestar animaciones complejas impulsadas por GSAP (preloader, slider, revelación de texto con SplitText) y gestionar un flujo de correo electrónico seguro y limpio usando Astro Actions.",
+	"solution": "Construcción de sitio de alto rendimiento usando Astro para generación estática con optimizaciones server-side para SEO y Core Web Vitals. Implementación de infraestructura de email backend usando Astro Actions con API Resend para envíos transaccionales seguros de formularios de contacto. Coreografía de animaciones complejas usando GSAP con CustomEase y SplitText para motion design premium. Integración de workflow de desarrollo asistido por IA para scaffolding de componentes y optimización. Implementación de rate limiting y validación de formularios con Redis.",
+	"comingSoon": false,
+	"counterpartId": "en/nano-studio"
+}

@@ -32,12 +32,4 @@ export const profile = {
 			url: 'https://x.com/AdrianlvarezAl1',
 		},
 	],
-	// TODO(v3): these routes live in portfolio_2.0. They must exist in this repo
-	// (or the old site must stay online) before this site replaces it, or the
-	// links break and the indexed project pages disappear.
-	sections: {
-		projects: 'https://www.adrian-alvarez.com/en/projects/',
-		blog: 'https://www.adrian-alvarez.com/en/blog/',
-		snippets: 'https://www.adrian-alvarez.com/en/snippets/',
-	},
 } as const;

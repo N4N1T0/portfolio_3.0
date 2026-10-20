@@ -1,0 +1,35 @@
+---
+interface Props {
+	backHref: string;
+	backLabel: string;
+	altLocale: { label: string; href: string };
+	language: string;
+}
+
+const { backHref, backLabel, altLocale, language } = Astro.props;
+---
+
+<ul class="divide-y divide-edge border-y border-edge font-mono text-sm">
+	<li>
+		<a
+			href={backHref}
+			class="group flex items-baseline gap-3 px-1 py-1.5 transition-colors hover:bg-phosphor/10"
+		>
+			<span class="w-6 shrink-0 text-phosphor-dim">..</span>
+			<span class="text-phosphor-bright group-hover:underline">{backLabel}</span>
+		</a>
+	</li>
+	<li>
+		<a
+			href={altLocale.href}
+			hreflang={altLocale.label}
+			class="group flex min-w-0 items-baseline gap-3 px-1 py-1.5 transition-colors hover:bg-phosphor/10"
+		>
+			<span class="w-6 shrink-0 text-phosphor-dim">..</span>
+			<span class="w-40 shrink-0 text-phosphor-bright group-hover:underline">
+				{altLocale.label}
+			</span>
+			<span class="text-phosphor-dim">{language}</span>
+		</a>
+	</li>
+</ul>

@@ -1,0 +1,13 @@
+---
+import SnippetPage from '@/components/collection/SnippetPage.astro';
+import { getSnippets } from '@/lib/content';
+
+export async function getStaticPaths() {
+	const entries = await getSnippets('es');
+	return entries.map((entry) => ({ params: { id: entry.id } }));
+}
+
+const { id } = Astro.params;
+---
+
+<SnippetPage locale="es" id={id ?? ''} />

@@ -1,0 +1,56 @@
+---
+interface Props {
+	tryLabel: string;
+}
+
+const { tryLabel } = Astro.props;
+---
+
+<div class="border border-edge p-4">
+	<p class="text-xs text-phosphor-dim">{tryLabel}</p>
+	<form id="snippet-form" class="mt-3 flex flex-col gap-3 sm:flex-row" novalidate>
+		<label class="sr-only" for="snippet-input">
+			email
+		</label>
+		<input
+			id="snippet-input"
+			type="text"
+			name="email"
+			placeholder="you@example.com"
+			pattern="[^\s@]+@[^\s@]+\.[^\s@]+$"
+			required
+			class="w-full max-w-sm border border-edge bg-transparent px-3 py-2 text-sm text-phosphor placeholder:text-phosphor-dim/60 focus:outline-2 focus:outline-phosphor-bright aria-invalid:animate-shake-x aria-valid:animate-border-success"
+		/>
+		<button
+			type="submit"
+			class="border border-edge px-3 py-2 text-sm text-phosphor-bright transition-colors hover:bg-phosphor/10"
+		>
+			&gt;
+		</button>
+	</form>
+	<p id="snippet-status" aria-live="polite" class="mt-2 min-h-4 text-xs text-phosphor-dim"></p>
+</div>
+
+<script>
+	const form = document.querySelector<HTMLFormElement>('#snippet-form');
+	const input = document.querySelector<HTMLInputElement>('#snippet-input');
+	const status = document.querySelector<HTMLElement>('#snippet-status');
+
+	input?.addEventListener('input', () => {
+		input.removeAttribute('aria-invalid');
+		input.removeAttribute('aria-valid');
+		if (status) status.textContent = '';
+	});
+
+	form?.addEventListener('submit', (event) => {
+		event.preventDefault();
+		if (!input) return;
+		const valid = input.checkValidity();
+		input.setAttribute(valid ? 'aria-valid' : 'aria-invalid', 'true');
+		if (status) {
+			status.textContent = valid
+				? 'aria-valid="true" · border-success animation'
+				: 'aria-invalid="true" · shake-x animation';
+		}
+	});
+</script>

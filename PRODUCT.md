@@ -43,8 +43,9 @@ translation available; both versions must be indexable and must point at each ot
 - Real content lives in `src/data/profile.ts` and `src/data/copy.ts`, so the owner edits it in one
   place.
 - Undecided: the contact mechanism (email link, external form service, calendar link).
-- Undecided: whether the projects, blog and snippet pages move into this repository or the old
-  site stays online under another path. Until then, the terminal links to the old routes.
+- The projects, blog and snippet pages were migrated from portfolio_2.0 into this repository with
+  their original slugs, so the indexed URLs keep their address. The old site can be retired once
+  this one is deployed.
 - The production domain is `https://www.adrian-alvarez.com` and the deploy target is Vercel, both
   taken from the predecessor and confirmed by the owner.
 

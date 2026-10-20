@@ -1,0 +1,48 @@
+{
+	"title": "Interprefy",
+	"date": "2025-03-05",
+	"excerpt": "Enterprise website platform with custom backend modules in HubL, backend API integrations for third-party services, and performance optimization through server-side caching and CDN configuration.",
+	"images": [
+		{
+			"src": "@/assets/projects/interprefy-1.webp",
+			"alt": "Interprefy Website"
+		},
+		{
+			"src": "@/assets/projects/interprefy-2.webp",
+			"alt": "Interprefy Website"
+		}
+	],
+	"liveLink": "https://www.interprefy.com/",
+	"colors": "#FF5D22",
+	"techStack": [
+		{
+			"title": "HubSpot CMS",
+			"link": "https://developers.hubspot.com/docs/cms"
+		},
+		{
+			"title": "HubL",
+			"link": "https://developers.hubspot.com/docs/cms/hubl"
+		},
+		{
+			"title": "JavaScript",
+			"link": "https://developer.mozilla.org/en-US/docs/Web/JavaScript"
+		},
+		{
+			"title": "jQuery",
+			"link": "https://jquery.com/"
+		},
+		{
+			"title": "Parallax.js",
+			"link": "https://matthew.wagerfield.com/parallax/"
+		}
+	],
+	"testimonial": {
+		"name": "Sven Schumaker",
+		"quote": "The collaboration was smooth and efficient, delivering a fully functional and visually appealing site in just a few weeks.",
+		"role": "Marketing Manager at Interprefy"
+	},
+	"challenge": "Interprefy needed a full brand revamp with a complete website rebuild on HubSpot’s platform, including custom modules aligned with their design guidelines and structure, all on a tight deadline.",
+	"solution": "Built custom backend modules in HubL with server-side logic for dynamic content rendering and API integrations. Implemented JavaScript/jQuery for client-side enhancements and Parallax.js for optimized motion design. Configured HubSpot’s backend caching layer and implemented content delivery optimization through strategic asset loading. Integrated backend analytics APIs to track performance metrics and user behavior.",
+	"comingSoon": false,
+	"counterpartId": "es/interprefy"
+}

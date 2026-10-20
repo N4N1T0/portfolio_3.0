@@ -1,0 +1,26 @@
+---
+import { render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import SnippetPreview from '@/components/collection/SnippetPreview.astro';
+
+interface Props {
+	snippet: CollectionEntry<'snippets'>;
+	tryLabel: string;
+}
+
+const { snippet, tryLabel } = Astro.props;
+const { Content } = await render(snippet);
+---
+
+<article class="font-mono">
+	<header>
+		<h1 class="text-phosphor-bright text-xl sm:text-2xl">{snippet.data.title}</h1>
+		<p class="mt-2 max-w-2xl text-sm leading-relaxed text-phosphor">{snippet.data.excerpt}</p>
+	</header>
+
+	<SnippetPreview tryLabel={tryLabel} />
+
+	<div class="prose prose-invert prose-terminal mt-6 max-w-2xl">
+		<Content />
+	</div>
+</article>

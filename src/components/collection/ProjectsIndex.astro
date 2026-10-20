@@ -1,0 +1,52 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import BackRow from '@/components/collection/BackRow.astro';
+import EntryList, { type Row } from '@/components/collection/EntryList.astro';
+import TerminalWindow from '@/components/TerminalWindow.astro';
+import { copy, type Locale } from '@/data/copy';
+import TerminalLayout from '@/layouts/TerminalLayout.astro';
+import { getProjects } from '@/lib/content';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = copy[locale];
+const alt: Locale = locale === 'en' ? 'es' : 'en';
+const projects = await getProjects(locale);
+
+const rows: Row[] = projects.map((project) => ({
+	label: project.data.title,
+	meta: project.data.excerpt,
+	href: getRelativeLocaleUrl(locale, `projects/${project.id}`),
+}));
+---
+
+<TerminalLayout
+	locale={locale}
+	title={`${t.collections.projectsTitle} — Adrián Álvarez`}
+	description={t.collections.projectsSubtitle}
+	ogAlt={`${t.collections.projectsTitle} — Adrián Álvarez`}
+>
+	<div class="mx-auto w-full max-w-4xl px-4 py-6 sm:px-6">
+		<TerminalWindow path="~/projects">
+			<h1 class="text-phosphor-bright text-xl">{t.collections.projectsTitle}</h1>
+			<p class="mt-1 max-w-2xl text-sm text-phosphor-dim">{t.collections.projectsSubtitle}</p>
+			<p class="mt-3 text-xs text-phosphor-dim">
+				{projects.length} {t.collections.entries}
+			</p>
+			<div class="mt-4">
+				<EntryList rows={rows} />
+			</div>
+			<div class="mt-4">
+				<BackRow
+					backHref={getRelativeLocaleUrl(locale)}
+					backLabel={t.collections.back}
+					altLocale={{ label: alt, href: getRelativeLocaleUrl(alt) }}
+					language={t.language}
+				/>
+			</div>
+		</TerminalWindow>
+	</div>
+</TerminalLayout>

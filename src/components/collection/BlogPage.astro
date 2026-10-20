@@ -1,0 +1,44 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import BackRow from '@/components/collection/BackRow.astro';
+import BlogDetail from '@/components/collection/BlogDetail.astro';
+import TerminalWindow from '@/components/TerminalWindow.astro';
+import { copy, type Locale } from '@/data/copy';
+import TerminalLayout from '@/layouts/TerminalLayout.astro';
+import { getPost } from '@/lib/content';
+
+interface Props {
+	locale: Locale;
+	id: string;
+}
+
+const { locale, id } = Astro.props;
+const t = copy[locale];
+const alt: Locale = locale === 'en' ? 'es' : 'en';
+const post = await getPost(locale, id);
+---
+
+<TerminalLayout
+	locale={locale}
+	title={post ? `${post.data.title} — Adrián Álvarez` : 'Not found'}
+	description={post?.data.excerpt ?? t.collections.blogSubtitle}
+	ogAlt={post?.data.imageAlt ?? t.collections.blogTitle}
+>
+	<div class="mx-auto w-full max-w-4xl px-4 py-6 sm:px-6">
+		<TerminalWindow path={`~/blog/${id}`}>
+			{post ? (
+				<BlogDetail post={post} publishedLabel={t.collections.published} locale={locale} />
+			) : (
+				<p class="text-sm text-phosphor-dim">404 · not found</p>
+			)}
+			<div class="mt-6">
+				<BackRow
+					backHref={getRelativeLocaleUrl(locale, 'blog')}
+					backLabel={t.collections.back}
+					altLocale={{ label: alt, href: getRelativeLocaleUrl(alt, `blog/${id}`) }}
+					language={t.language}
+				/>
+			</div>
+		</TerminalWindow>
+	</div>
+</TerminalLayout>

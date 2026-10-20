@@ -1,0 +1,56 @@
+{
+	"title": "Lola Barcelona",
+	"date": "2024-11-10",
+	"excerpt": "Plataforma e-commerce empresarial con personalización backend de Shopify, integraciones de APIs personalizadas para gestión de inventario, y optimización de flujo de checkout con lógica de negocio server-side.",
+	"images": [
+		{
+			"src": "@/assets/projects/lola-barcelona-1.webp",
+			"alt": "Lola Barcelona Website"
+		},
+		{
+			"src": "@/assets/projects/lola-barcelona-2.webp",
+			"alt": "Lola Barcelona Website"
+		}
+	],
+	"liveLink": "https://www.lola-barcelona.com/",
+	"colors": "#ff28ab",
+	"techStack": [
+		{
+			"title": "Shopify (Backend Platform)",
+			"link": "https://www.shopify.com/"
+		},
+		{
+			"title": "Liquid (Server-side Templating)",
+			"link": "https://shopify.github.io/liquid/"
+		},
+		{
+			"title": "Node.js (Custom Apps)",
+			"link": "https://nodejs.org/"
+		},
+		{
+			"title": "Redis (Caching Layer)",
+			"link": "https://redis.io/"
+		},
+		{
+			"title": "Docker",
+			"link": "https://www.docker.com/"
+		},
+		{
+			"title": "Shopify API",
+			"link": "https://shopify.dev/apps"
+		},
+		{
+			"title": "JavaScript",
+			"link": "https://www.javascript.com/"
+		}
+	],
+	"testimonial": {
+		"name": "Carles",
+		"quote": "Working with Adrian on this project was an excellent experience. I appreciate all his support and I’d gladly collaborate again on future projects.",
+		"role": "CMO of Lola Barcelona"
+	},
+	"challenge": "Rediseñar un backend e-commerce con lógica de negocio personalizada, gestión de inventario dinámico y recomendaciones personalizadas integradas",
+	"solution": "Construcción de tema Shopify personalizado con lógica Liquid server-side para renderizado de recomendaciones de productos y gestión de inventario. Desarrollo de Shopify Apps personalizadas usando Node.js para integraciones de APIs con servicios de fulfillment y analytics. Implementación de lógica de A/B testing server-side y algoritmos de upselling/cross-selling. Integración de capa de caché Redis para optimización de carrito y gestión de sesiones.",
+	"comingSoon": false,
+	"counterpartId": "en/lola-barcelona"
+}

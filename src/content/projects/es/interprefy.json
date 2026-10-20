@@ -1,0 +1,48 @@
+{
+	"title": "Interprefy",
+	"date": "2025-03-05",
+	"excerpt": "Plataforma web empresarial con módulos backend personalizados en HubL, integraciones de APIs con servicios de terceros, y optimización de rendimiento mediante caché backend y configuración CDN.",
+	"images": [
+		{
+			"src": "@/assets/projects/interprefy-1.webp",
+			"alt": "Interprefy Website"
+		},
+		{
+			"src": "@/assets/projects/interprefy-2.webp",
+			"alt": "Interprefy Website"
+		}
+	],
+	"liveLink": "https://www.interprefy.com/",
+	"colors": "#FF5D22",
+	"techStack": [
+		{
+			"title": "HubSpot CMS",
+			"link": "https://developers.hubspot.com/docs/cms"
+		},
+		{
+			"title": "HubL",
+			"link": "https://developers.hubspot.com/docs/cms/hubl"
+		},
+		{
+			"title": "JavaScript",
+			"link": "https://developer.mozilla.org/es/docs/Web/JavaScript"
+		},
+		{
+			"title": "jQuery",
+			"link": "https://jquery.com/"
+		},
+		{
+			"title": "Parallax.js",
+			"link": "https://matthew.wagerfield.com/parallax/"
+		}
+	],
+	"testimonial": {
+		"name": "Nombre del cliente",
+		"quote": "La colaboración fue fluida y eficiente, entregando un sitio totalmente funcional y visualmente atractivo en pocas semanas.",
+		"role": "Gerente de Marketing en Interprefy"
+	},
+	"challenge": "Interprefy necesitaba una renovación completa de su marca y la reconstrucción total de su sitio web en la plataforma de HubSpot, incluyendo módulos personalizados alineados con sus directrices de diseño y estructura, todo con un plazo ajustado.",
+	"solution": "Construcción de módulos backend personalizados en HubL con lógica server-side para renderizado dinámico de contenido e integraciones de APIs. Implementación de JavaScript/jQuery para mejoras cliente y Parallax.js para motion design optimizado. Configuración de capa de caché backend de HubSpot e implementación de optimizaciones en entrega de contenido mediante asset loading estratégico. Integración de APIs de análisis backend para tracking de performance y comportamiento de usuarios.",
+	"comingSoon": false,
+	"counterpartId": "en/interprefy"
+}

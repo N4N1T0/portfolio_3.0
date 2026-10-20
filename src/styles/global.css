@@ -1,4 +1,8 @@
 @import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+@custom-variant aria-invalid (&[aria-invalid='true']);
+@custom-variant aria-valid (&[aria-valid='true']);
 
 @theme {
 	--color-ground: #0a0805;
@@ -51,6 +55,65 @@
 
 @utility loader-bar {
 	background-color: var(--color-phosphor);
+}
+
+/* Prose inside the terminal: the article reads as terminal output, not as a magazine. */
+@utility prose-terminal {
+	--tw-prose-body: var(--color-phosphor);
+	--tw-prose-headings: var(--color-phosphor-bright);
+	--tw-prose-lead: var(--color-phosphor);
+	--tw-prose-links: var(--color-phosphor-bright);
+	--tw-prose-bold: var(--color-phosphor-bright);
+	--tw-prose-counters: var(--color-phosphor-dim);
+	--tw-prose-bullets: var(--color-phosphor-dim);
+	--tw-prose-hr: var(--color-edge);
+	--tw-prose-quotes: var(--color-phosphor);
+	--tw-prose-quote-borders: var(--color-phosphor-dim);
+	--tw-prose-captions: var(--color-phosphor-dim);
+	--tw-prose-code: var(--color-phosphor-bright);
+	--tw-prose-pre-code: var(--color-phosphor);
+	--tw-prose-pre-bg: var(--color-panel);
+	--tw-prose-th-borders: var(--color-edge);
+	--tw-prose-td-borders: var(--color-edge);
+}
+
+@utility animate-shake-x {
+	animation: shake-x 0.4s ease-in-out;
+}
+
+@utility animate-border-success {
+	animation: border-success 0.4s ease-in-out;
+}
+
+@keyframes shake-x {
+	0%,
+	100% {
+		transform: translateX(0);
+	}
+
+	10%,
+	30%,
+	50%,
+	70% {
+		transform: translateX(-4px);
+	}
+
+	20%,
+	40%,
+	60% {
+		transform: translateX(4px);
+	}
+}
+
+@keyframes border-success {
+	0% {
+		border-color: var(--color-edge);
+	}
+
+	50%,
+	100% {
+		border-color: var(--color-phosphor-bright);
+	}
 }
 
 /* Fallback for the no-JS case: the loader clears itself and the text stays visible. */
