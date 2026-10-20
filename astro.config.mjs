@@ -8,6 +8,10 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
 	site: 'https://www.adrian-alvarez.com',
 	trailingSlash: 'always',
+	devToolbar: {
+		// the toolbar sits at the bottom: keep it away from the shell prompt
+		placement: 'bottom-left',
+	},
 	integrations: [
 		preact(),
 		// the root is a meta-refresh to /en/, it must not be in the sitemap
