@@ -32,11 +32,11 @@ function playBoot(
 	loader: HTMLElement,
 ) {
 	if (heading) {
-		timeline.add(heading, { opacity: [0, 1], translateY: [-4, 0], duration: 260 }, 0);
+		timeline.add(heading, { opacity: [0, 1], translateY: [-4, 0], duration: 220 }, 0);
 	}
-	timeline.add(bootItems, { opacity: [0, 1], translateY: [4, 0], duration: 160 }, 140);
-	if (bar) timeline.add(bar, { scaleX: [0, 1], duration: 1500, ease: 'outQuad' }, 120);
-	timeline.add(loader, { opacity: [1, 0], duration: 320, ease: 'outQuad' }, 1750);
+	timeline.add(bootItems, { opacity: [0, 1], translateY: [4, 0], duration: 150 }, 110);
+	if (bar) timeline.add(bar, { scaleX: [0, 1], duration: 900, ease: 'outQuad' }, 100);
+	timeline.add(loader, { opacity: [1, 0], duration: 300, ease: 'outQuad' }, 1150);
 }
 
 /** Boots the terminal: loader, then the typewriter, then the command list. */
@@ -73,7 +73,7 @@ export function useTerminalSequence(
 
 		const timeline = createTimeline();
 		playBoot(timeline, heading, bootItems, bar, loaderEl);
-		timeline.add(contentEl, { opacity: [0, 1], duration: 240 }, 2050);
+		timeline.add(contentEl, { opacity: [0, 1], duration: 220 }, 1350);
 
 		let cancelled = false;
 		const jobs: { cancel: () => void }[] = [];
@@ -104,7 +104,7 @@ export function useTerminalSequence(
 				}
 				window.dispatchEvent(new CustomEvent('terminal:ready'));
 			})();
-		}, 2050);
+		}, 1350);
 
 		timeline.call(() => {
 			markBooted();

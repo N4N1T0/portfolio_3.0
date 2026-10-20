@@ -45,8 +45,9 @@ const levelClass = ['bg-edge', 'bg-accent/25', 'bg-accent/45', 'bg-accent/70', '
 	<div class="mx-auto w-full max-w-4xl px-4 py-6 sm:px-6">
 		<TerminalWindow path="~/about">
 			<div class="stagger-in">
-				<h1 class="text-phosphor-bright text-xl" style="--i: 0">
-					{t.about.title}
+				<h1 data-about-title class="text-phosphor-bright text-xl" style="--i: 0">
+					<span data-text>{t.about.title}</span>
+					<span data-cursor class="terminal-cursor" aria-hidden="true" hidden></span>
 				</h1>
 				<p class="mt-1 text-sm text-phosphor-dim" style="--i: 1">
 					{t.about.subtitle}
@@ -182,3 +183,13 @@ const levelClass = ['bg-edge', 'bg-accent/25', 'bg-accent/45', 'bg-accent/70', '
 		</TerminalWindow>
 	</div>
 </TerminalLayout>
+
+<script>
+	import { typeLine } from '@/lib/terminal-typing';
+
+	const title = document.querySelector<HTMLElement>('[data-about-title]');
+	if (title && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+		const text = title.querySelector('[data-text]')?.textContent ?? '';
+		typeLine(title, [{ type: 'type', text }], 16);
+	}
+</script>

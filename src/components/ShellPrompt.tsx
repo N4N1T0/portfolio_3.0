@@ -103,18 +103,13 @@ export default function ShellPrompt({
 			}
 			if (event.key === 'Escape') setHelpOpen(false);
 		};
-		const onReady = () => {
-			if (document.activeElement === document.body)
-				inputRef.current?.focus({ preventScroll: true });
-		};
-		// coming back with the browser history restores the focus in the input:
-		// on a page change the prompt must not steal it back
-		const onPageShow = (event: PageTransitionEvent) => {
-			if (event.persisted) inputRef.current?.blur();
-		};
+		const onReady = () => focusInput();
+		// the shell is always ready: the prompt holds the focus on every page
+		const onPageShow = () => focusInput();
 		document.addEventListener('keydown', onKey);
 		window.addEventListener('terminal:ready', onReady);
 		window.addEventListener('pageshow', onPageShow);
+		focusInput();
 		return () => {
 			document.removeEventListener('keydown', onKey);
 			window.removeEventListener('terminal:ready', onReady);
@@ -122,20 +117,24 @@ export default function ShellPrompt({
 		};
 	}, []);
 
+	function focusInput() {
+		inputRef.current?.focus({ preventScroll: true });
+	}
+
 	return (
 		<>
 			<div
 				aria-live="polite"
 				aria-label={a11y.output}
-				class="mx-auto max-h-16 w-full max-w-4xl overflow-y-auto pt-2 font-mono text-xs text-phosphor-dim"
+				class="mx-auto max-h-18 w-full max-w-4xl overflow-y-auto font-mono text-xs text-phosphor-dim"
 			>
 				{output.map((line, index) => (
 					<p key={index}>{line}</p>
 				))}
 			</div>
 
-			<div class="grid grid-cols-[1fr_minmax(0,56rem)_1fr] items-center gap-4 py-3 font-mono text-xs">
-				<span class="truncate text-phosphor-dim">{copyright}</span>
+			<div class="grid grid-cols-1 items-center gap-4 py-3 font-mono text-xs sm:grid-cols-[1fr_minmax(0,56rem)_1fr]">
+				<span class="hidden truncate text-phosphor-dim sm:block">{copyright}</span>
 				<form
 					class="flex w-full min-w-0 items-center gap-2 justify-self-center text-sm"
 					onSubmit={(event) => {
@@ -168,7 +167,7 @@ export default function ShellPrompt({
 							placeholder={prompt.placeholder}
 							autocomplete="off"
 							spellcheck={false}
-							class="w-full border border-edge bg-transparent px-2 py-1 text-sm text-phosphor caret-block placeholder:text-phosphor-dim focus:border-accent focus:outline-none"
+							class="w-full border border-edge bg-transparent px-2 py-2 text-sm text-phosphor caret-block placeholder:text-phosphor-dim focus:border-accent focus:outline-none"
 						/>
 					</div>
 					{suggestion && (
@@ -182,7 +181,9 @@ export default function ShellPrompt({
 						ctrl-b
 					</button>
 				</form>
-				<span class="min-w-0 text-right text-phosphor-dim tabular-nums">{buildDate}</span>
+				<span class="hidden min-w-0 text-right text-phosphor-dim tabular-nums sm:block">
+					{buildDate}
+				</span>
 			</div>
 
 			{helpOpen && (
