@@ -1,0 +1,178 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import BackRow from '@/components/collection/BackRow.astro';
+import TerminalWindow from '@/components/TerminalWindow.astro';
+import { copy, type Locale } from '@/data/copy';
+import { profile } from '@/data/profile';
+import {
+	CERTIFICATIONS,
+	EXPERIENCES,
+	GITHUB_CONTRIBUTIONS,
+	TECH_STACK,
+	USER_DATA,
+} from '@/data/site-data';
+import TerminalLayout from '@/layouts/TerminalLayout.astro';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = copy[locale];
+const alt: Locale = locale === 'en' ? 'es' : 'en';
+
+const commits = GITHUB_CONTRIBUTIONS.reduce((total, day) => total + day.count, 0);
+
+type OverviewItem = (typeof USER_DATA.overview)[number];
+const overviewText = (item: OverviewItem) =>
+	typeof item.content === 'string' ? item.content : item.content[locale];
+
+// the source data stores DD-MM-YYYY
+const formatIssueDate = (value: string) => {
+	const [day, month, year] = value.split('-').map(Number);
+	if (!day || !month || !year) return value;
+	return new Date(year, month - 1, day).toLocaleDateString(locale, { dateStyle: 'medium' });
+};
+const levelClass = ['bg-edge', 'bg-phosphor/25', 'bg-phosphor/45', 'bg-phosphor/70', 'bg-phosphor'];
+---
+
+<TerminalLayout
+	locale={locale}
+	title={`${t.about.title} — Adrián Álvarez`}
+	description={t.about.subtitle}
+	ogAlt={`${t.about.title} — Adrián Álvarez`}
+>
+	<div class="mx-auto w-full max-w-4xl px-4 py-6 sm:px-6">
+		<TerminalWindow path="~/about">
+			<h1 class="text-phosphor-bright text-xl">{t.about.title}</h1>
+			<p class="mt-1 text-sm text-phosphor-dim">{t.about.subtitle}</p>
+
+			<section class="mt-6 font-mono">
+				<p class="text-phosphor-bright">{t.about.profile}</p>
+				<div class="mt-2 flex gap-4">
+					<img
+						src={USER_DATA.avatar.src}
+						alt={USER_DATA.displayName}
+						width={USER_DATA.avatar.width}
+						height={USER_DATA.avatar.height}
+						loading="lazy"
+						decoding="async"
+						class="size-20 shrink-0 border border-edge object-cover grayscale"
+					/>
+					<div class="min-w-0 space-y-2 text-sm leading-relaxed text-phosphor">
+						<p class="text-phosphor-bright">{profile.name}</p>
+						<p>{USER_DATA.sentences[locale]}</p>
+						{USER_DATA.about[locale].map((paragraph) => (
+							<p>{paragraph}</p>
+						))}
+					</div>
+				</div>
+			</section>
+
+			<section class="mt-6 font-mono">
+				<p class="text-phosphor-bright">{t.about.whoami}</p>
+				<ul class="mt-2 space-y-1 text-sm text-phosphor">
+					{USER_DATA.overview.map((item) => (
+						<li>
+							{item.href ? (
+								<a href={item.href} class="underline underline-offset-4">
+									{overviewText(item)}
+								</a>
+							) : (
+								overviewText(item)
+							)}
+						</li>
+					))}
+				</ul>
+			</section>
+
+			<section class="mt-6 font-mono">
+				<p class="text-phosphor-bright">{t.about.experience}</p>
+				{EXPERIENCES.map((experience) =>
+					experience.positions.map((position) => (
+						<article class="mt-3 border-l border-edge pl-3">
+							<h2 class="text-sm text-phosphor-bright">
+								{position.title[locale]}
+								<span class="text-phosphor-dim">
+									{' @ '}
+									{experience.companyName} · {position.employmentPeriod.start}—
+									{position.employmentPeriod.end ?? t.about.present}
+								</span>
+							</h2>
+							<ul class="mt-1 list-disc space-y-1 pl-4 text-sm leading-relaxed text-phosphor-dim marker:text-phosphor">
+								{position.description[locale].map((line) => (
+									<li>{line}</li>
+								))}
+							</ul>
+							<p class="mt-1 text-xs text-phosphor-dim">{position.skills.join(' · ')}</p>
+						</article>
+					)),
+				)}
+			</section>
+
+			<section class="mt-6 font-mono">
+				<p class="text-phosphor-bright">{t.about.stack}</p>
+				<ul class="mt-2 grid gap-x-6 gap-y-1 text-sm sm:grid-cols-2">
+					{TECH_STACK.map((tech) => (
+						<li class="flex items-baseline gap-2">
+							<a
+								href={tech.href}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="text-phosphor-bright underline underline-offset-4"
+							>
+								{tech.title}
+							</a>
+							<span class="text-xs text-phosphor-dim">{tech.categories.join(' · ')}</span>
+						</li>
+					))}
+				</ul>
+			</section>
+
+			<section class="mt-6 font-mono">
+				<p class="text-phosphor-bright">{t.about.certifications}</p>
+				<ul class="mt-2 space-y-1 text-sm">
+					{CERTIFICATIONS.map((certification) => (
+						<li class="flex flex-wrap items-baseline gap-x-3">
+							<a
+								href={certification.credentialURL}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="text-phosphor-bright underline underline-offset-4"
+							>
+								{certification.title[locale]}
+							</a>
+							<span class="text-phosphor-dim">
+								{certification.issuer} · {formatIssueDate(certification.issueDate)}
+							</span>
+						</li>
+					))}
+				</ul>
+			</section>
+
+			<section class="mt-6 font-mono">
+				<p class="text-phosphor-bright">{t.about.contributions}</p>
+				<p class="mt-2 text-sm text-phosphor-dim">
+					{commits.toLocaleString(locale)} {t.about.commits}
+				</p>
+				<div class="mt-2 grid grid-flow-col grid-rows-7 gap-0.5 overflow-x-auto pb-1">
+					{GITHUB_CONTRIBUTIONS.map((day) => (
+						<span
+							class={`size-2 shrink-0 ${levelClass[day.level] ?? levelClass[0]}`}
+							title={`${day.date}: ${day.count}`}
+						/>
+					))}
+				</div>
+			</section>
+
+			<div class="mt-6">
+				<BackRow
+					backHref={getRelativeLocaleUrl(locale)}
+					backLabel={t.collections.back}
+					altLocale={{ label: alt, href: getRelativeLocaleUrl(alt, 'about') }}
+					language={t.language}
+				/>
+			</div>
+		</TerminalWindow>
+	</div>
+</TerminalLayout>

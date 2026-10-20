@@ -38,6 +38,18 @@ export type Copy = {
 		entries: string;
 		published: string;
 	};
+	about: {
+		title: string;
+		subtitle: string;
+		profile: string;
+		whoami: string;
+		experience: string;
+		stack: string;
+		certifications: string;
+		contributions: string;
+		present: string;
+		commits: string;
+	};
 	commands: {
 		id: string;
 		hint: string;
@@ -102,7 +114,20 @@ export const copy: Record<Locale, Copy> = {
 			entries: 'entries',
 			published: 'published',
 		},
+		about: {
+			title: 'About',
+			subtitle: 'Who I am, what I have built and what I work with.',
+			profile: '$ cat about.txt',
+			whoami: '$ whoami',
+			experience: '$ cat experience.log',
+			stack: '$ cat stack.txt',
+			certifications: '$ cat certifications.txt',
+			contributions: '$ git log --since=2026-01-01 --oneline',
+			present: 'present',
+			commits: 'commits in 2026',
+		},
 		commands: [
+			{ id: 'about', hint: 'who I am', external: false },
 			{ id: 'projects', hint: 'case studies', external: false },
 			{ id: 'blog', hint: 'writing', external: false },
 			{ id: 'snippets', hint: 'small components', external: false },
@@ -168,7 +193,20 @@ export const copy: Record<Locale, Copy> = {
 			entries: 'entradas',
 			published: 'publicado',
 		},
+		about: {
+			title: 'Sobre mí',
+			subtitle: 'Quién soy, qué he construido y con qué trabajo.',
+			profile: '$ cat about.txt',
+			whoami: '$ whoami',
+			experience: '$ cat experience.log',
+			stack: '$ cat stack.txt',
+			certifications: '$ cat certifications.txt',
+			contributions: '$ git log --since=2026-01-01 --oneline',
+			present: 'actualidad',
+			commits: 'commits en 2026',
+		},
 		commands: [
+			{ id: 'about', hint: 'quién soy', external: false },
 			{ id: 'projects', hint: 'casos de estudio', external: false },
 			{ id: 'blog', hint: 'escritos', external: false },
 			{ id: 'snippets', hint: 'componentes pequeños', external: false },

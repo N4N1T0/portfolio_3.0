@@ -61,7 +61,7 @@ maximum allowed.
 │   ├── assets/                # blog and project images
 │   ├── components/            # terminal island (.tsx) + collection views (.astro)
 │   ├── content/               # blog, projects and snippets, one folder per locale
-│   ├── data/                  # profile and copy
+│   ├── data/                  # profile, copy and the migrated site data
 │   ├── layouts/               # TerminalLayout.astro (html shell, SEO head, top bar)
 │   ├── lib/content.ts         # collection queries by locale
 │   ├── pages/                 # en/ and es/ routes
@@ -78,6 +78,7 @@ maximum allowed.
 | Route                            | Content                                                                       |
 | :------------------------------- | :---------------------------------------------------------------------------- |
 | `/en/`, `/es/`                   | the terminal home: boot loader, typewriter, command list                      |
+| `/en/about/`, `/es/about/`       | profile, experience log, stack, certifications, contribution heatmap          |
 | `/en/projects/`, `/es/projects/` | 6 case studies, newest first                                                  |
 | `/en/projects/[id]/`             | one case study: excerpt, screenshots, challenge, solution, stack, testimonial |
 | `/en/blog/`, `/es/blog/`         | 19 posts, newest first                                                        |

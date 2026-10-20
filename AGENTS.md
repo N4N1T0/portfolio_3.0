@@ -131,13 +131,13 @@ The user-level copies in `~/.claude/skills` have the full runtime.
 ```text
 /
 ├── src/
-│   ├── assets/            # blog and project images (12MB, webp/png)
+│   ├── assets/            # blog, project and profile images (13MB, webp/png/jpg)
 │   ├── components/        # terminal island (.tsx) + collection views (.astro)
 │   ├── content/           # content collections, one folder per locale
 │   │   ├── blog/{en,es}   # 19 posts, markdown
 │   │   ├── projects/{en,es} # 6 case studies, json
 │   │   └── snippets/{en,es} # 1 snippet, markdown
-│   ├── data/              # profile and copy (all the text lives here)
+│   ├── data/              # profile, copy and the migrated site data
 │   ├── layouts/           # TerminalLayout.astro (html shell, SEO head, top bar)
 │   ├── lib/content.ts     # collection queries by locale
 │   ├── pages/             # en/ and es/ routes
@@ -162,6 +162,10 @@ The user-level copies in `~/.claude/skills` have the full runtime.
   the new site's own strings live in `src/data/copy.ts`.
 - `src/data/profile.ts` holds the facts about the owner (name, email, socials) and
   `src/data/copy.ts` holds every visible string in both languages. Change the data, not the markup.
+- `src/data/site-data.ts` is the migrated portfolio_2.0 data: the about copy, the experience log,
+  the tech stack, the certifications and the GitHub contribution history. It is upstream data with
+  its original shape (arrays of `{ en, es }` objects): read it, do not restructure it, and keep the
+  import of the profile image as the only Astro asset import.
 
 ## Quality gates
 

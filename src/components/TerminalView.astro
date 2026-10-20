@@ -17,6 +17,7 @@ const altLocale: Locale = locale === 'en' ? 'es' : 'en';
 const socialUrl = (id: string) => profile.socials.find((social) => social.id === id)?.url ?? '#';
 
 const hrefFor: Record<string, string> = {
+	about: getRelativeLocaleUrl(locale, 'about'),
 	projects: getRelativeLocaleUrl(locale, 'projects'),
 	blog: getRelativeLocaleUrl(locale, 'blog'),
 	snippets: getRelativeLocaleUrl(locale, 'snippets'),
