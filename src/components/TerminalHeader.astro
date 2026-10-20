@@ -1,4 +1,5 @@
 ---
+import { getRelativeLocaleUrl } from 'astro:i18n';
 import { profile } from '@/data/profile';
 
 interface Props {
@@ -9,7 +10,13 @@ const { locale } = Astro.props;
 ---
 
 <header class="fixed inset-x-0 top-0 z-20 flex h-9 items-center justify-between gap-4 border-b border-edge bg-ground px-4 font-mono text-xs text-phosphor-dim">
-	<span class="font-display text-phosphor-bright">{profile.initials}</span>
+	<a
+		href={getRelativeLocaleUrl(locale)}
+		class="font-display text-phosphor-bright transition-colors hover:text-accent"
+		aria-label={profile.name}
+	>
+		{profile.initials}
+	</a>
 	<span class="hidden sm:inline">PORTFOLIO TERMINAL v3.0</span>
 	<time data-clock data-locale={locale} class="tabular-nums">
 		--:--:--

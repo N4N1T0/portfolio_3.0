@@ -153,7 +153,7 @@ export default function ShellPrompt({
 					<div class="relative min-w-0 flex-1">
 						<span
 							aria-hidden="true"
-							class="pointer-events-none absolute inset-x-0 truncate px-2 text-sm"
+							class="pointer-events-none absolute inset-x-0 mt-2.25 ml-0.75 truncate px-2 text-sm"
 						>
 							<span class="invisible">{value}</span>
 							<span class="text-phosphor-dim">{suggestion}</span>

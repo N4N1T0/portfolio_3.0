@@ -18,13 +18,13 @@ const { rows } = Astro.props;
 		<li style={`--i: ${index}`}>
 			<a
 				href={row.href}
-				class="group flex min-w-0 items-baseline gap-3 px-1 py-1.5 transition-colors hover:bg-accent/10"
+				class="group flex min-w-0 items-baseline gap-2 px-1 py-1.5 transition-colors hover:bg-accent/10 sm:gap-3"
 			>
 				<span class="w-6 shrink-0 text-phosphor-dim">{String(index + 1).padStart(2, '0')}</span>
-				<span class="w-48 shrink-0 truncate text-phosphor-bright group-hover:underline">
+				<span class="min-w-0 flex-1 truncate text-phosphor-bright group-hover:underline sm:w-48 sm:flex-none">
 					{row.label}
 				</span>
-				<span class="line-clamp-2 min-w-0 flex-1 break-words text-phosphor-dim">{row.meta}</span>
+				<span class="hidden min-w-0 flex-1 truncate text-phosphor-dim sm:block">{row.meta}</span>
 				{row.badge && <span class="shrink-0 text-phosphor-dim">{row.badge}</span>}
 				<span class="shrink-0 text-accent" aria-hidden="true">
 					-&gt;
