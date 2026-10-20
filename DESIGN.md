@@ -38,17 +38,23 @@ moves is the blue, and it moves between three roles, never as decoration.
 
 ## Structure
 
-- `src/layouts/TerminalLayout.astro` — the html shell, the CRT overlays, the fixed top bar with the
-  pixel monogram and the live clock, the fixed bottom status bar, and the SEO head. The two bars
-  are pinned to the edges of the viewport and the body reserves their height, so the chrome never
-  scrolls away and the content never hides under it.
+Three layers, like a terminal with a status bar:
+
+- the content, which scrolls (`src/layouts/TerminalLayout.astro` renders the slot);
+- the prompt, fixed above the status bar on every page (`src/components/ShellPrompt.tsx`): the
+  same input, the same completion, the same history, everywhere;
+- the status bar, fixed at the bottom (`src/components/TerminalFooter.astro`): the navigation of
+  the site, the way a tmux status bar carries the session.
+
 - `src/components/TerminalFrame.tsx` — the window: square buttons, title `adrian@portfolio:~`.
 - `src/components/TerminalLoader.tsx` — the boot overlay: heading, BIOS lines, progress bar.
 - `src/components/TerminalContent.tsx` — the identity block. The first line is the `h1`.
 - `src/components/CommandList.tsx` — the command rows, each a real link.
-- `src/components/TerminalPrompt.tsx` — the prompt, the input and the output region.
 - `src/components/useTerminalSequence.ts` — the boot and typewriter timeline.
-- `src/components/useTerminalCommands.ts` — command parsing and navigation.
+- `src/components/useTerminalCommands.ts` — command parsing, navigation and the session history.
+- `src/lib/terminal-typing.ts` — the typewriter that can erase what it wrote.
+- `src/lib/terminal-suggest.ts` — the completion the prompt offers.
+- `src/lib/nav.ts` — the destinations of the status bar and of the commands.
 
 ## Motion
 

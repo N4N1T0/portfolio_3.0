@@ -21,6 +21,8 @@ export type Copy = {
 		accept: string;
 		notFound: string;
 		commandsLabel: string;
+		historyLabel: string;
+		pathLabel: string;
 	};
 	language: string;
 	newTab: string;
@@ -115,6 +117,8 @@ export const copy: Record<Locale, Copy> = {
 			accept: 'tab to accept',
 			notFound: 'command not found: {id}. type help for the list',
 			commandsLabel: 'commands',
+			historyLabel: 'history',
+			pathLabel: 'path',
 		},
 		language: 'Spanish',
 		newTab: 'new tab',
@@ -213,6 +217,8 @@ export const copy: Record<Locale, Copy> = {
 			accept: 'tab para aceptar',
 			notFound: 'comando no encontrado: {id}. escribe help para ver la lista',
 			commandsLabel: 'comandos',
+			historyLabel: 'historial',
+			pathLabel: 'ruta',
 		},
 		language: 'inglés',
 		newTab: 'pestaña nueva',

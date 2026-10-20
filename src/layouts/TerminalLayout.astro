@@ -3,9 +3,13 @@ import '@fontsource/geist-pixel/latin-400.css';
 import '@fontsource/geist-mono/latin-400.css';
 import '@fontsource/geist-mono/latin-500.css';
 import '../styles/global.css';
+import { getRelativeLocaleUrl } from 'astro:i18n';
 import SeoHead from '@/components/SeoHead.astro';
+import ShellPrompt from '@/components/ShellPrompt.tsx';
 import TerminalFooter from '@/components/TerminalFooter.astro';
 import TerminalHeader from '@/components/TerminalHeader.astro';
+import { copy } from '@/data/copy';
+import { buildCommands, buildNav } from '@/lib/nav';
 
 interface Props {
 	locale: 'en' | 'es';
@@ -15,6 +19,12 @@ interface Props {
 }
 
 const { locale, title, description, ogAlt } = Astro.props;
+const t = copy[locale];
+const altLocale = locale === 'en' ? 'es' : 'en';
+
+const nav = buildNav(locale);
+const commands = buildCommands(locale);
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
 
 <!doctype html>
@@ -32,7 +42,7 @@ const { locale, title, description, ogAlt } = Astro.props;
 			}
 		</script>
 	</head>
-	<body class="relative flex min-h-dvh flex-col overflow-x-hidden bg-ground pb-8 pt-9 font-mono text-phosphor antialiased">
+	<body class="relative flex min-h-dvh flex-col overflow-x-hidden bg-ground pb-[4.75rem] pt-9 font-mono text-phosphor antialiased">
 		<div
 			class="crt-scanlines pointer-events-none fixed inset-0 z-30 opacity-30"
 			aria-hidden="true"
@@ -45,6 +55,18 @@ const { locale, title, description, ogAlt } = Astro.props;
 			<slot />
 		</main>
 
-		<TerminalFooter locale={locale} />
+		<ShellPrompt
+			client:load
+			commands={commands}
+			altLocale={{ label: altLocale, href: getRelativeLocaleUrl(altLocale) }}
+			language={t.language}
+			prompt={t.prompt}
+			a11y={{ output: t.a11y.output }}
+			locale={locale}
+			homePath={getRelativeLocaleUrl(locale)}
+			currentPath={currentPath}
+		/>
+
+		<TerminalFooter locale={locale} nav={nav} currentPath={currentPath} />
 	</body>
 </html>
