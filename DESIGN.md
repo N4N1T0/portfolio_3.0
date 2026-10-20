@@ -41,10 +41,11 @@ moves is the blue, and it moves between three roles, never as decoration.
 Three layers, like a terminal with a status bar:
 
 - the content, which scrolls (`src/layouts/TerminalLayout.astro` renders the slot);
-- the prompt, fixed above the status bar on every page (`src/components/ShellPrompt.tsx`): the
-  same input, the same completion, the same history, everywhere;
-- the status bar, fixed at the bottom (`src/components/TerminalFooter.astro`): the navigation of
-  the site, the way a tmux status bar carries the session.
+- the shell, fixed at the bottom (`src/components/TerminalFooter.astro` and
+  `src/components/ShellPrompt.tsx`): the prompt, the output and the `ctrl-b` hint. The pages are
+  not links here, because a row of links would make the site look like a normal website;
+- the help dialog, opened with `ctrl-b`: the pages, the commands and the language, in a terminal
+  window of its own.
 
 - `src/components/TerminalFrame.tsx` — the window: square buttons, title `adrian@portfolio:~`.
 - `src/components/TerminalLoader.tsx` — the boot overlay: heading, BIOS lines, progress bar.
@@ -54,7 +55,7 @@ Three layers, like a terminal with a status bar:
 - `src/components/useTerminalCommands.ts` — command parsing, navigation and the session history.
 - `src/lib/terminal-typing.ts` — the typewriter that can erase what it wrote.
 - `src/lib/terminal-suggest.ts` — the completion the prompt offers.
-- `src/lib/nav.ts` — the destinations of the status bar and of the commands.
+- `src/lib/nav.ts` — the destinations of the commands and of the help dialog.
 
 ## Motion
 

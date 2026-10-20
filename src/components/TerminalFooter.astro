@@ -1,37 +1,38 @@
 ---
-import { copy } from '@/data/copy';
+import ShellPrompt from '@/components/ShellPrompt.tsx';
+import { copy, type Locale } from '@/data/copy';
+import type { NavItem } from '@/lib/nav';
 
 interface Props {
-	locale: 'en' | 'es';
-	nav: { id: string; label: string; href: string }[];
+	locale: Locale;
+	nav: NavItem[];
+	commands: import('@/data/commands').Command[];
+	altLocale: { label: string; href: string };
+	homePath: string;
 	currentPath: string;
 }
 
-const { locale, nav, currentPath } = Astro.props;
+const { locale, nav, commands, altLocale, homePath, currentPath } = Astro.props;
 const t = copy[locale];
 const buildDate = new Date().toLocaleDateString(locale === 'en' ? 'en-GB' : 'es-ES', {
 	year: 'numeric',
 	month: '2-digit',
 	day: '2-digit',
 });
-
-const isActive = (href: string) => href.replace(/\/$/, '') === currentPath;
 ---
 
-<footer class="fixed inset-x-0 bottom-0 z-20 flex h-8 items-center justify-between gap-4 border-t border-edge bg-ground px-4 font-mono text-xs text-phosphor-dim">
-	<span class="hidden truncate sm:inline">{t.footer.copyright}</span>
-	<nav aria-label={t.collections.projectsTitle} class="flex items-center gap-3 overflow-x-auto">
-		{nav.map((item) => (
-			<a
-				href={item.href}
-				aria-current={isActive(item.href) ? 'page' : undefined}
-				class="shrink-0 transition-colors hover:text-accent aria-[current]:text-accent"
-			>
-				{item.label}
-			</a>
-		))}
-	</nav>
-	<span class="shrink-0 tabular-nums">
-		{t.footer.build} {buildDate}
-	</span>
+<footer class="fixed inset-x-0 bottom-0 z-20 border-t border-edge bg-ground px-4 font-mono text-xs text-phosphor-dim">
+	<ShellPrompt
+		client:load
+		commands={commands}
+		nav={nav}
+		altLocale={altLocale}
+		prompt={t.prompt}
+		help={t.help}
+		a11y={{ output: t.a11y.output }}
+		locale={locale}
+		homePath={homePath}
+		currentPath={currentPath}
+		buildDate={buildDate}
+	/>
 </footer>

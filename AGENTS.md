@@ -84,11 +84,12 @@ ESLint (`no-restricted-imports`) blocks relative imports deeper than one hop: `.
   typewriter.
 - The prompt completes like an AI IDE: `src/lib/terminal-suggest.ts` offers the rest of the
   command as ghost text and `Tab` accepts it. Enter always runs the command.
-- The prompt is **global**: it lives in the layout, not in a page, so any page can be navigated by
-  typing. It answers `help`, `ls`, `history`, `pwd`, `clear`, `cd ~` and `cd -` (the previous page),
-  and the up and down arrows walk the session history, like bash.
-- The navigation lives in the fixed footer, the status bar of the terminal: every page shows
-  about, projects, blog and snippets, and the current one is marked with `aria-current`.
+- The prompt is **global** and lives in the fixed footer: the shell is the site, so every page is
+  navigated by typing. It answers `help`, `ls`, `history`, `pwd`, `clear`, `cd ~` and `cd -` (the
+  previous page), and the up and down arrows walk the session history, like bash.
+- The pages are not links in the chrome: `ctrl-b` opens the help dialog with the pages, the
+  commands and the language. A footer full of links would make the site look like a normal
+  website, and it is not one.
 - Collection views live in `src/components/collection`; each section has an index component and a
   detail component, and the route files under `src/pages/{en,es}` stay thin.
 - Prettier owns formatting: tabs, single quotes, print width 100. Do not hand-format, run

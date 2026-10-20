@@ -41,7 +41,7 @@ export default function Terminal({
 				<TerminalFrame title="adrian@portfolio:~">
 					<TerminalContent lines={lines} contentRef={refs.content} />
 
-					<div class="mt-5">
+					<div ref={refs.list} class="mt-5">
 						<CommandList
 							commands={commands}
 							altLocale={altLocale}

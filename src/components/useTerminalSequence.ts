@@ -10,8 +10,7 @@ type SequenceRefs = {
 	loader: RefObject<HTMLDivElement | null>;
 	bootLines: RefObject<HTMLDivElement | null>;
 	content: RefObject<HTMLDivElement | null>;
-	prompt: RefObject<HTMLDivElement | null>;
-	input: RefObject<HTMLInputElement | null>;
+	list: RefObject<HTMLDivElement | null>;
 };
 
 type Timeline = ReturnType<typeof createTimeline>;
@@ -21,8 +20,7 @@ export function useTerminalRefs(): SequenceRefs {
 		loader: useRef<HTMLDivElement>(null),
 		bootLines: useRef<HTMLDivElement>(null),
 		content: useRef<HTMLDivElement>(null),
-		prompt: useRef<HTMLDivElement>(null),
-		input: useRef<HTMLInputElement>(null),
+		list: useRef<HTMLDivElement>(null),
 	};
 }
 
@@ -41,35 +39,34 @@ function playBoot(
 	timeline.add(loader, { opacity: [1, 0], duration: 320, ease: 'outQuad' }, 1750);
 }
 
-/** Boots the terminal: loader, then the typewriter, then the prompt. */
+/** Boots the terminal: loader, then the typewriter, then the command list. */
 export function useTerminalSequence(
-	{ loader, bootLines, content, prompt, input }: SequenceRefs,
+	{ loader, bootLines, content, list }: SequenceRefs,
 	scripts: LineScript[],
 ) {
 	useEffect(() => {
 		const loaderEl = loader.current;
 		const bootEl = bootLines.current;
 		const contentEl = content.current;
-		const promptEl = prompt.current;
-		if (!loaderEl || !bootEl || !contentEl || !promptEl) return;
+		const listEl = list.current;
+		if (!loaderEl || !bootEl || !contentEl || !listEl) return;
 
 		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || hasBooted()) {
 			loaderEl.remove();
 			contentEl.style.opacity = '1';
-			promptEl.style.opacity = '1';
-			promptEl.style.pointerEvents = 'auto';
+			listEl.style.opacity = '1';
+			window.dispatchEvent(new CustomEvent('terminal:ready'));
 			return;
 		}
 
 		loaderEl.style.animation = 'none';
 		contentEl.style.opacity = '0';
-		promptEl.style.opacity = '0';
-		promptEl.style.pointerEvents = 'none';
+		listEl.style.opacity = '0';
 
 		const bootItems = Array.from(bootEl.querySelectorAll<HTMLElement>('[data-boot-line]'));
 		const heading = loaderEl.querySelector<HTMLElement>('[data-boot-heading]');
 		const lines = Array.from(contentEl.querySelectorAll<HTMLElement>('[data-line]'));
-		const commandRows = Array.from(promptEl.querySelectorAll<HTMLElement>('[data-command]'));
+		const commandRows = Array.from(listEl.querySelectorAll<HTMLElement>('[data-command]'));
 		const bar = loaderEl.querySelector<HTMLElement>('[data-bar]');
 
 		for (const row of commandRows) row.style.opacity = '0';
@@ -96,8 +93,7 @@ export function useTerminalSequence(
 					await job.done;
 				}
 				if (cancelled) return;
-				promptEl.style.opacity = '1';
-				promptEl.style.pointerEvents = 'auto';
+				listEl.style.opacity = '1';
 				if (commandRows.length > 0) {
 					animate(commandRows, {
 						opacity: [0, 1],
@@ -106,10 +102,7 @@ export function useTerminalSequence(
 						delay: stagger(45),
 					});
 				}
-				const idle = document.activeElement === document.body;
-				if (idle && window.matchMedia('(pointer: fine)').matches) {
-					input.current?.focus({ preventScroll: true });
-				}
+				window.dispatchEvent(new CustomEvent('terminal:ready'));
 			})();
 		}, 2050);
 
@@ -122,5 +115,5 @@ export function useTerminalSequence(
 			for (const job of jobs) job.cancel();
 			timeline.revert();
 		};
-	}, [loader, bootLines, content, prompt, input]);
+	}, [loader, bootLines, content, list]);
 }

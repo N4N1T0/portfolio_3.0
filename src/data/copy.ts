@@ -61,6 +61,14 @@ export type Copy = {
 		build: string;
 		license: string;
 	};
+	help: {
+		title: string;
+		pages: string;
+		commands: string;
+		close: string;
+		language: string;
+		items: { id: string; hint: string }[];
+	};
 	commands: {
 		id: string;
 		hint: string;
@@ -157,6 +165,22 @@ export const copy: Record<Locale, Copy> = {
 			stack: 'ASTRO 7 · TAILWIND 4 · PREACT 11',
 			build: 'build',
 			license: 'MIT',
+		},
+		help: {
+			title: 'HELP',
+			pages: 'PAGES',
+			commands: 'COMMANDS',
+			close: 'esc to close',
+			language: 'LANGUAGE',
+			items: [
+				{ id: 'help / ls', hint: 'list everything' },
+				{ id: 'cd <page>', hint: 'go to a page' },
+				{ id: 'cd ~', hint: 'go home' },
+				{ id: 'cd -', hint: 'go back' },
+				{ id: 'history', hint: 'what you already ran' },
+				{ id: 'pwd', hint: 'current path' },
+				{ id: 'clear', hint: 'clean the output' },
+			],
 		},
 		commands: [
 			{ id: 'about', hint: 'who I am', external: false },
@@ -257,6 +281,22 @@ export const copy: Record<Locale, Copy> = {
 			stack: 'ASTRO 7 · TAILWIND 4 · PREACT 11',
 			build: 'build',
 			license: 'MIT',
+		},
+		help: {
+			title: 'AYUDA',
+			pages: 'PÁGINAS',
+			commands: 'COMANDOS',
+			close: 'esc para cerrar',
+			language: 'IDIOMA',
+			items: [
+				{ id: 'help / ls', hint: 'listar todo' },
+				{ id: 'cd <página>', hint: 'ir a una página' },
+				{ id: 'cd ~', hint: 'ir al inicio' },
+				{ id: 'cd -', hint: 'volver atrás' },
+				{ id: 'history', hint: 'lo que ya ejecutaste' },
+				{ id: 'pwd', hint: 'ruta actual' },
+				{ id: 'clear', hint: 'limpiar la salida' },
+			],
 		},
 		commands: [
 			{ id: 'about', hint: 'quién soy', external: false },

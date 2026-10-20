@@ -5,10 +5,8 @@ import '@fontsource/geist-mono/latin-500.css';
 import '../styles/global.css';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import SeoHead from '@/components/SeoHead.astro';
-import ShellPrompt from '@/components/ShellPrompt.tsx';
 import TerminalFooter from '@/components/TerminalFooter.astro';
 import TerminalHeader from '@/components/TerminalHeader.astro';
-import { copy } from '@/data/copy';
 import { buildCommands, buildNav } from '@/lib/nav';
 
 interface Props {
@@ -19,7 +17,6 @@ interface Props {
 }
 
 const { locale, title, description, ogAlt } = Astro.props;
-const t = copy[locale];
 const altLocale = locale === 'en' ? 'es' : 'en';
 
 const nav = buildNav(locale);
@@ -55,18 +52,13 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 			<slot />
 		</main>
 
-		<ShellPrompt
-			client:load
+		<TerminalFooter
+			locale={locale}
+			nav={nav}
 			commands={commands}
 			altLocale={{ label: altLocale, href: getRelativeLocaleUrl(altLocale) }}
-			language={t.language}
-			prompt={t.prompt}
-			a11y={{ output: t.a11y.output }}
-			locale={locale}
 			homePath={getRelativeLocaleUrl(locale)}
 			currentPath={currentPath}
 		/>
-
-		<TerminalFooter locale={locale} nav={nav} currentPath={currentPath} />
 	</body>
 </html>
