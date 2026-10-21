@@ -1,20 +1,15 @@
 ---
-import { getRelativeLocaleUrl } from 'astro:i18n';
-import SocialMeta from '@/components/SocialMeta.astro';
 import { profile } from '@/data/profile';
+import { type SeoProps } from '@/lib/seo';
+import SocialMeta from '@/components/SocialMeta.astro';
 
-interface Props {
-	locale: 'en' | 'es';
-	title: string;
-	description: string;
-	ogAlt: string;
-}
+type Props = SeoProps;
 
 const { locale, title, description, ogAlt } = Astro.props;
+const { alternateHref, alternateLang, breadcrumbs, blogPosting } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
-const alternateEn = new URL(getRelativeLocaleUrl('en'), Astro.site).href;
-const alternateEs = new URL(getRelativeLocaleUrl('es'), Astro.site).href;
+const alternateEn = new URL('/en/', Astro.site).href;
 const ogImage = new URL(locale === 'en' ? '/og.png' : '/og-es.png', Astro.site).href;
 
 const jsonLd = {
@@ -39,6 +34,48 @@ const jsonLd = {
 			homeLocation: { '@type': 'Place', name: profile.location },
 			sameAs: profile.socials.map((social) => social.url),
 		},
+		...(blogPosting
+			? [
+					{
+						'@type': 'BlogPosting',
+						'@id': `${canonical}#blogpost`,
+						url: blogPosting.url,
+						headline: blogPosting.title,
+						description: blogPosting.description,
+						datePublished: blogPosting.datePublished,
+						...(blogPosting.dateModified && {
+							dateModified: blogPosting.dateModified,
+						}),
+						author: {
+							'@type': 'Person',
+							name: blogPosting.author,
+						},
+						publisher: {
+							'@type': 'Organization',
+							name: 'Adrian Alvarez',
+							url: Astro.site,
+						},
+						...(blogPosting.image && { image: blogPosting.image }),
+						mainEntityOfPage: {
+							'@type': 'WebPage',
+							'@id': canonical,
+						},
+					},
+				]
+			: []),
+		...(breadcrumbs
+			? [
+					{
+						'@type': 'BreadcrumbList',
+						itemListElement: breadcrumbs.map((crumb, index) => ({
+							'@type': 'ListItem',
+							position: index + 1,
+							name: crumb.name,
+							item: crumb.href,
+						})),
+					},
+				]
+			: []),
 	],
 };
 ---
@@ -50,8 +87,10 @@ const jsonLd = {
 <meta name="description" content={description} />
 <meta name="robots" content="index, follow" />
 <link rel="canonical" href={canonical} />
-<link rel="alternate" hreflang="en" href={alternateEn} />
-<link rel="alternate" hreflang="es" href={alternateEs} />
+<link rel="alternate" hreflang={locale} href={canonical} />
+{alternateHref && alternateLang && (
+	<link rel="alternate" hreflang={alternateLang} href={alternateHref} />
+)}
 <link rel="alternate" hreflang="x-default" href={alternateEn} />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="icon" href="/favicon.ico" />

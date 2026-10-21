@@ -43,6 +43,8 @@ const { data } = project;
 				<Image
 					src={image.src}
 					alt={image.alt}
+					width={image.src.width}
+					height={image.src.height}
 					widths={[400, 800, 1200]}
 					sizes="(max-width: 896px) 100vw, 672px"
 					loading="lazy"

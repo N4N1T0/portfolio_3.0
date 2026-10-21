@@ -5,20 +5,25 @@ import '@fontsource/geist-mono/latin-500.css';
 import '../styles/global.css';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { copy } from '@/data/copy';
+import { type SeoProps } from '@/lib/seo';
 import SeoHead from '@/components/SeoHead.astro';
 import TerminalBoot from '@/components/TerminalBoot.islas.tsx';
 import TerminalFooter from '@/components/TerminalFooter.astro';
 import TerminalHeader from '@/components/TerminalHeader.astro';
 import { buildCommands, buildNav } from '@/lib/nav';
 
-interface Props {
-	locale: 'en' | 'es';
-	title: string;
-	description: string;
-	ogAlt: string;
-}
+type Props = SeoProps;
 
-const { locale, title, description, ogAlt } = Astro.props;
+const {
+	locale,
+	title,
+	description,
+	ogAlt,
+	alternateHref,
+	alternateLang,
+	breadcrumbs,
+	blogPosting,
+} = Astro.props;
 const altLocale = locale === 'en' ? 'es' : 'en';
 const t = copy[locale];
 
@@ -33,7 +38,16 @@ const isHome = currentPath === `/${locale}`;
 <!doctype html>
 <html lang={locale}>
 	<head>
-		<SeoHead locale={locale} title={title} description={description} ogAlt={ogAlt} />
+		<SeoHead
+			locale={locale}
+			title={title}
+			description={description}
+			ogAlt={ogAlt}
+			alternateHref={alternateHref}
+			alternateLang={alternateLang}
+			breadcrumbs={breadcrumbs}
+			blogPosting={blogPosting}
+		/>
 		<script is:inline>
 			// the terminal boots once per session: hide the page shell before it paints
 			// and reveal it when the loader sequence finishes (terminal:ready).

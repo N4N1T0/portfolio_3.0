@@ -18,6 +18,12 @@ interface Props {
 const { locale, path, titleKey, subtitleKey, length, rows } = Astro.props;
 const t = copy[locale];
 const alt: Locale = locale === 'en' ? 'es' : 'en';
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const breadcrumbs = [
+	{ name: t.collections.back, href: getRelativeLocaleUrl(locale) },
+	{ name: t.collections[titleKey], href: canonical },
+];
 ---
 
 <TerminalLayout
@@ -25,6 +31,7 @@ const alt: Locale = locale === 'en' ? 'es' : 'en';
 	title={`${t.collections[titleKey]} — Adrián Álvarez`}
 	description={t.collections[subtitleKey]}
 	ogAlt={`${t.collections[titleKey]} — Adrián Álvarez`}
+	breadcrumbs={breadcrumbs}
 >
 	<div class="mx-auto w-full max-w-4xl px-4 py-6 sm:px-6">
 		<TerminalWindow path={`~/${path}`}>

@@ -8,6 +8,7 @@ const blog = defineCollection({
 		z.object({
 			title: z.string().max(70),
 			date: z.date(),
+			dateModified: z.date().optional(),
 			excerpt: z.string(),
 			author: z.string(),
 			counterpartId: z.string(),
