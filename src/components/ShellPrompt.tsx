@@ -53,10 +53,23 @@ export default function ShellPrompt({
 	copyright,
 	socials,
 }: Props) {
+	const [numericEntries, setNumericEntries] = useState<
+		Array<{ number: number; label: string; href: string }>
+	>([]);
+	useEffect(() => {
+		try {
+			const raw = sessionStorage.getItem('terminal:numeric-nav');
+			if (raw) setNumericEntries(JSON.parse(raw));
+		} catch {
+			// ignore
+		}
+	}, []);
+
 	const { output, value, setValue, run } = useTerminalCommands(commands, prompt, {
 		locale,
 		homePath,
 		currentPath,
+		numericEntries,
 	});
 	const [historyIndex, setHistoryIndex] = useState(-1);
 	const [helpOpen, setHelpOpen] = useState(false);
@@ -268,6 +281,16 @@ export default function ShellPrompt({
 								</ul>
 							</div>
 						</div>
+
+						{currentPath.includes('/blog/') ||
+						currentPath.includes('/projects/') ||
+						currentPath.includes('/snippets/') ? (
+							<div class="border-t border-edge px-4 py-2 text-xs text-phosphor-dim">
+								{locale === 'es'
+									? 'cd <n>: abre la entrada n en esta página'
+									: 'cd <n>: open entry n on this page'}
+							</div>
+						) : null}
 
 						<div class="border-t border-edge px-4 py-2 text-xs text-phosphor-dim">{help.close}</div>
 					</div>

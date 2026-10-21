@@ -20,10 +20,10 @@ export const profile = {
 			url: 'https://www.linkedin.com/in/adrian-nano-alvarez',
 		},
 		{
-			id: 'x',
-			label: 'X',
-			handle: '@AdrianlvarezAl1',
-			url: 'https://x.com/AdrianlvarezAl1',
+			id: 'email',
+			label: 'Email',
+			handle: 'adrian.alvarezalonso1991@gmail.com',
+			url: 'mailto:adrian.alvarezalonso1991@gmail.com',
 		},
 	],
 } as const;

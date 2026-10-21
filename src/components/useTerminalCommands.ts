@@ -13,6 +13,7 @@ type Options = {
 	locale: string;
 	homePath: string;
 	currentPath: string;
+	numericEntries?: Array<{ number: number; label: string; href: string }>;
 };
 
 export function useTerminalCommands(commands: Command[], prompt: PromptCopy, options: Options) {
@@ -70,6 +71,19 @@ export function useTerminalCommands(commands: Command[], prompt: PromptCopy, opt
 			pushHistory('cd ~');
 			window.location.href = options.homePath;
 			return;
+		}
+
+		if (id.startsWith('cd ') && options.numericEntries) {
+			const n = Number(id.slice(3).trim());
+			if (Number.isInteger(n) && n > 0) {
+				const entry = options.numericEntries.find((item) => item.number === n);
+				if (entry) {
+					setOutput((prev) => [...prev, `$ cd ${n}`]);
+					pushHistory(`cd ${n}`);
+					window.location.href = entry.href;
+					return;
+				}
+			}
 		}
 
 		const target = id.startsWith('cd ') ? id.slice(3).trim() : id;

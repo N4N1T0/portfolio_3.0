@@ -24,6 +24,13 @@ const breadcrumbs = [
 	{ name: t.collections.back, href: getRelativeLocaleUrl(locale) },
 	{ name: t.collections[titleKey], href: canonical },
 ];
+
+const numericEntries = rows.map((row, index) => ({
+	number: index + 1,
+	label: row.label,
+	href: row.href,
+}));
+const _numericEntriesJson = JSON.stringify(numericEntries);
 ---
 
 <TerminalLayout
@@ -54,3 +61,7 @@ const breadcrumbs = [
 		</TerminalWindow>
 	</div>
 </TerminalLayout>
+
+<script is:inline>
+	sessionStorage.setItem('terminal:numeric-nav', { _numericEntriesJson });
+</script>
