@@ -116,6 +116,8 @@ export default function ShellPrompt({
 
 	useEffect(() => {
 		const onKey = (event: KeyboardEvent) => {
+			// ignore shortcuts while the boot loader owns the screen
+			if (document.documentElement.dataset.booting === 'true') return;
 			if (event.ctrlKey && event.key.toLowerCase() === 'b') {
 				event.preventDefault();
 				setHelpOpen((open) => !open);
@@ -138,6 +140,7 @@ export default function ShellPrompt({
 	}, []);
 
 	function focusInput() {
+		if (document.documentElement.dataset.booting === 'true') return;
 		inputRef.current?.focus({ preventScroll: true });
 	}
 

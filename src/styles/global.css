@@ -228,6 +228,12 @@
 	padding: 0 0.25rem;
 }
 
+/* The prompt stays hidden and inert until the boot loader finishes. */
+html[data-booting] footer {
+	opacity: 0;
+	pointer-events: none;
+}
+
 /* Fallback for the no-JS case: the loader clears itself and the text stays visible. */
 @utility loader-exit {
 	animation: loader-exit 400ms ease 2.4s forwards;

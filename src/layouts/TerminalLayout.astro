@@ -49,27 +49,24 @@ const isHome = currentPath === `/${locale}`;
 			blogPosting={blogPosting}
 		/>
 		<script is:inline>
-			// the terminal boots once per session: hide the page shell before it paints
-			// and reveal it when the loader sequence finishes (terminal:ready).
+			// the terminal boots once per session: the footer prompt stays hidden and
+			// inert until the loader sequence finishes and emits terminal:ready.
 			(function () {
 				const html = document.documentElement;
-				const shell = document.getElementById('shell');
-				if (sessionStorage.getItem('terminal:booted')) {
+				function reveal() {
 					html.dataset.booted = 'true';
-					if (shell) shell.style.opacity = '1';
+					delete html.dataset.booting;
+					const footer = document.querySelector('footer');
+					if (footer) footer.inert = false;
+				}
+				if (sessionStorage.getItem('terminal:booted')) {
+					reveal();
 					return;
 				}
 				html.dataset.booting = 'true';
-				if (shell) shell.style.opacity = '0';
-				window.addEventListener(
-					'terminal:ready',
-					function () {
-						html.dataset.booted = 'true';
-						delete html.dataset.booting;
-						if (shell) shell.style.opacity = '1';
-					},
-					{ once: true },
-				);
+				window.addEventListener('terminal:ready', reveal, { once: true });
+				// never leave a failed boot with an unusable page
+				setTimeout(reveal, 8000);
 			})();
 		</script>
 	</head>
@@ -95,6 +92,13 @@ const isHome = currentPath === `/${locale}`;
 				homePath={getRelativeLocaleUrl(locale)}
 				currentPath={currentPath}
 			/>
+			<script is:inline>
+				// the prompt cannot be used while the boot loader is on screen
+				if (document.documentElement.dataset.booting === 'true') {
+					const footer = document.querySelector('footer');
+					if (footer) footer.inert = true;
+				}
+			</script>
 		</div>
 
 		{!isHome && <TerminalBoot client:load boot={t.boot} a11yLabel={t.a11y.loader} />}
