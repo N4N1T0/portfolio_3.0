@@ -3,6 +3,7 @@ import { getRelativeLocaleUrl } from 'astro:i18n';
 import BackRow from '@/components/collection/BackRow.astro';
 import EntryList, { type Row } from '@/components/collection/EntryList.astro';
 import TerminalWindow from '@/components/TerminalWindow.astro';
+import NumericNavSetter from '@/components/collection/NumericNavSetter.islas.tsx';
 import { copy, type Copy, type Locale } from '@/data/copy';
 import TerminalLayout from '@/layouts/TerminalLayout.astro';
 
@@ -25,7 +26,7 @@ const breadcrumbs = [
 	{ name: t.collections[titleKey], href: canonical },
 ];
 
-const _numericEntries = rows.map((row, index) => ({
+const numericEntries = rows.map((row, index) => ({
 	number: index + 1,
 	label: row.label,
 	href: row.href,
@@ -61,9 +62,4 @@ const _numericEntries = rows.map((row, index) => ({
 	</div>
 </TerminalLayout>
 
-<script is:inline>
-	sessionStorage.setItem(
-		'terminal:numeric-nav',
-		JSON.stringify({ numericEntries: _numericEntries }),
-	);
-</script>
+<NumericNavSetter client:load entries={numericEntries} />

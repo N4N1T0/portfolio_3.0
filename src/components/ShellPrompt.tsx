@@ -57,12 +57,17 @@ export default function ShellPrompt({
 		Array<{ number: number; label: string; href: string }>
 	>([]);
 	useEffect(() => {
-		try {
-			const raw = sessionStorage.getItem('terminal:numeric-nav');
-			if (raw) setNumericEntries(JSON.parse(raw).numericEntries);
-		} catch {
-			// ignore
-		}
+		const load = () => {
+			try {
+				const raw = sessionStorage.getItem('terminal:numeric-nav');
+				if (raw) setNumericEntries(JSON.parse(raw).numericEntries);
+			} catch {
+				// ignore
+			}
+		};
+		load();
+		window.addEventListener('terminal:numeric-nav', load);
+		return () => window.removeEventListener('terminal:numeric-nav', load);
 	}, []);
 
 	const { output, value, setValue, run } = useTerminalCommands(commands, prompt, {
