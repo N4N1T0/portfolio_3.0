@@ -4,7 +4,9 @@ import '@fontsource/geist-mono/latin-400.css';
 import '@fontsource/geist-mono/latin-500.css';
 import '../styles/global.css';
 import { getRelativeLocaleUrl } from 'astro:i18n';
+import { copy } from '@/data/copy';
 import SeoHead from '@/components/SeoHead.astro';
+import TerminalBoot from '@/components/TerminalBoot.islas.tsx';
 import TerminalFooter from '@/components/TerminalFooter.astro';
 import TerminalHeader from '@/components/TerminalHeader.astro';
 import { buildCommands, buildNav } from '@/lib/nav';
@@ -18,10 +20,14 @@ interface Props {
 
 const { locale, title, description, ogAlt } = Astro.props;
 const altLocale = locale === 'en' ? 'es' : 'en';
+const t = copy[locale];
 
 const nav = buildNav(locale);
 const commands = buildCommands(locale);
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+// home already runs its own boot sequence inside Terminal: the layout only
+// boots the other pages when they are entered directly for the first time.
+const isHome = currentPath === `/${locale}`;
 ---
 
 <!doctype html>
@@ -29,14 +35,28 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 	<head>
 		<SeoHead locale={locale} title={title} description={description} ogAlt={ogAlt} />
 		<script is:inline>
-			// the terminal boots once per session: hide the loader before it paints
-			try {
+			// the terminal boots once per session: hide the page shell before it paints
+			// and reveal it when the loader sequence finishes (terminal:ready).
+			(function () {
+				const html = document.documentElement;
+				const shell = document.getElementById('shell');
 				if (sessionStorage.getItem('terminal:booted')) {
-					document.documentElement.dataset.booted = 'true';
+					html.dataset.booted = 'true';
+					if (shell) shell.style.opacity = '1';
+					return;
 				}
-			} catch {
-				// private mode: the boot plays again
-			}
+				html.dataset.booting = 'true';
+				if (shell) shell.style.opacity = '0';
+				window.addEventListener(
+					'terminal:ready',
+					function () {
+						html.dataset.booted = 'true';
+						delete html.dataset.booting;
+						if (shell) shell.style.opacity = '1';
+					},
+					{ once: true },
+				);
+			})();
 		</script>
 	</head>
 	<body class="relative flex min-h-dvh flex-col overflow-x-hidden bg-ground pb-[4.75rem] pt-9 font-mono text-phosphor antialiased">
@@ -48,17 +68,21 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 
 		<TerminalHeader locale={locale} />
 
-		<main id="main" class="relative z-10 flex-1">
-			<slot />
-		</main>
+		<div id="shell" class="relative z-10">
+			<main id="main" class="flex-1">
+				<slot />
+			</main>
 
-		<TerminalFooter
-			locale={locale}
-			nav={nav}
-			commands={commands}
-			altLocale={{ label: altLocale, href: getRelativeLocaleUrl(altLocale) }}
-			homePath={getRelativeLocaleUrl(locale)}
-			currentPath={currentPath}
-		/>
+			<TerminalFooter
+				locale={locale}
+				nav={nav}
+				commands={commands}
+				altLocale={{ label: altLocale, href: getRelativeLocaleUrl(altLocale) }}
+				homePath={getRelativeLocaleUrl(locale)}
+				currentPath={currentPath}
+			/>
+		</div>
+
+		{!isHome && <TerminalBoot boot={t.boot} a11yLabel={t.a11y.loader} />}
 	</body>
 </html>

@@ -24,7 +24,7 @@ export function useTerminalRefs(): SequenceRefs {
 	};
 }
 
-function playBoot(
+export function playBoot(
 	timeline: Timeline,
 	heading: HTMLElement | null,
 	bootItems: HTMLElement[],

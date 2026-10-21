@@ -16,14 +16,8 @@ export const profile = {
 		{
 			id: 'linkedin',
 			label: 'LinkedIn',
-			handle: 'adrian-alvarez-alonso',
-			url: 'https://www.linkedin.com/in/adrian-alvarez-alonso-front-end-developer',
-		},
-		{
-			id: 'devto',
-			label: 'dev.to',
-			handle: 'n4n1t0',
-			url: 'https://dev.to/n4n1t0',
+			handle: 'adrian-nano-alvarez',
+			url: 'https://www.linkedin.com/in/adrian-nano-alvarez',
 		},
 		{
 			id: 'x',

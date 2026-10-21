@@ -192,7 +192,7 @@ export const copy: Record<Locale, Copy> = {
 			{ id: 'snippets', hint: 'small components', external: false },
 			{ id: 'github', hint: 'source code', external: true },
 			{ id: 'linkedin', hint: 'profile', external: true },
-			{ id: 'devto', hint: 'articles', external: true },
+
 			{ id: 'email', hint: 'adrian.alvarezalonso1991@gmail.com', external: false },
 		],
 		a11y: {
@@ -296,7 +296,7 @@ export const copy: Record<Locale, Copy> = {
 			{ id: 'snippets', hint: 'componentes pequeños', external: false },
 			{ id: 'github', hint: 'código fuente', external: true },
 			{ id: 'linkedin', hint: 'perfil', external: true },
-			{ id: 'devto', hint: 'artículos', external: true },
+
 			{ id: 'email', hint: 'adrian.alvarezalonso1991@gmail.com', external: false },
 		],
 		a11y: {

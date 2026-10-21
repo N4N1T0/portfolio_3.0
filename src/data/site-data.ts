@@ -51,7 +51,7 @@ export const USER_DATA = {
 			icon: 'linkedIn',
 			title: 'LinkedIn',
 			description: 'adrian-alvarez-alonso-front-end-developer',
-			href: 'https://www.linkedin.com/in/adrian-alvarez-alonso-front-end-developer',
+			href: 'https://www.linkedin.com/in/adrian-nano-alvarez',
 		},
 		{
 			icon: 'github',
