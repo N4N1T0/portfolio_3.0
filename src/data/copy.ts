@@ -81,6 +81,21 @@ export type Copy = {
 	};
 };
 
+const fullstackTyping = (prefix: string, suffix: string) =>
+	[
+		{ type: 'type', text: prefix },
+		{ type: 'type', text: 'Frontend' },
+		{ type: 'wait', ms: 620 },
+		{ type: 'erase', text: 'Frontend' },
+		{ type: 'wait', ms: 240 },
+		{ type: 'type', text: 'Backend' },
+		{ type: 'wait', ms: 620 },
+		{ type: 'erase', text: 'Backend' },
+		{ type: 'wait', ms: 240 },
+		{ type: 'type', text: 'Fullstack' },
+		{ type: 'type', text: suffix },
+	] satisfies LineScript;
+
 export const copy: Record<Locale, Copy> = {
 	en: {
 		lang: 'en',
@@ -101,19 +116,7 @@ export const copy: Record<Locale, Copy> = {
 		},
 		lines: [
 			[{ type: 'type', text: "Adrián 'Nano' Álvarez Alonso" }],
-			[
-				{ type: 'type', text: 'Senior ' },
-				{ type: 'type', text: 'Frontend' },
-				{ type: 'wait', ms: 620 },
-				{ type: 'erase', text: 'Frontend' },
-				{ type: 'wait', ms: 240 },
-				{ type: 'type', text: 'Backend' },
-				{ type: 'wait', ms: 620 },
-				{ type: 'erase', text: 'Backend' },
-				{ type: 'wait', ms: 240 },
-				{ type: 'type', text: 'Fullstack' },
-				{ type: 'type', text: ' Engineer' },
-			],
+			fullstackTyping('Senior ', ' Engineer'),
 			[{ type: 'type', text: 'I build APIs, interfaces and data systems in production.' }],
 			[],
 			[{ type: 'type', text: 'Fullstack Engineer at Kreitech · Asturias, España' }],
@@ -217,19 +220,7 @@ export const copy: Record<Locale, Copy> = {
 		},
 		lines: [
 			[{ type: 'type', text: "Adrián 'Nano' Álvarez Alonso" }],
-			[
-				{ type: 'type', text: 'Ingeniero ' },
-				{ type: 'type', text: 'Frontend' },
-				{ type: 'wait', ms: 620 },
-				{ type: 'erase', text: 'Frontend' },
-				{ type: 'wait', ms: 240 },
-				{ type: 'type', text: 'Backend' },
-				{ type: 'wait', ms: 620 },
-				{ type: 'erase', text: 'Backend' },
-				{ type: 'wait', ms: 240 },
-				{ type: 'type', text: 'Fullstack' },
-				{ type: 'type', text: ' Senior' },
-			],
+			fullstackTyping('Ingeniero ', ' Senior'),
 			[{ type: 'type', text: 'Construyo APIs, interfaces y sistemas de datos en producción.' }],
 			[],
 			[{ type: 'type', text: 'Ingeniero Fullstack en Kreitech · Asturias, España' }],

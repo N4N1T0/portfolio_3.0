@@ -8,11 +8,6 @@
 			"source": "/",
 			"destination": "/en/",
 			"permanent": true
-		},
-		{
-			"source": "/(en|es)/(projects|blog|snippets)/:slug",
-			"destination": "/:1/:2/:slug/",
-			"permanent": true
 		}
 	],
 	"headers": [
