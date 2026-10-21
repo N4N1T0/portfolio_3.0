@@ -1,6 +1,7 @@
 ---
 import ShellPrompt from '@/components/ShellPrompt.tsx';
 import { copy, type Locale } from '@/data/copy';
+import { profile } from '@/data/profile';
 import type { NavItem } from '@/lib/nav';
 
 interface Props {
@@ -35,5 +36,6 @@ const buildDate = new Date().toLocaleDateString(locale === 'en' ? 'en-GB' : 'es-
 		currentPath={currentPath}
 		buildDate={buildDate}
 		copyright={t.footer.copyright}
+		socials={profile.socials}
 	/>
 </footer>

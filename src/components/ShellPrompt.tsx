@@ -36,6 +36,7 @@ type Props = {
 	currentPath: string;
 	buildDate: string;
 	copyright: string;
+	socials: readonly { id: string; label: string; handle: string; url: string }[];
 };
 
 export default function ShellPrompt({
@@ -50,6 +51,7 @@ export default function ShellPrompt({
 	currentPath,
 	buildDate,
 	copyright,
+	socials,
 }: Props) {
 	const { output, value, setValue, run } = useTerminalCommands(commands, prompt, {
 		locale,
@@ -205,7 +207,7 @@ export default function ShellPrompt({
 							<span class="ml-2">adrian@portfolio:~/help</span>
 						</div>
 
-						<div class="grid gap-6 px-4 py-5 sm:grid-cols-2">
+						<div class="grid gap-6 px-4 py-5 sm:grid-cols-3">
 							<div>
 								<p class="text-xs text-phosphor-bright">{help.pages}</p>
 								<ul class="mt-2 space-y-1 font-mono text-sm">
@@ -242,6 +244,25 @@ export default function ShellPrompt({
 										<li key={item.id} class="flex items-baseline gap-3">
 											<span class="w-28 shrink-0 text-accent">{item.id}</span>
 											<span class="text-phosphor-dim">{item.hint}</span>
+										</li>
+									))}
+								</ul>
+							</div>
+
+							<div>
+								<p class="text-xs text-phosphor-bright">Socials</p>
+								<ul class="mt-2 space-y-1 font-mono text-sm">
+									{socials.map((social) => (
+										<li key={social.id}>
+											<a
+												href={social.url}
+												target="_blank"
+												rel="noopener noreferrer"
+												class="flex items-baseline gap-3 text-accent hover:underline"
+											>
+												<span class="w-24 shrink-0">{social.label}</span>
+												<span class="text-phosphor-dim">{social.handle}</span>
+											</a>
 										</li>
 									))}
 								</ul>

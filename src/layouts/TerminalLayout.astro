@@ -97,6 +97,6 @@ const isHome = currentPath === `/${locale}`;
 			/>
 		</div>
 
-		{!isHome && <TerminalBoot boot={t.boot} a11yLabel={t.a11y.loader} />}
+		{!isHome && <TerminalBoot client:load boot={t.boot} a11yLabel={t.a11y.loader} />}
 	</body>
 </html>
