@@ -59,7 +59,7 @@ export default function ShellPrompt({
 	useEffect(() => {
 		try {
 			const raw = sessionStorage.getItem('terminal:numeric-nav');
-			if (raw) setNumericEntries(JSON.parse(raw));
+			if (raw) setNumericEntries(JSON.parse(raw).numericEntries);
 		} catch {
 			// ignore
 		}
@@ -220,8 +220,8 @@ export default function ShellPrompt({
 							<span class="ml-2">adrian@portfolio:~/help</span>
 						</div>
 
-						<div class="grid gap-6 px-4 py-5 sm:grid-cols-3">
-							<div>
+						<div class="grid gap-6 px-4 py-5 sm:grid-cols-2">
+							<div class="min-w-0">
 								<p class="text-xs text-phosphor-bright">{help.pages}</p>
 								<ul class="mt-2 space-y-1 font-mono text-sm">
 									{nav.map((item) => (
@@ -231,7 +231,7 @@ export default function ShellPrompt({
 												class="flex items-baseline gap-3 text-accent hover:underline"
 											>
 												<span class="w-24 shrink-0">{item.label}</span>
-												<span class="text-phosphor-dim">
+												<span class="min-w-0 truncate text-phosphor-dim">
 													{commands.find((command) => command.id === item.id)?.hint}
 												</span>
 											</a>
@@ -244,25 +244,25 @@ export default function ShellPrompt({
 											class="flex items-baseline gap-3 text-accent hover:underline"
 										>
 											<span class="w-24 shrink-0">{altLocale.label}</span>
-											<span class="text-phosphor-dim">{help.language}</span>
+											<span class="min-w-0 truncate text-phosphor-dim">{help.language}</span>
 										</a>
 									</li>
 								</ul>
 							</div>
 
-							<div>
+							<div class="min-w-0">
 								<p class="text-xs text-phosphor-bright">{help.commands}</p>
 								<ul class="mt-2 space-y-1 font-mono text-sm">
 									{help.items.map((item) => (
 										<li key={item.id} class="flex items-baseline gap-3">
 											<span class="w-28 shrink-0 text-accent">{item.id}</span>
-											<span class="text-phosphor-dim">{item.hint}</span>
+											<span class="min-w-0 truncate text-phosphor-dim">{item.hint}</span>
 										</li>
 									))}
 								</ul>
 							</div>
 
-							<div>
+							<div class="min-w-0 sm:col-span-2">
 								<p class="text-xs text-phosphor-bright">Socials</p>
 								<ul class="mt-2 space-y-1 font-mono text-sm">
 									{socials.map((social) => (
@@ -274,7 +274,7 @@ export default function ShellPrompt({
 												class="flex items-baseline gap-3 text-accent hover:underline"
 											>
 												<span class="w-24 shrink-0">{social.label}</span>
-												<span class="text-phosphor-dim">{social.handle}</span>
+												<span class="min-w-0 truncate text-phosphor-dim">{social.handle}</span>
 											</a>
 										</li>
 									))}

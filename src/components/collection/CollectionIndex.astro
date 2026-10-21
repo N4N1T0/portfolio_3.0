@@ -25,12 +25,11 @@ const breadcrumbs = [
 	{ name: t.collections[titleKey], href: canonical },
 ];
 
-const numericEntries = rows.map((row, index) => ({
+const _numericEntries = rows.map((row, index) => ({
 	number: index + 1,
 	label: row.label,
 	href: row.href,
 }));
-const _numericEntriesJson = JSON.stringify(numericEntries);
 ---
 
 <TerminalLayout
@@ -63,5 +62,8 @@ const _numericEntriesJson = JSON.stringify(numericEntries);
 </TerminalLayout>
 
 <script is:inline>
-	sessionStorage.setItem('terminal:numeric-nav', { _numericEntriesJson });
+	sessionStorage.setItem(
+		'terminal:numeric-nav',
+		JSON.stringify({ numericEntries: _numericEntries }),
+	);
 </script>

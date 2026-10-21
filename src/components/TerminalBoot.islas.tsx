@@ -17,7 +17,11 @@ export default function TerminalBoot({ boot, a11yLabel }: Props) {
 	const bootLinesRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
-		if (hasBooted()) return;
+		if (hasBooted()) {
+			// already booted: nothing to play, but make sure the shell is revealed
+			window.dispatchEvent(new CustomEvent('terminal:ready'));
+			return;
+		}
 		const loaderEl = loaderRef.current;
 		const bootEl = bootLinesRef.current;
 		if (!loaderEl || !bootEl) return;
