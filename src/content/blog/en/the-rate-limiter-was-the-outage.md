@@ -5,7 +5,6 @@ excerpt: 'A KV-backed rate limiter wrote one key per request against a 1,000-wri
 author: 'Adrian "Nano" Alvarez'
 counterpartId: 'es/el-rate-limiter-era-la-caida'
 tags: ['cloudflare', 'workers', 'architecture']
-devto: 2026-11-11
 ---
 
 An email arrived mid-morning: the account had used 50% of the daily Workers KV free-tier limit. Requests to the KV API would start returning 429s, and operations inside the Worker would fail once the limit was crossed.
