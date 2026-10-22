@@ -14,7 +14,10 @@ const blogEs = `${homeEs}blog/`;
 <TerminalLayout locale="en" title={en.title} description={en.description} ogAlt={en.title} noindex>
 	<script is:inline>
 		// one 404 file serves both locales: pick the copy before the body paints
-		if (location.pathname.startsWith('/es/')) document.documentElement.dataset.locale = 'es';
+		if (location.pathname.startsWith('/es/')) {
+			document.documentElement.dataset.locale = 'es';
+			document.documentElement.lang = 'es';
+		}
 	</script>
 	<section class="mx-auto flex min-h-[60dvh] w-full max-w-3xl flex-col justify-center px-4 py-14 font-mono text-sm">
 		<p class="text-phosphor-dim">
