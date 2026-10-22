@@ -11,17 +11,32 @@
 		},
 		{
 			"source": "/es/blog/usando-notion-para-mejorar-tus-royectos",
-			"destination": "/es/blog/usando-notion-para-mejorar-tus-proyectos",
+			"destination": "/es/blog/usando-notion-para-mejorar-tus-proyectos/",
+			"permanent": true
+		},
+		{
+			"source": "/es/blog/usando-notion-para-mejorar-tus-royectos/",
+			"destination": "/es/blog/usando-notion-para-mejorar-tus-proyectos/",
 			"permanent": true
 		},
 		{
 			"source": "/es/blog/introducion-a-redsys-en-nextjs-15",
-			"destination": "/es/blog/introduccion-a-redsys-en-nextjs-15",
+			"destination": "/es/blog/introduccion-a-redsys-en-nextjs-15/",
+			"permanent": true
+		},
+		{
+			"source": "/es/blog/introducion-a-redsys-en-nextjs-15/",
+			"destination": "/es/blog/introduccion-a-redsys-en-nextjs-15/",
 			"permanent": true
 		},
 		{
 			"source": "/es/blog/introducion-a-redsys-en-nextjs-15-parte-2",
-			"destination": "/es/blog/introduccion-a-redsys-en-nextjs-15-parte-2",
+			"destination": "/es/blog/introduccion-a-redsys-en-nextjs-15-parte-2/",
+			"permanent": true
+		},
+		{
+			"source": "/es/blog/introducion-a-redsys-en-nextjs-15-parte-2/",
+			"destination": "/es/blog/introduccion-a-redsys-en-nextjs-15-parte-2/",
 			"permanent": true
 		}
 	],
