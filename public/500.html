@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="robots" content="noindex, nofollow" />
+		<title>500 · server error</title>
+		<!-- Self-contained on purpose: Vercel serves this before the app exists, so it cannot import the built CSS. -->
+		<style>
+			:root {
+				--ground: #070a12;
+				--panel: #0b1018;
+				--edge: #1b2333;
+				--phosphor: #c7d5f2;
+				--phosphor-bright: #e9f0ff;
+				--phosphor-dim: #6d809f;
+				--accent: #4d9dff;
+				--signal: #ff6b6b;
+			}
+
+			* {
+				box-sizing: border-box;
+			}
+
+			body {
+				margin: 0;
+				min-height: 100dvh;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: 1.5rem;
+				background: var(--ground);
+				color: var(--phosphor);
+				font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+				font-size: 14px;
+				line-height: 1.5;
+			}
+
+			body::before {
+				content: '';
+				position: fixed;
+				inset: 0;
+				pointer-events: none;
+				background-image: repeating-linear-gradient(
+					to bottom,
+					rgb(0 0 0 / 0.28) 0 1px,
+					transparent 1px 3px
+				);
+				opacity: 0.3;
+			}
+
+			main {
+				position: relative;
+				width: 100%;
+				max-width: 42rem;
+			}
+
+			.prompt {
+				color: var(--phosphor-dim);
+				margin: 0;
+			}
+
+			.prompt span {
+				color: var(--accent);
+			}
+
+			.failure {
+				color: var(--signal);
+				margin: 0.25rem 0 0;
+			}
+
+			.panel {
+				margin-top: 2rem;
+				border: 1px solid var(--edge);
+				background: var(--panel);
+				padding: 1.25rem;
+			}
+
+			.code {
+				margin: 0;
+				font-size: 2rem;
+				letter-spacing: 0.02em;
+				color: var(--accent);
+			}
+
+			h1 {
+				margin: 0.5rem 0 0;
+				font-size: 1rem;
+				color: var(--phosphor-bright);
+			}
+
+			p {
+				margin: 0.5rem 0 0;
+			}
+
+			.muted {
+				color: var(--phosphor-dim);
+			}
+
+			.meta {
+				margin-top: 1.5rem;
+				font-size: 0.75rem;
+				color: var(--phosphor-dim);
+			}
+
+			a {
+				display: inline-block;
+				margin-top: 1.5rem;
+				color: var(--phosphor-bright);
+				text-decoration: none;
+				border-bottom: 1px solid var(--edge);
+				padding-bottom: 0.15rem;
+			}
+
+			a:hover {
+				color: var(--accent);
+				border-color: var(--accent);
+			}
+		</style>
+	</head>
+	<body>
+		<main>
+			<p class="prompt"><span>$</span> tail -f /var/log/site</p>
+			<p class="failure">error: upstream closed the connection</p>
+
+			<div class="panel">
+				<p class="code">500</p>
+				<h1>INTERNAL SERVER ERROR</h1>
+				<p class="muted">The process died before it could answer. Nothing was saved on your side.</p>
+				<p class="meta">request id: ::vercel:REQUEST_ID:: · code: ::vercel:ERROR_CODE::</p>
+				<a href="/">cd ~ back to the terminal</a>
+			</div>
+		</main>
+	</body>
+</html>

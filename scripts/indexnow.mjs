@@ -1,3 +1,4 @@
+/* eslint-disable no-console -- build scripts report to the deploy log */
 import { readFileSync } from 'node:fs';
 
 const HOST = 'www.adrian-alvarez.com';

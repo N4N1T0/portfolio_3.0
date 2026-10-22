@@ -23,6 +23,7 @@ const {
 	alternateLang,
 	breadcrumbs,
 	blogPosting,
+	noindex,
 } = Astro.props;
 const altLocale = locale === 'en' ? 'es' : 'en';
 const t = copy[locale];
@@ -47,6 +48,7 @@ const isHome = currentPath === `/${locale}`;
 			alternateLang={alternateLang}
 			breadcrumbs={breadcrumbs}
 			blogPosting={blogPosting}
+			noindex={noindex}
 		/>
 		<script is:inline>
 			// the terminal boots once per session: the footer prompt stays hidden and

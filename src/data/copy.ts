@@ -26,6 +26,15 @@ export type Copy = {
 	};
 	language: string;
 	newTab: string;
+	error: {
+		title: string;
+		description: string;
+		heading: string;
+		message: string;
+		hint: string;
+		home: string;
+		blog: string;
+	};
 	collections: {
 		projectsTitle: string;
 		projectsSubtitle: string;
@@ -136,6 +145,15 @@ export const copy: Record<Locale, Copy> = {
 		},
 		language: 'Spanish',
 		newTab: 'new tab',
+		error: {
+			title: '404 · page not found',
+			description: 'That route does not exist. Start again from the terminal home.',
+			heading: 'PAGE NOT FOUND',
+			message: 'The path you asked for is not in this filesystem.',
+			hint: 'ctrl-b lists every page and command',
+			home: 'cd ~',
+			blog: 'ls blog',
+		},
 		collections: {
 			projectsTitle: 'Projects',
 			projectsSubtitle:
@@ -243,6 +261,15 @@ export const copy: Record<Locale, Copy> = {
 		},
 		language: 'inglés',
 		newTab: 'pestaña nueva',
+		error: {
+			title: '404 · página no encontrada',
+			description: 'Esa ruta no existe. Vuelve a empezar desde la terminal.',
+			heading: 'PÁGINA NO ENCONTRADA',
+			message: 'La ruta que has pedido no está en este sistema de archivos.',
+			hint: 'ctrl-b lista todas las páginas y comandos',
+			home: 'cd ~',
+			blog: 'ls blog',
+		},
 		collections: {
 			projectsTitle: 'Proyectos',
 			projectsSubtitle:

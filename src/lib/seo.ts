@@ -5,6 +5,7 @@ export type SeoProps = {
 	ogAlt: string;
 	alternateHref?: string;
 	alternateLang?: 'en' | 'es';
+	noindex?: boolean;
 	breadcrumbs?: Array<{ name: string; href: string }>;
 	blogPosting?: {
 		title: string;

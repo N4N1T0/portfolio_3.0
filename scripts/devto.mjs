@@ -1,3 +1,4 @@
+/* eslint-disable no-console -- build scripts report to the deploy log */
 import { createHash } from 'node:crypto';
 import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
 

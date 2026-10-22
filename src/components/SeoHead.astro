@@ -6,7 +6,7 @@ import SocialMeta from '@/components/SocialMeta.astro';
 type Props = SeoProps;
 
 const { locale, title, description, ogAlt } = Astro.props;
-const { alternateHref, alternateLang, breadcrumbs, blogPosting } = Astro.props;
+const { alternateHref, alternateLang, breadcrumbs, blogPosting, noindex = false } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const alternateAbsolute = alternateHref ? new URL(alternateHref, Astro.site).href : undefined;
@@ -88,13 +88,17 @@ const jsonLd = {
 <meta name="generator" content={Astro.generator} />
 <title>{title}</title>
 <meta name="description" content={description} />
-<meta name="robots" content="index, follow" />
-<link rel="canonical" href={canonical} />
-<link rel="alternate" hreflang={locale} href={canonical} />
-{alternateAbsolute && alternateLang && (
-	<link rel="alternate" hreflang={alternateLang} href={alternateAbsolute} />
+<meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
+{!noindex && (
+	<>
+		<link rel="canonical" href={canonical} />
+		<link rel="alternate" hreflang={locale} href={canonical} />
+		{alternateAbsolute && alternateLang && (
+			<link rel="alternate" hreflang={alternateLang} href={alternateAbsolute} />
+		)}
+		<link rel="alternate" hreflang="x-default" href={defaultHref} />
+	</>
 )}
-<link rel="alternate" hreflang="x-default" href={defaultHref} />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
 <SocialMeta
@@ -106,4 +110,4 @@ const jsonLd = {
 	ogImage={ogImage}
 />
 
-<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+{!noindex && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}

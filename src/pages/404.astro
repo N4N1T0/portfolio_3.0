@@ -1,0 +1,108 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { copy } from '@/data/copy';
+import TerminalLayout from '@/layouts/TerminalLayout.astro';
+
+const en = copy.en.error;
+const es = copy.es.error;
+const homeEn = getRelativeLocaleUrl('en');
+const homeEs = getRelativeLocaleUrl('es');
+const blogEn = `${homeEn}blog/`;
+const blogEs = `${homeEs}blog/`;
+---
+
+<TerminalLayout locale="en" title={en.title} description={en.description} ogAlt={en.title} noindex>
+	<script is:inline>
+		// one 404 file serves both locales: pick the copy before the body paints
+		if (location.pathname.startsWith('/es/')) document.documentElement.dataset.locale = 'es';
+	</script>
+	<section class="mx-auto flex min-h-[60dvh] w-full max-w-3xl flex-col justify-center px-4 py-14 font-mono text-sm">
+		<p class="text-phosphor-dim">
+			<span class="text-accent">$</span> ls <span data-requested-path>/</span>
+		</p>
+		<p class="mt-1 text-signal">
+			ls: cannot access '<span data-requested-path>/</span>': No such file or directory
+		</p>
+
+		<div class="lang-en mt-8 border border-edge bg-panel p-5">
+			<p class="font-display text-3xl text-accent sm:text-4xl">404</p>
+			<h1 class="mt-2 font-display text-base text-phosphor-bright">{en.heading}</h1>
+			<p class="mt-2 max-w-prose text-phosphor-dim">{en.message}</p>
+
+			<ul class="mt-6 space-y-2">
+				<li>
+					<a href={homeEn} class="group flex items-baseline gap-3">
+						<span class="text-accent" aria-hidden="true">
+							&gt;
+						</span>
+						<span class="text-phosphor-bright transition-colors group-hover:text-accent">
+							{en.home}
+						</span>
+						<span class="text-phosphor-dim">{copy.en.collections.back}</span>
+					</a>
+				</li>
+				<li>
+					<a href={blogEn} class="group flex items-baseline gap-3">
+						<span class="text-accent" aria-hidden="true">
+							&gt;
+						</span>
+						<span class="text-phosphor-bright transition-colors group-hover:text-accent">
+							{en.blog}
+						</span>
+						<span class="text-phosphor-dim">{copy.en.collections.blogTitle}</span>
+					</a>
+				</li>
+			</ul>
+
+			<p class="mt-6 text-xs text-phosphor-dim">{en.hint}</p>
+		</div>
+
+		<div class="lang-es mt-8 border border-edge bg-panel p-5">
+			<p class="font-display text-3xl text-accent sm:text-4xl">404</p>
+			<h1 class="mt-2 font-display text-base text-phosphor-bright">{es.heading}</h1>
+			<p class="mt-2 max-w-prose text-phosphor-dim">{es.message}</p>
+
+			<ul class="mt-6 space-y-2">
+				<li>
+					<a href={homeEs} class="group flex items-baseline gap-3">
+						<span class="text-accent" aria-hidden="true">
+							&gt;
+						</span>
+						<span class="text-phosphor-bright transition-colors group-hover:text-accent">
+							{es.home}
+						</span>
+						<span class="text-phosphor-dim">{copy.es.collections.back}</span>
+					</a>
+				</li>
+				<li>
+					<a href={blogEs} class="group flex items-baseline gap-3">
+						<span class="text-accent" aria-hidden="true">
+							&gt;
+						</span>
+						<span class="text-phosphor-bright transition-colors group-hover:text-accent">
+							{es.blog}
+						</span>
+						<span class="text-phosphor-dim">{copy.es.collections.blogTitle}</span>
+					</a>
+				</li>
+			</ul>
+
+			<p class="mt-6 text-xs text-phosphor-dim">{es.hint}</p>
+		</div>
+	</section>
+
+	<script is:inline>
+		const path = location.pathname;
+		document.querySelectorAll('[data-requested-path]').forEach((node) => {
+			node.textContent = path;
+		});
+	</script>
+</TerminalLayout>
+
+<style>
+	/* the wrong locale hidden before first paint, without shipping an island */
+	:global(html[data-locale='es']) .lang-en,
+	:global(html:not([data-locale='es'])) .lang-es {
+		display: none;
+	}
+</style>
