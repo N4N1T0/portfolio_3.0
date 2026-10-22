@@ -147,6 +147,28 @@ INDEXNOW_FORCE=1 node scripts/indexnow.mjs
 Google ignores IndexNow; its channel is Search Console, and new posts still need "Request
 indexing" there.
 
+## Cross-posting to dev.to
+
+A post opts in with a date in its frontmatter:
+
+```yaml
+devto: 2026-11-04
+```
+
+On the first production build at or after that date, `scripts/devto.mjs` creates the article on
+dev.to with the canonical pointing back to `https://www.adrian-alvarez.com/en/blog/<slug>/`, the
+excerpt as description and up to four tags. Later builds update the article when the Markdown
+changes, using `scripts/devto-state.json` to remember the article id and a hash of the payload.
+
+- Only English posts are cross-posted; the Spanish version would compete with the original.
+- The script needs `DEVTO_API_KEY` in the Vercel environment. Without it, it logs a skip.
+- Preview builds are skipped, and a failed call never fails the deploy.
+- The article is created as published. To check the payload first, run
+  `DEVTO_DRY=1 node scripts/devto.mjs`.
+- Removing the `devto` line stops future updates but does not delete the article on dev.to.
+
+Publishing is immediate when the date arrives, so set the date on a post you have already reviewed.
+
 ## Next steps
 
 - Request indexing in Search Console for the six URLs that were crawled but not indexed, and only

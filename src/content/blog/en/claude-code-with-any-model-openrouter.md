@@ -5,6 +5,7 @@ excerpt: 'Claude Code reads a few environment variables that pick the endpoint a
 author: 'Adrian "Nano" Alvarez'
 counterpartId: 'es/claude-code-con-cualquier-modelo-openrouter'
 tags: ['ai', 'tooling', 'openrouter']
+devto: 2026-11-04
 ---
 
 I've been using Claude Code for a while, and at some point a question stuck: what if I don't want Claude as the model behind Claude Code?

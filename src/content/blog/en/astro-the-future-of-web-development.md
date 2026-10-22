@@ -6,6 +6,7 @@ excerpt: 'Astro 5 brought the Content Layer, server islands and astro:env. What 
 author: 'Adrian "Nano" Alvarez'
 counterpartId: 'es/astro-el-futuro-del-desarrollo-web'
 tags: ['astro', 'performance', 'seo']
+devto: 2026-10-28
 ---
 
 ## What Astro 5 actually shipped
