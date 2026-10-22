@@ -1,9 +1,10 @@
 ---
-title: 'Scoring a fantasy league on data that has not arrived yet'
+title: 'Scoring a Fantasy League on Data That Has Not Arrived'
 date: 2026-09-09
-excerpt: 'A music fantasy league scores teams on streaming growth pulled from a third-party analytics API. That API is sparse, late and revisable, and almost every backend decision comes from it.'
+excerpt: 'A music fantasy league scores teams on streaming growth from a third-party API. That API is sparse, late and revisable, and every backend decision follows.'
 author: 'Adrian "Nano" Alvarez'
 counterpartId: 'es/puntuar-con-datos-que-no-han-llegado'
+tags: ['backend', 'data', 'architecture']
 ---
 
 I worked on a fantasy league where the players are music artists and the points come from streaming growth. You draft ten artists, six start and four sit on the bench, and you go head-to-head against another team over a three-day window.

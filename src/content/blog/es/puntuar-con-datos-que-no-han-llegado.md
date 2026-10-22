@@ -1,9 +1,10 @@
 ---
 title: 'Puntuar una liga fantasy con datos que aún no han llegado'
 date: 2026-09-09
-excerpt: 'Una liga fantasy de música puntúa según el crecimiento en streaming de una API externa. Esa API es escasa, llega tarde y se corrige, y casi cada decisión del backend sale de ahí.'
+excerpt: 'Una liga fantasy de música puntúa según el streaming de una API externa escasa, tardía y revisable. Casi cada decisión del backend sale de ahí.'
 author: 'Adrian "Nano" Alvarez'
 counterpartId: 'en/scoring-on-data-that-has-not-arrived'
+tags: ['backend', 'data', 'architecture']
 ---
 
 Trabajé en una liga fantasy donde los jugadores son artistas musicales y los puntos vienen del crecimiento en streaming. Fichas diez artistas, seis titulares y cuatro en el banquillo, y te enfrentas a otro equipo en una ventana de tres días.

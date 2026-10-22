@@ -1,9 +1,11 @@
 ---
-title: 'Astro Actions y JavaScript Vanilla para Formularios'
+title: 'Astro Actions y JavaScript vanilla para validar formularios'
 date: 2025-08-20
-excerpt: 'Aprende a construir formularios de contacto potentes usando la API de Astro Actions con validación del lado del servidor y JavaScript vanilla para una experiencia de usuario fluida.'
+dateModified: 2026-10-22
+excerpt: 'Formulario de contacto con Astro Actions: validación en el servidor dentro de la Action, JavaScript vanilla para la interfaz y cero frameworks en el cliente.'
 author: 'Adrian "Nano" Alvarez'
-counterpartId: 'es/astro-actions-y-vanilla-para-formularios'
+counterpartId: 'en/astro-actions-and-vanilla-for-form'
+tags: ['astro', 'javascript', 'forms']
 ---
 
 Una de las características que más he estado disfrutando en Astro últimamente es la API de Actions. Te permite manejar lógica del servidor (como envíos de formularios) sin necesidad de crear un backend completo o recurrir a un framework pesado.
@@ -16,13 +18,13 @@ Así es como la usé para construir un formulario de contacto que:
 
 ---
 
-## 🗂️ Frontmatter vs Scripts del Cliente en Astro
+## Frontmatter frente a scripts de cliente en Astro
 
 El frontmatter (`--- ... ---`) en un archivo Astro siempre es del lado del servidor. No puedes tocar el DOM ahí. Pero dentro del componente Astro, puedes añadir una etiqueta `<script>`, y funciona como un script clásico del navegador — con acceso completo al DOM e importaciones de módulos si es necesario.
 
 Ese es el truco: Las Actions se ejecutan del lado del servidor, pero puedes conectar las respuestas con scripts del lado del cliente.
 
-## Ejemplo: Formulario de Contacto en Astro
+## Ejemplo: formulario de contacto en Astro
 
 ```astro
 // frontmatter: solo del lado del servidor import {buttonVariants} from
@@ -69,7 +71,7 @@ Ese es el truco: Las Actions se ejecutan del lado del servidor, pero puedes cone
 
 		if (data) {
 			status.classList.remove('hidden');
-			status.querySelector('h5').textContent = 'Mensaje enviado ✅';
+			status.querySelector('h5').textContent = 'Mensaje enviado ';
 			status.querySelector('div').textContent = '¡Gracias! Nos pondremos en contacto pronto.';
 			form.reset();
 		}
@@ -77,7 +79,7 @@ Ese es el truco: Las Actions se ejecutan del lado del servidor, pero puedes cone
 </script>
 ```
 
-## 1️⃣ Frontmatter (Solo del Lado del Servidor)
+## 1. Frontmatter (solo en el servidor)
 
 ```astro
 import {buttonVariants} from '@/components/starwind/button' import{' '}
@@ -87,7 +89,7 @@ import {buttonVariants} from '@/components/starwind/button' import{' '}
 Este bloque (`--- ... ---`) se ejecuta solo en el servidor en Astro.
 Puedes importar componentes, utilidades o datos aquí — pero no puedes tocar el DOM.
 
-## 2️⃣ El Marcado (HTML + Componentes)
+## 2. El marcado (HTML y componentes)
 
 ```astro
 <section>
@@ -119,7 +121,7 @@ Puedes importar componentes, utilidades o datos aquí — pero no puedes tocar e
 - El componente Alert está oculto por defecto (`hidden`).
 - Más tarde, cuando se envía el formulario, esto se actualiza dinámicamente con mensajes de éxito o error.
 
-## 3️⃣ Script del Cliente (Manipulación del DOM)
+## 3. Script de cliente (manipulación del DOM)
 
 ```javascript
 <script>
@@ -142,7 +144,7 @@ Puedes importar componentes, utilidades o datos aquí — pero no puedes tocar e
 
     if (data) {
       status.classList.remove('hidden')
-      status.querySelector('h5').textContent = 'Mensaje enviado ✅'
+      status.querySelector('h5').textContent = 'Mensaje enviado '
       status.querySelector('div').textContent = '¡Gracias! Nos pondremos en contacto pronto.'
       form.reset()
     }
@@ -161,7 +163,7 @@ Este `<script>` se ejecuta en el navegador, no en el servidor.
 - Si la action tiene éxito, la alerta se actualiza con un mensaje de éxito.
 - Finalmente, el formulario se limpia (`form.reset()`).
 
-## ⚠️ No Olvides SSR
+## No olvides el SSR
 
 Si quieres que las Actions funcionen, la página debe ser renderizada del lado del servidor (SSR). En Astro, puedes deshabilitar el pre-renderizado así:
 
@@ -173,7 +175,7 @@ Si estás desplegando en Vercel, Netlify o Node, tu adaptador manejará el resto
 
 ---
 
-## ✅ Por Qué Me Gusta Este Enfoque
+## Por qué me gusta este enfoque
 
 - **Ligero** → Casi cero JS enviado, excepto un pequeño script para actualizaciones del DOM.
 - **Seguro** → Validación fuerte con zod en el servidor + verificaciones extra en el cliente.

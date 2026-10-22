@@ -1,47 +1,49 @@
 ---
-title: 'Automatiza tu Feed de Productos en Google Merchant Center con Node.js'
+title: 'Automatiza tu feed de Google Merchant Center con Node.js'
 date: 2025-08-17
-excerpt: 'Aprende a sincronizar tu eCommerce directamente con Google Merchant Center usando la Content API, sin plugins y de manera escalable.'
+dateModified: 2026-10-22
+excerpt: 'Sincroniza un catálogo eCommerce con Google Merchant Center desde la Content API: cuenta de servicio, inserciones por lotes y un cron diario controlado.'
 author: 'Adrian "Nano" Alvarez'
 counterpartId: 'en/automate-google-merchant-feed-nodejs'
+tags: ['ecommerce', 'nodejs', 'automation']
 ---
 
-En **eCommerce**, tener un feed actualizado en Google Merchant Center **no es opcional**.  
+En **eCommerce**, tener un feed actualizado en Google Merchant Center **no es opcional**.
 Es crucial para que tus campañas de Shopping funcionen, tus productos se aprueben rápidamente y tu rendimiento publicitario sea consistente.
 
 Muchos CMS ofrecen plugins para esta tarea, pero suelen ser:
 
-❌ Limitados  
-❌ Difíciles de personalizar  
-❌ Poco eficientes para proyectos con necesidades reales de negocio
+Limitados
+Difíciles de personalizar
+Poco eficientes para proyectos con necesidades reales de negocio
 
-Como desarrollador especializado en eCommerce, me he enfrentado muchas veces a esta necesidad.  
+Como desarrollador especializado en eCommerce, me he enfrentado muchas veces a esta necesidad.
 Y la mejor solución que encontré fue ir directo a la fuente: **Google Content API for Shopping**.
 
 En este artículo te explico cómo **automatizar tu feed con Node.js**, sin plugins innecesarios, de forma escalable y totalmente controlada.
 
 ---
 
-## 🧱 Paso 1: Autenticación con una cuenta de servicio
+## Paso 1: Autenticación con una cuenta de servicio
 
-Google ofrece una librería oficial para trabajar con sus APIs desde Node.js: 👉 [`googleapis`](https://www.npmjs.com/package/googleapis)
+Google ofrece una librería oficial para trabajar con sus APIs desde Node.js: [`googleapis`](https://www.npmjs.com/package/googleapis)
 
 Dentro de ella, el cliente que nos interesa es **`@googleapis/content`**, que conecta directamente con el Merchant Center.
 
-### 🔑 ¿Qué es una cuenta de servicio?
+### ¿Qué es una cuenta de servicio?
 
 Una **cuenta de servicio** es una identidad técnica dentro de Google Cloud que te permite acceder a sus APIs sin necesidad de intervención humana. Ideal para procesos automáticos y backend.
 
-### ✅ Cómo crearla
+### Crear la cuenta de servicio
 
 1. Ve a [console.cloud.google.com](https://console.cloud.google.com) y entra en tu proyecto.
 2. Dirígete a **"IAM y administración" → "Cuentas de servicio"**
 3. Crea una nueva cuenta y asigna el rol **Editor** o uno personalizado con permisos de Content API.
 4. Descarga el archivo **.json** con tus credenciales.
 
-### 🔐 Guárdalo de forma segura
+### Guardar la clave
 
-¡Nunca subas estas credenciales a Git!  
+¡Nunca subas estas credenciales a Git!
 Usa **variables de entorno**:
 
 ```bash
@@ -50,10 +52,10 @@ GOOGLE_CLIENT_EMAIL=nombre-cuenta@proyecto.iam.gserviceaccount.com
 MERCHANT_CENTER_ACCOUNT_ID=123456789
 ```
 
-📌 Para obtener el **MERCHANT_CENTER_ACCOUNT_ID**:
+Para obtener el **MERCHANT_CENTER_ACCOUNT_ID**:
 Entra en Google Merchant Center y, en la parte superior derecha (junto a tu foto de perfil), verás tu **ID de cuenta**. Ese número es tu `merchantId`.
 
-### 🔒 Autenticación con GoogleAuth
+### Autenticación con GoogleAuth
 
 ```ts
 import * as content from '@googleapis/content';
@@ -82,16 +84,16 @@ Los **scopes** definen los permisos:
 
 ---
 
-## 🧩 Paso 2: Insertar o actualizar productos
+## Paso 2: Insertar o actualizar productos
 
 La API ofrece dos métodos clave:
 
 - **`products.insert()`** → Crear un producto nuevo (solo 1 vez por `offerId`)
 - **`products.update()`** → Actualizar un producto existente
 
-⚠️ Usar `insert` sobre un producto ya existente dará error. Maneja esta lógica consultando si el producto ya existe antes de llamarlo.
+Usar `insert` sobre un producto ya existente dará error. Maneja esta lógica consultando si el producto ya existe antes de llamarlo.
 
-### 🛠️ Función de ejemplo
+### Función de ejemplo
 
 ```ts
 import { content_v2_1 } from '@googleapis/content';
@@ -154,11 +156,11 @@ const updateProduct = async (
 };
 ```
 
-📘 Lista completa de campos disponibles en la [documentación oficial](https://support.google.com/merchants/answer/7052112).
+Lista completa de campos disponibles en la [documentación oficial](https://support.google.com/merchants/answer/7052112).
 
 ---
 
-## 🔁 Paso 3: Ejecutar la sincronización controlada
+## Paso 3: Ejecutar la sincronización controlada
 
 Actualizar muchos productos de golpe puede causar **throttling** o errores de red.
 Para evitarlo, usamos [`p-limit`](https://www.npmjs.com/package/p-limit), que limita el número de promesas concurrentes.
@@ -167,7 +169,7 @@ Para evitarlo, usamos [`p-limit`](https://www.npmjs.com/package/p-limit), que li
 npm install p-limit
 ```
 
-### ⚙️ Ejemplo
+### Ejemplo
 
 ```ts
 import pLimit from 'p-limit';
@@ -183,7 +185,7 @@ Esto asegura que solo se ejecuten **5 procesos a la vez**.
 
 ---
 
-## 🎁 Bonus: Automatiza con un cron job diario
+## Bonus: automatiza con un cron job diario
 
 Puedes programar la sincronización con **node-cron** o un servicio externo (EasyCron, GitHub Actions).
 
@@ -202,14 +204,14 @@ Esto correrá todos los días a las **3:00 AM**.
 
 ---
 
-## 🚀 Conclusión
+## Conclusión
 
 Al usar la **Content API directamente desde Node.js**, desbloqueas una integración de primer nivel:
 
-✅ 100% personalizable
-✅ Sin plugins limitantes
-✅ Optimizado para escala y rendimiento
-✅ Compatible con cualquier CMS o backend
-✅ A prueba de crecimiento futuro
+100% personalizable
+Sin plugins limitantes
+Optimizado para escala y rendimiento
+Compatible con cualquier CMS o backend
+A prueba de crecimiento futuro
 
 En un entorno donde la **automatización marca la diferencia entre vender o no**, este tipo de integración puede ser la clave que eleve tus campañas de Shopping a otro nivel.`

@@ -1,9 +1,10 @@
 ---
 title: 'El rate limiter era la caída'
 date: 2026-09-09
-excerpt: 'Un rate limiter sobre KV en Cloudflare Workers escribía una clave por petición contra un free tier de 1.000 escrituras diarias. Al agotarse la cuota, lo que protegía la API la tumbaba.'
+excerpt: 'Un rate limiter sobre KV escribía una clave por petición contra un free tier de 1.000 escrituras diarias. Al agotarse la cuota, lo que protegía la API la tumbó.'
 author: 'Adrian "Nano" Alvarez'
 counterpartId: 'en/the-rate-limiter-was-the-outage'
+tags: ['cloudflare', 'workers', 'architecture']
 ---
 
 Llegó un correo a media mañana: la cuenta había consumido el 50% del límite diario del free tier de Workers KV. Las peticiones a la API de KV empezarían a devolver 429, y las operaciones dentro del Worker fallarían al cruzar el límite.

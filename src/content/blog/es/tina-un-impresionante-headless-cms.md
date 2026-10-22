@@ -1,84 +1,98 @@
 ---
-title: 'TinaCMS: Un CMS Headless con Control de Versiones en Git'
+title: 'TinaCMS: un CMS headless con control de versiones en Git'
 date: 2025-01-25
-excerpt: 'Descubre cómo TinaCMS revoluciona la gestión de contenido con su enfoque headless, integración con Git y control de versiones.'
+dateModified: 2026-10-22
+excerpt: 'TinaCMS guarda el contenido como Markdown y JSON en Git, con edición en vivo encima. Cómo funciona, cuándo encaja y qué implica montarlo de verdad.'
 author: 'Adrián'
 counterpartId: 'en/tina-an-awesome-headless-cms'
+tags: ['cms', 'tina', 'headless']
 ---
 
-En el mundo del desarrollo web, los gestores de contenido (CMS) han evolucionado significativamente en los últimos años. Con la creciente demanda de soluciones flexibles, escalables y compatibles con flujos de trabajo modernos, TinaCMS se ha posicionado como una opción destacada. Este CMS open-source y headless ofrece integración nativa con Git, brindando a los desarrolladores un control total sobre el contenido con un sistema de versionado eficiente.
+Casi todos los CMS headless se llevan tu contenido a su base de datos. TinaCMS hace lo contrario: el contenido sigue siendo Markdown y JSON en tu repositorio, y Tina añade una interfaz de edición encima de esos archivos. Para un desarrollador eso significa que el modelo de contenido pasa por revisión de código, el historial es `git log` y no hay exportación si algún día te vas.
 
-## ¿Qué es TinaCMS?
+Ese intercambio es excelente para algunos proyectos y equivocado para otros. Esto es lo que implica el montaje y dónde deja de ser buena idea.
 
-TinaCMS es un gestor de contenido diseñado para integrarse fácilmente en aplicaciones web modernas. A diferencia de los CMS tradicionales, que almacenan los datos en bases de datos centralizadas, TinaCMS permite manejar el contenido directamente en archivos Markdown y JSON dentro de un repositorio Git. Esto facilita la colaboración, el versionado y la implementación continua.
+## El modelo: archivos en Git, interfaz encima
 
-## Beneficios de Usar TinaCMS
+Tina tiene tres piezas:
 
-1. Integración con Git
+- **Un esquema** definido en `tina/config.ts`, con colecciones y campos.
+- **Una interfaz de administración** servida en `/admin`, generada desde ese esquema.
+- **Un adaptador** que lee y escribe los archivos. En desarrollo local escribe en tu copia de trabajo. Para editores, lo habitual es Tina Cloud, que hace commit a una rama y abre un pull request.
 
-TinaCMS permite que el contenido sea tratado como código, lo que significa que cada cambio se almacena en un sistema de control de versiones. Esto ofrece ventajas como:
+El frontend sigue leyendo archivos planos en el build, igual que antes de que existiera Tina. Esa es la parte que conviene entender: Tina es una capa de edición, no una dependencia en tiempo de ejecución del sitio público.
 
-- Historial detallado de modificaciones.
+## El montaje
 
-- Posibilidad de revertir cambios fácilmente.
-
-- Flujo de trabajo colaborativo con revisiones y pull requests.
-
-2. Headless y Flexible
-
-Al ser un CMS headless, TinaCMS permite separar la capa de administración del frontend. Puedes usarlo con frameworks como Next.js, Nuxt.js o cualquier otra tecnología moderna, asegurando una arquitectura desacoplada y optimizada.
-
-3. Experiencia de Edición en Vivo
-
-A diferencia de otros CMS headless que requieren una interfaz externa para gestionar contenido, TinaCMS ofrece una experiencia de edición en vivo dentro de la propia aplicación, lo que mejora la productividad y la experiencia del usuario final.
-
-4. Open Source y Extensible
-
-Al ser open-source, TinaCMS permite personalización y contribución por parte de la comunidad. Su API flexible facilita la integración con múltiples plataformas y casos de uso personalizados.
-
-## Casos de Uso
-
-- Blogs y sitios estáticos: Perfecto para desarrolladores que desean un control total del contenido sin depender de bases de datos.
-
-- Documentación técnica: Gracias a su integración con Markdown, es ideal para gestionar documentación en repositorios Git.
-
-- E-commerce ligero: Puede utilizarse para manejar descripciones de productos y contenido dinámico en tiendas online basadas en frameworks modernos.
-
-### ¿Cómo Integrar TinaCMS en un Proyecto?
-
-Para empezar con TinaCMS en un proyecto basado en Next.js, sigue estos pasos:
-
-#### Instalar las dependencias necesarias
+La instalación actual empieza por la CLI, no por paquetes instalados a mano:
 
 ```sh
-npm install tinacms react-tinacms-git
+npx @tinacms/cli@latest init
 ```
 
-#### Configurar el CMS en tu aplicación
+El comando añade `tinacms` y `@tinacms/cli`, crea `tina/config.ts`, registra la ruta `/admin` y un paso de build. Una colección mínima queda así:
 
-```tsx
-import { TinaCMS } from 'tinacms';
+```ts
+import { defineConfig } from 'tinacms';
 
-const cms = new TinaCMS({
-	enabled: true,
-	sidebar: true,
+export default defineConfig({
+	branch: process.env.GITHUB_BRANCH ?? 'main',
+	clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID,
+	token: process.env.TINA_TOKEN,
+	build: {
+		outputFolder: 'admin',
+		publicFolder: 'public',
+	},
+	schema: {
+		collections: [
+			{
+				name: 'post',
+				label: 'Posts',
+				path: 'content/posts',
+				format: 'md',
+				fields: [
+					{ type: 'string', name: 'title', label: 'Título', isTitle: true, required: true },
+					{ type: 'datetime', name: 'date', label: 'Fecha', required: true },
+					{ type: 'rich-text', name: 'body', label: 'Cuerpo', isBody: true },
+				],
+			},
+		],
+	},
 });
 ```
 
-#### Agregar el sistema de edición en vivo
+Después arrancas el servidor de desarrollo y abres `/admin`. En local, guardar escribe el archivo Markdown en tu copia de trabajo al momento.
 
-```tsx
-import { withTina } from 'tinacms';
+## La edición en vivo tiene un coste real
 
-function MyApp({ Component, pageProps }) {
-	return <Component {...pageProps} />;
-}
+La función que todo el mundo recuerda es la edición visual: el panel al lado de la página renderizada y una cabecera que abre su campo al hacer clic. Es genuinamente útil en páginas de marketing, donde quien edita piensa en secciones y no en campos.
 
-export default withTina(MyApp);
-```
+Es menos útil de lo que parece para contenido con estructura. Un artículo con bloques de código, tablas y componentes anidados se edita más rápido en un editor con soporte de Markdown que en una vista previa al lado. Y la edición visual obliga a envolver componentes para que Tina los mapee a campos, lo que añade código al frontend que no tiene nada que ver con el trabajo del sitio.
 
-Estos pasos iniciales te permitirán integrar TinaCMS en tu proyecto y comenzar a gestionar contenido de manera eficiente.
+## Cuándo encaja
 
-### Conclusión
+- Contenido que vive junto al código y pasa por el mismo proceso de revisión.
+- Un equipo pequeño donde desarrollo y edición están en el mismo repositorio.
+- Sitios que deben seguir funcionando sin un servicio de CMS: los archivos son la fuente de verdad, así que un build desde un clon está completo.
+- Documentación y páginas de marketing dentro de un Next.js o Astro existente.
 
-TinaCMS es una solución potente y moderna para la gestión de contenido en aplicaciones web. Su integración con Git, su naturaleza headless y su experiencia de edición en vivo lo convierten en una opción ideal para desarrolladores que buscan flexibilidad y control. Si estás buscando implementar TinaCMS en tu próximo proyecto, contáctame y hablemos sobre cómo optimizar tu desarrollo web con esta tecnología.
+## Cuándo no
+
+- **Un equipo editorial grande.** Quien no es técnico necesita cuentas, roles y una administración alojada. Eso implica Tina Cloud o autohospedar el backend, y en ese punto ya estás pagando y operando un CMS.
+- **Miles de documentos.** Un repositorio Git no es un motor de consultas. Cada cambio de contenido es un commit y un rebuild, y el tiempo de build crece con el contenido.
+- **Flujos con publicación programada y aprobaciones.** Algo se puede montar, pero no es el centro de gravedad del producto.
+
+La regla que uso: si el contenido está más cerca del código que de una redacción, Tina encaja. Si un equipo de diez personas publica a diario, usa un CMS con base de datos y deja el repositorio para el código.
+
+## Avisos prácticos
+
+- Cada guardado es un commit. Sin disciplina, el historial se convierte en ruido: mensajes claros o una rama por cambio.
+- El esquema es TypeScript, así que cambiar el esquema es cambiar código. Es bueno para la coherencia y molesto cuando alguien quiere un campo nuevo en mitad de una campaña.
+- Los archivos multimedia pueden vivir en el repositorio o en un almacenamiento externo. Con más de un puñado de imágenes, usa almacenamiento externo: Git no está hecho para binarios.
+- Mantén `tina-lock.json` en el control de versiones. Fija el esquema contra el que se construyó la administración.
+
+## ¿Merece la pena?
+
+Si la alternativa es "el cliente manda los cambios por correo al desarrollador", Tina elimina un cuello de botella real sin añadir un servicio al camino crítico del sitio. Si la alternativa es un CMS maduro con roles, programación y flujo editorial, Tina es un paso atrás para quien más lo usa.
+
+Para sitios con mucho contenido y un framework moderno, el mismo razonamiento sobre salida estática y rendimiento está en [Astro 5 y Core Web Vitals](/es/blog/astro-el-futuro-del-desarrollo-web/). Y cuando el contenido es un catálogo de producto en lugar de artículos, las restricciones son otras: [importar productos a Sanity](/es/blog/como-extraer-productos-para-un-ecommerce-con-sanity-cms-y-cheerio/) cubre ese caso.

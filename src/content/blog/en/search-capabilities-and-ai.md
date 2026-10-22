@@ -1,12 +1,14 @@
 ---
-title: 'Search and AI: The Dream Team for an eCommerce Revenue Boost'
+title: 'AI Product Search for eCommerce with Orama and OpenAI'
 date: 2025-05-19
-excerpt: 'Discover how integrating Orama.search with OpenAI embeddings transformed search UX and conversion for a personalized store'
+dateModified: 2026-10-22
+excerpt: 'How hybrid vector search with Orama and OpenAI embeddings changed product discovery on a padel store: index pipeline, fallbacks and CRO wins.'
 author: 'Adrian "Nano" Alvarez'
 counterpartId: 'es/habilidades-de-busqueda-de-orama-e-ia'
+tags: ['ecommerce', 'search', 'ai']
 ---
 
-## 🧩 The Challenge: UX That Converts for Niche eCommerce
+## The Challenge: UX That Converts for Niche eCommerce
 
 Our client runs a personalized padel t-shirt eCommerce site. They wanted:
 
@@ -18,7 +20,7 @@ This wasn’t just about search — it was about **making intelligent UX part of
 
 ---
 
-## 🚀 The Stack: Orama.search + OpenAI + Sanity
+## The Stack: Orama.search + OpenAI + Sanity
 
 We chose [Orama.search](https://orama.dev) for its:
 
@@ -28,7 +30,7 @@ We chose [Orama.search](https://orama.dev) for its:
 
 It let us go beyond standard search to implement **answer engine logic**, automations, and personalized search outputs — all while staying fully headless.
 
-## 🔄 Dynamic Product Updates (Sanity + Cron + GROQ)
+## Dynamic Product Updates (Sanity + Cron + GROQ)
 
 Instead of manually syncing product data to the vector database, we automated it with a cron job and a GROQ query from Sanity CMS:
 
@@ -38,7 +40,7 @@ Instead of manually syncing product data to the vector database, we automated it
 const manager = new CloudManager({
 	api_key: process.env.ORAMA_PRIVATE_API_KEY!,
 });
-const indexManager = manager.index('xxxxxxxxxxxxxxxxx'); // Remplace con tu ID de índice
+const indexManager = manager.index('xxxxxxxxxxxxxxxxx'); // replace with your index id
 
 export const GET = async () => {
 	try {
@@ -56,11 +58,11 @@ export const GET = async () => {
 };
 ```
 
-💡 _Bonus: This system supports updates via CMS actions, CLI tools, or custom scripts._
+_Bonus: This system supports updates via CMS actions, CLI tools, or custom scripts._
 
 ---
 
-## 🔍 The Search Page: UX Meets Relevance
+## The Search Page: UX Meets Relevance
 
 Here's a snippet of how we used Orama to offer intelligent search with fallbacks:
 
@@ -77,7 +79,7 @@ if (!oramaResponse) {
 }
 ```
 
-💡 _Bonus: This same idea is used on the custom 404 page to search for related products_
+_Bonus: This same idea is used on the custom 404 page to search for related products_
 
 ---
 
@@ -89,20 +91,33 @@ We also leveraged past behavior and wishlist data to:
 
 ---
 
-## 🎯 CRO Techniques Enabled
+## CRO Techniques Enabled
 
 By combining AI-powered search with UX intelligence, we implemented:
 
-✅ **Personalized 404/empty search pages**
-✅ **Wishlist-based smart carousels**
-✅ **Product slug disambiguation (typo handling)**
-✅ **Search result re-ranking based on behavioral insights**
+- **Personalized 404 and empty search pages** that suggest real products instead of a dead end
+- **Wishlist-based smart carousels** on product and cart pages
+- **Product slug disambiguation** so a typo lands on the right product instead of a 404
+- **Search result re-ranking** based on past behavior, not only text match
 
 > These micro-improvements reduced bounce rate and nudged more sessions into purchase flow.
 
+## What We Measured
+
+Search work is easy to argue about and hard to prove, so we tracked four numbers before and after:
+
+- **Search exit rate**: sessions that left from the search page without a product view.
+- **Zero-result rate**: queries that returned nothing, grouped by term to find missing catalog entries or synonyms.
+- **Search-to-product click rate**: how often a result list produced a product page visit.
+- **Conversion rate of search sessions** against the site average.
+
+The zero-result list was the most useful output. Half of the queries were plurals, typos or synonyms the index did not know, which is a data problem, not a search-engine problem. Fixing the index beat changing the engine.
+
+More on the storefront side: [8 tips to optimize your eCommerce](/en/blog/8-tips-to-optimize-your-ecommerce/).
+
 ---
 
-## 🧠 Why Orama Over Meilisearch/Typesense/Algolia?
+## Why Orama Over Meilisearch/Typesense/Algolia?
 
 - Open-source, lightweight and **cost-effective**
 - Built-in support for **vector search + OpenAI embeddings**
@@ -113,7 +128,7 @@ It gave us **AI-enhanced flexibility without the SaaS pricing headaches.**
 
 ---
 
-## 🔮 What’s Next: AI Chatbot Integration
+## What’s Next: AI Chatbot Integration
 
 The next phase of this project will bridge Orama with OpenAI to create an in-site product assistant. It will:
 
@@ -125,8 +140,8 @@ With Orama’s answer engine and embeddings already in place, this will be a smo
 
 ---
 
-## 💼 Want to Build Something Like This?
+## Want to Build Something Like This?
 
 I help eCommerce brands implement intelligent UX with modern stacks — from search and chatbots to CRO and headless architectures.
 
-👉 [Let’s Talk](https://www.adrian-alvarez.dev/en/contact) | [See More Projects](https://www.adrian-alvarez.dev/en/projects)
+[Let’s Talk](/en/about/) | [See More Projects](/en/projects/)
