@@ -1,9 +1,10 @@
 ---
 title: 'Escribir cada componente dos veces para que el preview no mienta'
 date: 2026-09-09
-excerpt: 'Un panel de preview redimensionable hace que los breakpoints de viewport mientan. La solución fue escribir cada componente dos veces, uno para el viewport y otro para el contenedor.'
+excerpt: 'Un panel redimensionable hace que los breakpoints de viewport mientan. La solución fue dos ficheros por componente, uno por viewport y otro por contenedor.'
 author: 'Adrian "Nano" Alvarez'
 counterpartId: 'en/writing-every-component-twice'
+tags: ['frontend', 'architecture', 'components']
 ---
 
 Mantengo un registry de componentes de storefront para ecommerce — heroes, product cards, carritos, bloques de checkout — distribuidos a la manera de shadcn: ejecutas un comando de CLI y el código fuente aterriza en tu proyecto como código tuyo, no como dependencia. Ochenta componentes, dieciséis categorías, y una decisión de diseño que condicionó todo lo demás.

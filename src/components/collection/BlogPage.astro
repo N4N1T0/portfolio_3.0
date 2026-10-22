@@ -5,7 +5,7 @@ import BlogDetail from '@/components/collection/BlogDetail.astro';
 import TerminalWindow from '@/components/TerminalWindow.astro';
 import { copy, type Locale } from '@/data/copy';
 import TerminalLayout from '@/layouts/TerminalLayout.astro';
-import { getPost } from '@/lib/content';
+import { getPost, getPosts } from '@/lib/content';
 
 interface Props {
 	locale: Locale;
@@ -16,6 +16,36 @@ const { locale, id } = Astro.props;
 const t = copy[locale];
 const alt: Locale = locale === 'en' ? 'es' : 'en';
 const post = await getPost(locale, id);
+
+// the counterpart is keyed by collection prefix (`es/<slug>`), so the language
+// switch has to resolve it instead of reusing the current slug.
+const counterpart = post
+	? await getPost(alt, post.data.counterpartId.replace(`${alt}/`, ''))
+	: undefined;
+const counterpartSlug = counterpart?.id.replace(`${alt}/`, '');
+const altHref = getRelativeLocaleUrl(alt, counterpartSlug ? `blog/${counterpartSlug}` : 'blog');
+
+const posts = post ? await getPosts(locale) : [];
+const byTag = post
+	? posts.filter(
+			(candidate) =>
+				candidate.id !== id && candidate.data.tags.some((tag) => post.data.tags.includes(tag)),
+		)
+	: [];
+// a post with unique tags still needs an entry point: fill from the latest ones
+const related = [
+	...byTag,
+	...posts.filter((candidate) => !byTag.includes(candidate) && candidate.id !== id),
+]
+	.slice(0, 3)
+	.map((candidate) => ({
+		title: candidate.data.title,
+		href: getRelativeLocaleUrl(locale, `blog/${candidate.id}`),
+		excerpt: candidate.data.excerpt,
+	}));
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL(locale === 'en' ? '/og.png' : '/og-es.png', Astro.site).href;
 ---
 
 <TerminalLayout
@@ -23,11 +53,42 @@ const post = await getPost(locale, id);
 	title={post ? `${post.data.title} — Adrián Álvarez` : 'Not found'}
 	description={post?.data.excerpt ?? t.collections.blogSubtitle}
 	ogAlt={post?.data.title ?? t.collections.blogTitle}
+	alternateHref={altHref}
+	alternateLang={alt}
+	breadcrumbs={
+		post
+			? [
+					{ name: t.collections.home, href: getRelativeLocaleUrl(locale) },
+					{ name: t.collections.blogTitle, href: getRelativeLocaleUrl(locale, 'blog') },
+					{ name: post.data.title, href: canonical },
+				]
+			: undefined
+	}
+	blogPosting={
+		post
+			? {
+					title: post.data.title,
+					description: post.data.excerpt,
+					datePublished: post.data.date.toISOString(),
+					dateModified: post.data.dateModified?.toISOString(),
+					author: post.data.author,
+					image: ogImage,
+					url: canonical,
+				}
+			: undefined
+	}
 >
 	<div class="mx-auto w-full max-w-4xl px-4 py-6 sm:px-6">
 		<TerminalWindow path={`~/blog/${id}`}>
 			{post ? (
-				<BlogDetail post={post} publishedLabel={t.collections.published} locale={locale} />
+				<BlogDetail
+					post={post}
+					publishedLabel={t.collections.published}
+					updatedLabel={t.collections.updated}
+					relatedLabel={t.collections.related}
+					related={related}
+					locale={locale}
+				/>
 			) : (
 				<p class="text-sm text-phosphor-dim">404 · not found</p>
 			)}
@@ -35,7 +96,7 @@ const post = await getPost(locale, id);
 				<BackRow
 					backHref={getRelativeLocaleUrl(locale, 'blog')}
 					backLabel={t.collections.back}
-					altLocale={{ label: alt, href: getRelativeLocaleUrl(alt, `blog/${id}`) }}
+					altLocale={{ label: alt, href: altHref }}
 					language={t.language}
 				/>
 			</div>

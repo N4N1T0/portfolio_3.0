@@ -1,9 +1,10 @@
 ---
-title: 'Claude Code con cualquier modelo: OpenRouter como gateway'
+title: 'Usar Claude Code con cualquier modelo vía OpenRouter'
 date: 2026-09-30
-excerpt: 'Claude Code lee unas pocas variables de entorno que deciden a dónde van las peticiones y qué modelo responde. Apúntalas a OpenRouter y el harness se queda mientras el modelo pasa a ser un argumento.'
+excerpt: 'Claude Code lee unas variables de entorno que eligen el endpoint y el modelo. Apúntalas a OpenRouter y el modelo pasa a ser un argumento más.'
 author: 'Adrian "Nano" Alvarez'
 counterpartId: 'en/claude-code-with-any-model-openrouter'
+tags: ['ai', 'tooling', 'openrouter']
 ---
 
 Llevo un tiempo usando Claude Code y en algún momento se me quedó una pregunta en la cabeza: ¿y si no quiero que Claude sea el modelo detrás de Claude Code?

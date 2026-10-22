@@ -1,14 +1,16 @@
 ---
-title: 'How to Scrap Product for E-commerce with Sanity CMS and Cheerio'
+title: 'Scrape Products into Sanity CMS with Cheerio and Cron'
 date: 2025-03-06
-excerpt: 'Discover how to scrap product from a WordPress site into Sanity CMS for an e-commerce store, using Cheerio, Heroku CORS Anywhere, and cron jobs.'
+dateModified: 2026-10-22
+excerpt: 'Move a WordPress catalogue into Sanity CMS: scrape product pages with Cheerio, validate and enrich the data, then keep it in sync with cron.'
 author: 'Adrian "Nano" Alvarez'
-counterpartId: 'en/how-to-scrap-product-for-ecommerce-with-sanity-cms-and-cheerio'
+counterpartId: 'es/como-extraer-productos-para-un-ecommerce-con-sanity-cms-y-cheerio'
+tags: ['ecommerce', 'sanity', 'scraping', 'automation']
 ---
 
 ## Introduction
 
-Building **e-commerce websites** has always been an exciting challenge for me, especially when working on high-stakes projects like selling cosmetics from a well-known brand. Recently, I was tasked with building an online store for a client who was an official distributor for a cosmetic brand called "Loreal." (just kidding) The project seemed straightforward at first, but **there was a twist** — I needed to automate the process of importing products directly into the **Sanity CMS** from an external **WordPress-based site**.
+Building **e-commerce websites** has always been an exciting challenge for me, especially when working on high-stakes projects like selling cosmetics from a well-known brand. Recently, I was tasked with building an online store for a client who was an official distributor for a cosmetic brand. The project seemed straightforward at first, but **there was a twist**: I needed to automate the process of importing products directly into **Sanity CMS** from an external **WordPress-based site**.
 
 Having worked on many e-commerce websites, I’ve always embraced new challenges, but this one was unique. With a source website built in WordPress and a **public API** at hand, I saw an opportunity to create a seamless automation process that could save the client a lot of time and effort. In this post, I’ll walk you through how I approached the task, the tools I used, and how I built an automated product import system that checks all the right boxes: efficient, scalable, and low-maintenance.
 
@@ -56,7 +58,7 @@ const cheerio = require('cheerio');
 async function scrapeProductDetails(url) {
 	try {
 		// this is a CORS proxy to bypass the CORS issue
-		const { data } = await fetch(`https://cors-anywhere.herokuapp.com/` + url);
+		const { data } = await fetch(`https://your-proxy.example.com/` + url);
 		const $ = cheerio.load(data);
 
 		// Heres where you need to use your browser console skills to find the right selectors
@@ -71,7 +73,7 @@ async function scrapeProductDetails(url) {
 }
 ```
 
-Now that I had a way to scrape product details, I ran into a familiar problem — **CORS errors**. Since I was making requests from my server to an external API, the browser blocked the requests due to cross-origin restrictions. Fortunately, I was able to bypass this using `Heroku CORS Anywhere`, which acted as a proxy to resolve the CORS issue.
+Now that I had a way to scrape product details, I ran into **CORS errors** when the same code ran inside Sanity Studio, which executes in the browser. CORS is a browser policy: a Node process doing the same request is not affected. At the time I routed those calls through a public `cors-anywhere` proxy. That proxy is not something I would use today: it is a third party seeing every request and it is not reliable. Run your own proxy, or keep scraping in the ingestion job and let the Studio trigger the job instead of fetching the source site itself.
 
 ## Validating and Enriching the Data
 
@@ -136,12 +138,12 @@ export function findInfo(context) {
 			onHandle: async () => {
 				try {
 					if (!slug) {
-						toast.error('Error: you must have a slug'); // toast from sooner ❤
+						toast.error('Error: you must have a slug'); // toast helper
 						return;
 					}
 
 					const product = await fetch(
-						`https://cors-anywhere.herokuapp.com/https://apple.com/${slug.current}/`, // just kidding, ist not apple 🤣
+						`https://your-proxy.example.com/https://source-store.example.com/${slug.current}/`,
 					);
 
 					await createProductInSanity(product);
@@ -156,7 +158,7 @@ export function findInfo(context) {
 }
 ```
 
-Integrating with Sanity CMS was simple and straightforward, making it easy to structure and manage the imported product data efficiently. and Voila!
+Integrating with Sanity CMS was simple and straightforward, making it easy to structure and manage the imported product data efficiently.
 
 ```javascript
 const defineConfig = require('sanity').defineConfig;
@@ -208,13 +210,13 @@ cron.schedule('0 1 * * *', async () => {
 						const details = await scrapeProductDetails(product);
 						await createProductInSanity(details);
 					} catch (err) {
-						console.error(`❌ Error creating product: ${product.name}`, err);
+						console.error(`Error creating product: ${product.name}`, err);
 					}
 				}),
 			),
 		);
 	} catch (err) {
-		console.error('❌ Cron job failed:', err);
+		console.error('Cron job failed:', err);
 	}
 });
 ```
@@ -223,4 +225,6 @@ I also set up **email notifications** to alert the client whenever new products 
 
 ## Conclusion
 
-This project was a great example of how automation and smart integrations can dramatically improve the efficiency of product management for e-commerce websites. By combining Cheerio for scraping, Sanity CMS for content management, and Heroku CORS Anywhere to bypass CORS issues, I was able to create a streamlined process that kept the client’s product catalog up-to-date without requiring constant manual intervention.
+This project was a good example of how automation and smart integrations improve product management on an eCommerce site. Cheerio handled extraction, Sanity CMS the content model, and a proxy the browser-only calls: the catalogue stays current without manual intervention.
+
+The next step was getting those products into Google: [automating the Merchant Center feed with Node.js](/en/blog/automate-google-merchant-feed-nodejs/) consumes the same data source. Once the catalogue is clean, the sale is decided on the page: [eight product page fixes](/en/blog/8-tips-to-optimize-your-ecommerce/).

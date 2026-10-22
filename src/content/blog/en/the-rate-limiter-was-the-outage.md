@@ -1,9 +1,10 @@
 ---
-title: 'The rate limiter was the outage'
+title: 'The Rate Limiter Was the Outage'
 date: 2026-09-09
-excerpt: 'A KV-backed rate limiter on Cloudflare Workers wrote one key per request against a free tier of 1,000 writes a day. When the quota ran out, the thing protecting the API took it down.'
+excerpt: 'A KV-backed rate limiter wrote one key per request against a 1,000-writes-a-day tier. When the quota ran out, the thing protecting the API took it down.'
 author: 'Adrian "Nano" Alvarez'
 counterpartId: 'es/el-rate-limiter-era-la-caida'
+tags: ['cloudflare', 'workers', 'architecture']
 ---
 
 An email arrived mid-morning: the account had used 50% of the daily Workers KV free-tier limit. Requests to the KV API would start returning 429s, and operations inside the Worker would fail once the limit was crossed.

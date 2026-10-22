@@ -1,9 +1,10 @@
 ---
-title: 'Introducción a la Integración de Redsys con Next.js 15'
+title: 'Pagos con Redsys en Next.js 15 usando Server Actions'
 date: 2025-02-11
-excerpt: 'Aprende cómo integrar Redsys con Next.js 15 para el procesamiento seguro de pagos utilizando Server Actions y el método de formulario de redirección.'
+excerpt: 'Integrar Redsys en Next.js 15: variables de entorno, cliente de firma, una Server Action y el formulario de redirección que arranca el pago.'
 author: 'Adrian "Nano" Alvarez'
 counterpartId: 'en/redsys-implementation-on-nextjs-15'
+tags: ['nextjs', 'payments', 'redsys']
 ---
 
 Hoy en día, todos intentan ganar dinero en línea, ya sea a través de un SaaS, una tienda en línea u otros tipos de aplicaciones web. Si bien los procesadores de pago globales como Stripe y PayPal son comunes, diferentes países tienen sus propias plataformas de pago preferidas.
@@ -14,11 +15,11 @@ En este tutorial, utilizaremos **Next.js 15** y **Server Actions** para crear un
 
 ---
 
-## Configuración de Next.js 15 e Instalación de Redsys-Easy
+## Configuración de Next.js 15 e instalación de Redsys-Easy
 
 Para comenzar, necesitamos configurar un nuevo proyecto de Next.js 15 e instalar las dependencias necesarias.
 
-### **1. Inicializar un Proyecto de Next.js 15**
+### 1. Inicializar un proyecto de Next.js 15
 
 Ejecuta el siguiente comando para crear una nueva aplicación de Next.js 15:
 
@@ -27,7 +28,7 @@ npx create-next-app@latest mi-proyecto-redsys
 cd mi-proyecto-redsys
 ```
 
-### **2. Instalar Dependencias**
+### 2. Instalar dependencias
 
 A continuación, instala `redsys-easy` para manejar las solicitudes y respuestas de pago de Redsys:
 
@@ -39,7 +40,7 @@ Con esta configuración completada, ¡ahora podemos pasar a implementar el flujo
 
 ---
 
-## Configuración de Variables de Entorno
+## Configuración de variables de entorno
 
 Antes de implementar el flujo de pago, necesitamos almacenar de manera segura nuestras credenciales sensibles proporcionadas por el banco o el cliente. Crea un archivo `.env.local` en la raíz de tu proyecto y agrega las siguientes variables:
 
@@ -76,11 +77,11 @@ Aunque actualmente estamos utilizando `SANDBOX_URLS` para desarrollo, el paquete
 
 ---
 
-## Creación de una Server Action para Pagos
+## Creación de una Server Action para pagos
 
 Almacenaremos nuestras **Server Actions** dentro de la carpeta `src/actions`. Por ahora, creemos una Server Action simple para preparar la solicitud de pago.
 
-### **1. Crear el Archivo de Server Action**
+### 1. Crear el archivo de Server Action
 
 Dentro de src/actions, crea un nuevo archivo llamado payment.ts y agrega el siguiente código:
 
@@ -93,7 +94,7 @@ import { createRedirectForm } from '@/lib/clients';
 export async function initiatePayment(orderId: string, amount: number) {}
 ```
 
-### **2. Agregar Constantes**
+### 2. Agregar constantes
 
 Ahora, definiremos algunas variables y constantes para llenar el formulario de redirección con la información más precisa posible. Aquí, agregamos las variables de entorno necesarias.
 
@@ -110,7 +111,7 @@ const merchantInfo = {
 };
 ```
 
-### **3. Funciones y Variables Auxiliares**
+### 3. Funciones y variables auxiliares
 
 A continuación, necesitamos especificar el monto total como un número decimal para que el servidor de Redsys pueda procesarlo. También necesitamos extraer el código para la moneda "EUR" del objeto `CURRENCIES` utilizado por Redsys.
 
@@ -127,7 +128,7 @@ export async function initiatePayment(orderId: string, amount: number) {
 }
 ```
 
-### **4. Crear el Formulario y Retornar**
+### 4. Crear el formulario y retornar
 
 Ahora, creamos el formulario para usar en el frontend. Las variables `DS_MERCHANT_URL` son muy importantes, ya que determinan a dónde se redirigirá al usuario después del pago, ya sea a una página de éxito (OK) o a una página de error (KO). Redsys agregará un código a la URL, que puedes usar para verificar la solicitud.
 
@@ -153,9 +154,9 @@ export async function initiatePayment(orderId: string, amount: number) {
 
 ---
 
-## Ahora en el Frontend
+## Ahora en el frontend
 
-### **1. Obtener el Formulario de Redirección**
+### 1. Obtener el formulario de redirección
 
 Puedes crear un formulario simple adjunto al checkout para activar la server action y obtener el `redirectForm` desde la server action.
 
@@ -184,7 +185,7 @@ const CheckoutForm = () => {
 };
 ```
 
-### **2. La Parte Complicada**
+### 2. La parte complicada
 
 Para la parte divertida, necesitas almacenar los datos devueltos desde la server action en un componente de formulario en blanco. Este formulario debe incluir tres entradas específicas: `Ds_SignatureVersion`, `Ds_MerchantParameters`, y `Ds_Signature`. Estas entradas recibirán valores del objeto `redirectForm.body`. Una vez que el formulario esté completo, se enviará automáticamente y hará una solicitud a la URL proporcionada por el servidor de Redsys, redirigiendo al usuario a la página de la pasarela de pago.
 
@@ -226,7 +227,7 @@ const PaymentForm = ({ form }: { form: RedirectForm | null }) => {
 };
 ```
 
-## **Conclusión**
+## Conclusión
 
 En este tutorial, hemos integrado exitosamente **Redsys** con **Next.js 15** para crear un flujo de pago optimizado utilizando el método de **formulario de redirección**. Al aprovechar el poder de **Server Actions**, generamos eficientemente el formulario de pago necesario y redirigimos automáticamente al usuario a la pasarela de pago de Redsys.
 
@@ -234,10 +235,10 @@ Ahora tienes una implementación funcional de una pasarela de pago segura que se
 
 Esta integración permite a las empresas que operan en España implementar fácilmente Redsys como su solución de pago, asegurando transacciones seguras y eficientes.
 
-## **¿Qué Sigue?**
+## ¿Qué Sigue?
 
 Mantente atento a la próxima actualización, donde compartiré un par de trucos para mejorar este flujo, mejorar el rendimiento y hacer que la integración sea aún más fluida para entornos de producción. ¡Estén atentos a las próximas mejoras!
 
-## **Nota al Pie**
+### Nota al pie
 
 Un agradecimiento especial a [Javier Tury](https://github.com/javiertury) por el paquete **redsys-easy**, que simplifica enormemente la integración de Redsys con aplicaciones Node.js y Next.js.

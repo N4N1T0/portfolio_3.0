@@ -1,9 +1,11 @@
 ---
-title: 'Astro Actions and Vanilla JavaScript for Forms'
+title: 'Astro Actions and Vanilla JS for Form Validation'
 date: 2025-08-20
-excerpt: 'Learn how to build powerful contact forms using Astro Actions API with server-side validation and vanilla JavaScript for smooth user experience.'
+dateModified: 2026-10-22
+excerpt: 'Build a contact form with Astro Actions: server-side validation in the Action, vanilla JavaScript for the UI, no client framework.'
 author: 'Adrian "Nano" Alvarez'
-counterpartId: 'en/astro-actions-and-vanilla-for-form'
+counterpartId: 'es/astro-actions-y-vanilla-para-formularios'
+tags: ['astro', 'javascript', 'forms']
 ---
 
 One of the features I've been enjoying in Astro lately is the Actions API. It allows you to handle server logic (like form submissions) without spinning up a full backend or reaching for a heavy framework.
@@ -16,7 +18,7 @@ Here's how I used it to build a contact form that:
 
 ---
 
-## 🗂️ Frontmatter vs Client-Side Scripts in Astro
+## Frontmatter vs Client-Side Scripts in Astro
 
 The frontmatter (--- ... ---) in an Astro file is always server-side. You can't touch the DOM there. But inside the Astro component, you can add a `<script>` tag, and it works just like a classic browser script — with full DOM access and module imports if needed.
 
@@ -72,7 +74,7 @@ import { Alert, AlertTitle, AlertDescription } from '@/components/starwind/alert
 
     if (data) {
       status.classList.remove('hidden')
-      status.querySelector('h5').textContent = 'Message sent ✅'
+      status.querySelector('h5').textContent = 'Message sent '
       status.querySelector('div').textContent = 'Thanks! We'll be in touch soon.'
       form.reset()
     }
@@ -80,7 +82,7 @@ import { Alert, AlertTitle, AlertDescription } from '@/components/starwind/alert
 </script>
 ```
 
-## 1️⃣ Frontmatter (Server-Side Only)
+## 1. Frontmatter (server-side only)
 
 ```astro
 import {buttonVariants} from '@/components/starwind/button' import{' '}
@@ -90,7 +92,7 @@ import {buttonVariants} from '@/components/starwind/button' import{' '}
 This block (`--- ... ---`) runs only on the server in Astro.
 You can import components, utilities, or data here — but you can't touch the DOM.
 
-## 2️⃣ The Markup (HTML + Components)
+## 2. The markup (HTML plus components)
 
 ```astro
 <section>
@@ -122,7 +124,7 @@ You can import components, utilities, or data here — but you can't touch the D
 - The Alert component is hidden by default (`hidden`).
 - Later, when the form is submitted, this gets updated dynamically with success or error messages.
 
-## 3️⃣ Client-Side Script (DOM Manipulation)
+## 3. Client-side script (DOM manipulation)
 
 ```javascript
 <script>
@@ -145,7 +147,7 @@ You can import components, utilities, or data here — but you can't touch the D
 
     if (data) {
       status.classList.remove('hidden')
-      status.querySelector('h5').textContent = 'Message sent ✅'
+      status.querySelector('h5').textContent = 'Message sent '
       status.querySelector('div').textContent = 'Thanks! We'll be in touch soon.'
       form.reset()
     }
@@ -164,7 +166,7 @@ This `<script>` runs in the browser, not on the server.
 - If the action succeeds, the alert is updated with a success message.
 - Finally, the form is cleared (`form.reset()`).
 
-## ⚠️ Don't Forget SSR
+## Do not forget SSR
 
 If you want Actions to run, the page must be server-side rendered (SSR). In Astro, you can disable prerendering like this:
 
@@ -176,7 +178,7 @@ If you're deploying to Vercel, Netlify, or Node, your adapter will handle the re
 
 ---
 
-## ✅ Why I Like This Approach
+## Why I Like This Approach
 
 - **Lightweight** → Almost zero JS shipped, except a tiny script for DOM updates.
 - **Safe** → Strong validation with zod on the server + extra checks in the client.

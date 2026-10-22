@@ -1,106 +1,114 @@
 ---
-title: 'Integrating Redsys with Next.js 15 – Part 2'
+title: 'Redsys with Next.js 15, Part 2: Payment Notifications'
 date: 2025-03-21
-excerpt: 'Learn how to handle payment notifications and improve performance when integrating Redsys with Next.js 15.'
+dateModified: 2026-10-22
+excerpt: 'Handle Redsys notifications in Next.js 15: the notification route, signature checks, idempotency and why the order must come from your database.'
 author: 'Adrian "Nano" Alvarez'
-counterpartId: 'es/introducion-a-redsys-en-nextjs-15-parte-2'
+counterpartId: 'es/introduccion-a-redsys-en-nextjs-15-parte-2'
+tags: ['nextjs', 'payments', 'redsys']
 ---
 
 ## Handling Payment Notifications Efficiently
 
-### The Challenge: Asynchronous Bank Processes
+### The challenge: the browser is not the source of truth
 
-When integrating Redsys with Next.js, one challenge is handling payment notifications effectively. The bank-to-bank transaction process can take time, and users shouldn’t have to wait indefinitely for confirmation. Payment gateways, including Redsys, handle transactions on the backend, which means your system must be capable of capturing and processing the payment status reliably.
+A Redsys payment happens in three places: your server creates the signed form, the bank takes over in its own page, and the result arrives later. Two things go wrong when you treat the redirect back to your site as confirmation:
 
-Another common scenario occurs when a user completes the payment on the bank’s website but does not return to your website. In such cases, your system must still be able to finalize the order correctly.
+- The user closes the tab on the bank page. The payment succeeded, your site never hears about it.
+- The user lands on your success page with edited query parameters. Nothing was paid, but the page says it was.
 
-Implementing Redsys Payment Notifications
+The fix is the notification URL. Redsys calls your server directly, server to server, with the signed result. That call, not the browser redirect, is what marks an order as paid.
 
-Redsys provides a built-in notification URL to handle these situations. You can configure this URL in the payment request:
+### Configuring the notification URL
 
-```tsx
+`DS_MERCHANT_MERCHANTURL` must be an absolute, publicly reachable HTTPS URL. A relative path is silently useless: Redsys cannot resolve it, so it never notifies you.
+
+```ts
 const form = createRedirectForm({
 	...merchantInfo,
-	// This URL is used by Redsys to send payment notifications to your server
-	// It ensures that your backend receives transaction updates, even if the user does not return to your site
-	DS_MERCHANT_MERCHANTURL: '/api/redsys/notification',
+	// Redsys posts the signed result here, even if the user never comes back
+	DS_MERCHANT_MERCHANTURL: `${process.env.NEXT_PUBLIC_URL}/api/redsys/notification`,
 });
 ```
 
-### Creating the Notification API
+Keep `DS_MERCHANT_URLOK` and `DS_MERCHANT_URLKO` as well, but treat them as navigation only: they decide which page the user sees, never which order is paid.
 
-To handle payment notifications, you need an API route that processes Redsys' response.
+### Creating the notification route
 
-```tsx
+The route receives a `POST` with three fields: `Ds_SignatureVersion`, `Ds_Signature` and `Ds_MerchantParameters`. Decode them with the same secret key used to sign the request. `redsys-easy` validates the signature while decoding, so an invalid signature throws and the request can be rejected before it touches the database.
+
+```ts
 import type { ResponseJSONSuccess } from 'redsys-easy';
 import { processRestNotification } from '@/lib/clients/redsys';
 import { NextResponse } from 'next/server';
+import { markOrderAsPaid } from '@/lib/orders';
 
 export async function POST(req: Request) {
-	// Extracts the Redsys notification parameters from request headers
 	const notificationParams: ResponseJSONSuccess = {
 		Ds_SignatureVersion: req.headers.get('Ds_SignatureVersion') as string,
 		Ds_Signature: req.headers.get('Ds_Signature') as string,
 		Ds_MerchantParameters: req.headers.get('Ds_MerchantParameters') as string,
 	};
 
-	// Processes the notification and extracts relevant payment details
-	const { Ds_Order: orderId, Ds_Response: responseCode } =
-		processRestNotification(notificationParams);
+	try {
+		const {
+			Ds_Order: orderId,
+			Ds_Response: responseCode,
+			Ds_Amount: amount,
+		} = processRestNotification(notificationParams);
 
-	// Checks if the payment was successful (response code '0000' indicates success)
-	if (responseCode === '0000') {
-		console.info('Order successfully updated', { orderId, responseCode });
-		return NextResponse.json({ success: true, message: 'Payment completed' });
-	} else {
-		return NextResponse.json({ success: false, message: 'Payment failed' });
+		// The notification is the only trusted source: load the order, do not rebuild it
+		await markOrderAsPaid({ orderId, responseCode, amount });
+
+		return NextResponse.json({ ok: true });
+	} catch {
+		// Invalid signature or malformed payload: reject, do not write anything
+		return NextResponse.json({ ok: false }, { status: 400 });
 	}
 }
 ```
 
-This function verifies the Redsys notification, extracts the order ID and response code, and updates the order status accordingly.
+Three rules make this route safe:
 
-### Improving Performance with URL Parameters
+1. **Validate the signature before reading the payload.** The parameters are base64, not encrypted. Anyone can craft them; only the signature proves they came from Redsys.
+2. **Load the order by `Ds_Order` and compare `Ds_Amount` with the stored total.** Redsys signs the amount, so a mismatch means the order changed after the form was created. Mark it for review instead of accepting it.
+3. **Make it idempotent.** Redsys retries when your server does not answer with a 2xx. `markOrderAsPaid` must tolerate the same notification twice, for example with a conditional update or a unique constraint on the order id.
 
-Modern web applications rely heavily on state management, but in cases like Redsys transactions—where users leave the site and return—maintaining state can be difficult. A practical solution is to include key information within the URL.
+Answer quickly with `200` once the state is written. Heavy work, such as sending the confirmation email or generating the invoice, belongs in a queue or a background job, not inside the notification handler.
 
-For example, passing user-related data such as the user ID, address ID, products, and total amount in the redirect URL ensures you have everything needed to complete the order process once the user returns.
+### Why not pass the order in the URL
 
-### Implementing a Payment Logic Function
+A common shortcut is to put the user id, the products and the total in the redirect URL so the success page can rebuild the order. It looks convenient and it creates three problems: the total can be edited by hand, the cart is exposed in logs and browser history, and the data still disappears if the user closes the tab.
 
-Using Next.js server actions, you can define a function that structures the redirect URLs dynamically
+Pass only the order id, which is a random identifier with no authority by itself, and read everything else from the database:
 
-```tsx
+```ts
 'use server';
 
-const paymentLogic = async (
-	paymentType: FormDataEntryValue | null,
-	totalAmount: number,
-	userId: string | string[] | undefined,
-	products: CartItemType[],
-	newAddress: string | string[] | undefined,
-	discountCoupon: string,
-) => {
-	// Generates a structured URL containing necessary payment details for redirection
-	const templateRedirectUrl = (page: string, gateway: string = 'RedSys') => {
-		return `${process.env.NEXT_PUBLIC_URL}/${page}?userId=${userId}&orderId=
-    ${orderId}&gateway=${gateway}&newAddress=${newAddress}&discountCoupon=
-    ${discountCoupon}&total=${totalAmount}&products=
-    ${encodeURIComponent(JSON.stringify(products))}`;
-	};
+const orderRedirectUrl = (page: string, orderId: string) =>
+	`${process.env.NEXT_PUBLIC_URL}/${page}?orderId=${orderId}`;
 
-	const form = createRedirectForm({
-		...merchantInfo,
-		DS_MERCHANT_MERCHANTURL: templateRedirectUrl('api/redsys'),
-		DS_MERCHANT_URLOK: templateRedirectUrl('success'), // This URL aims to the success page
-		DS_MERCHANT_URLKO: templateRedirectUrl('failure'), // This URL aims to the success page
-		// All the rest info on the part 1
-	});
-};
+const form = createRedirectForm({
+	...merchantInfo,
+	DS_MERCHANT_MERCHANTURL: `${process.env.NEXT_PUBLIC_URL}/api/redsys/notification`,
+	DS_MERCHANT_URLOK: orderRedirectUrl('success', orderId),
+	DS_MERCHANT_URLKO: orderRedirectUrl('failure', orderId),
+});
 ```
+
+The success page then reads the order by id and shows the status stored by the notification route. If the notification has not arrived yet, it can show "processing" and poll, instead of guessing.
+
+### Testing the flow
+
+Redsys provides a test environment with test cards. Exercise these four cases before going live:
+
+- Successful payment, user returns: the order is paid once.
+- Successful payment, user closes the tab: the notification still marks the order as paid.
+- Cancelled payment: the order stays pending and the failure page does not claim success.
+- Replayed notification: the second call returns `200` without duplicating the state change.
 
 ## Conclusion
 
-Handling asynchronous payment notifications and maintaining order data when users leave and return to your site are essential for a smooth Redsys integration. By configuring a notification URL and passing key parameters through URLs, you can ensure a reliable and seamless payment process in your Next.js 15 application.
+The redirect back to your site is a navigation detail. The notification is the payment. Verify its signature, load the order from your database, check the amount and make the handler idempotent. Everything else, including what the success page displays, derives from that record.
 
-If you haven’t already, check out [Part 1](https://www.adrian-alvarez.dev/en/blog/redsys-implementation-on-nextjs-15) where we cover setting up a Redsys client with all necessary functions!
+If you have not set up the client yet, start with [Part 1](/en/blog/redsys-implementation-on-nextjs-15/), which covers the signed form and the Redsys client.

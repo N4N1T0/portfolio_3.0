@@ -1,9 +1,11 @@
 ---
-title: 'Automate Your Product Feed in Google Merchant Center with Node.js'
+title: 'Automate a Google Merchant Center Feed with Node.js'
 date: 2025-08-17
-excerpt: 'Learn how to sync your eCommerce store directly with Google Merchant Center using the Content API—no plugins, fully scalable.'
+dateModified: 2026-10-22
+excerpt: 'Sync an eCommerce catalogue with Google Merchant Center through the Content API: service account, batch inserts and a daily cron.'
 author: 'Adrian "Nano" Alvarez'
 counterpartId: 'es/automatiza-tu-feed-google-merchant-nodejs'
+tags: ['ecommerce', 'nodejs', 'automation']
 ---
 
 In **eCommerce**, having an updated feed in Google Merchant Center is **not optional**.
@@ -11,9 +13,9 @@ It’s crucial for your Shopping campaigns to run smoothly, for your products to
 
 Many CMSs offer plugins for this task, but they are often:
 
-❌ Limited
-❌ Hard to customize
-❌ Inefficient for projects with real business needs
+Limited
+Hard to customize
+Inefficient for projects with real business needs
 
 As an eCommerce developer, I’ve faced this need many times.
 The best solution I found was to go straight to the source: **Google Content API for Shopping**.
@@ -22,24 +24,24 @@ In this article, I’ll show you how to **automate your feed with Node.js**, wit
 
 ---
 
-## 🧱 Step 1: Authenticate with a Service Account
+## Step 1: Authenticate with a Service Account
 
-Google provides an official library to work with its APIs in Node.js: 👉 [`googleapis`](https://www.npmjs.com/package/googleapis)
+Google provides an official library to work with its APIs in Node.js: [`googleapis`](https://www.npmjs.com/package/googleapis)
 
 The client we care about is **`@googleapis/content`**, which connects directly to Merchant Center.
 
-### 🔑 What is a Service Account?
+### What is a service account?
 
 A **service account** is a technical identity within Google Cloud that allows you to access APIs without human intervention. Perfect for automated backend processes.
 
-### ✅ How to create one
+### Create the service account
 
 1. Go to [console.cloud.google.com](https://console.cloud.google.com) and open your project.
 2. Navigate to **"IAM & Admin" → "Service Accounts"**
 3. Create a new account and assign the **Editor** role or a custom role with Content API permissions.
 4. Download the **.json** credentials file.
 
-### 🔐 Keep it secure
+### Keep the key secure
 
 Never upload these credentials to Git!
 Use **environment variables**:
@@ -50,10 +52,10 @@ GOOGLE_CLIENT_EMAIL=your-account@project.iam.gserviceaccount.com
 MERCHANT_CENTER_ACCOUNT_ID=123456789
 ```
 
-📌 To get your **MERCHANT_CENTER_ACCOUNT_ID**:
+To get your **MERCHANT_CENTER_ACCOUNT_ID**:
 Go to Google Merchant Center, and at the top right (next to your profile picture), you’ll see your **Account ID**. That number is your `merchantId`.
 
-### 🔒 Authenticate with GoogleAuth
+### Authenticate with GoogleAuth
 
 ```ts
 import * as content from '@googleapis/content';
@@ -82,16 +84,16 @@ The **scopes** define permissions:
 
 ---
 
-## 🧩 Step 2: Insert or Update Products
+## Step 2: Insert or Update Products
 
 The API provides two key methods:
 
 - **`products.insert()`** → Create a new product (only once per `offerId`)
 - **`products.update()`** → Update an existing product
 
-⚠️ Using `insert` on an existing product will fail. Check if the product exists before calling it.
+Using `insert` on an existing product will fail. Check if the product exists before calling it.
 
-### 🛠️ Example Function
+### Example function
 
 ```ts
 import { content_v2_1 } from '@googleapis/content';
@@ -151,11 +153,11 @@ const updateProduct = async (
 };
 ```
 
-📘 Full list of fields in the [official documentation](https://support.google.com/merchants/answer/7052112).
+Full list of fields in the [official documentation](https://support.google.com/merchants/answer/7052112).
 
 ---
 
-## 🔁 Step 3: Run Controlled Synchronization
+## Step 3: Run Controlled Synchronization
 
 Updating many products at once can cause **throttling** or network errors.
 To prevent this, we use [`p-limit`](https://www.npmjs.com/package/p-limit), which limits concurrent promises.
@@ -164,7 +166,7 @@ To prevent this, we use [`p-limit`](https://www.npmjs.com/package/p-limit), whic
 npm install p-limit
 ```
 
-### ⚙️ Example
+### Example
 
 ```ts
 import pLimit from 'p-limit';
@@ -180,7 +182,7 @@ This ensures only **5 processes run at the same time**.
 
 ---
 
-## 🎁 Bonus: Automate with a Daily Cron Job
+## Bonus: automate with a daily cron job
 
 Schedule syncs using **node-cron** or external services (EasyCron, GitHub Actions).
 
@@ -199,14 +201,14 @@ This runs daily at **3:00 AM**.
 
 ---
 
-## 🚀 Conclusion
+## Conclusion
 
 By using the **Content API directly from Node.js**, you unlock a first-class integration:
 
-✅ Fully customizable
-✅ No limiting plugins
-✅ Optimized for scale and performance
-✅ Compatible with any CMS or backend
-✅ Future-proof for growth
+Fully customizable
+No limiting plugins
+Optimized for scale and performance
+Compatible with any CMS or backend
+Future-proof for growth
 
 In a world where **automation makes the difference between selling or not**, this integration can be the key to taking your Shopping campaigns to the next level.

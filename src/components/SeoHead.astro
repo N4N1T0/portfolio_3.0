@@ -9,7 +9,10 @@ const { locale, title, description, ogAlt } = Astro.props;
 const { alternateHref, alternateLang, breadcrumbs, blogPosting } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const alternateAbsolute = alternateHref ? new URL(alternateHref, Astro.site).href : undefined;
 const alternateEn = new URL('/en/', Astro.site).href;
+// x-default points at the English version of this page, not always at the home
+const defaultHref = locale === 'en' ? canonical : (alternateAbsolute ?? alternateEn);
 const ogImage = new URL(locale === 'en' ? '/og.png' : '/og-es.png', Astro.site).href;
 
 const jsonLd = {
@@ -71,7 +74,7 @@ const jsonLd = {
 							'@type': 'ListItem',
 							position: index + 1,
 							name: crumb.name,
-							item: crumb.href,
+							item: new URL(crumb.href, Astro.site).href,
 						})),
 					},
 				]
@@ -88,10 +91,10 @@ const jsonLd = {
 <meta name="robots" content="index, follow" />
 <link rel="canonical" href={canonical} />
 <link rel="alternate" hreflang={locale} href={canonical} />
-{alternateHref && alternateLang && (
-	<link rel="alternate" hreflang={alternateLang} href={alternateHref} />
+{alternateAbsolute && alternateLang && (
+	<link rel="alternate" hreflang={alternateLang} href={alternateAbsolute} />
 )}
-<link rel="alternate" hreflang="x-default" href={alternateEn} />
+<link rel="alternate" hreflang="x-default" href={defaultHref} />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
 <SocialMeta

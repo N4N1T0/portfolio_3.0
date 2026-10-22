@@ -1,9 +1,10 @@
 ---
-title: 'Writing every component twice to stop a preview from lying'
+title: 'Writing Every Component Twice to Stop a Preview Lying'
 date: 2026-09-09
-excerpt: 'A resizable preview panel makes viewport breakpoints lie. The fix was to author each component twice, once for the viewport and once for the container. What that bought, and what it cost.'
+excerpt: 'A resizable preview makes viewport breakpoints lie. The fix was two files per component, one for the viewport and one for the container.'
 author: 'Adrian "Nano" Alvarez'
 counterpartId: 'es/escribir-cada-componente-dos-veces'
+tags: ['frontend', 'architecture', 'components']
 ---
 
 I build a registry of ecommerce storefront components — heroes, product cards, carts, checkout blocks — distributed the shadcn way: you run a CLI command and the source lands in your project as your code, not as a dependency. Eighty components, sixteen categories, and one design decision that shaped everything else.

@@ -42,6 +42,9 @@ export type Copy = {
 		try: string;
 		entries: string;
 		published: string;
+		updated: string;
+		related: string;
+		home: string;
 	};
 	about: {
 		title: string;
@@ -150,6 +153,9 @@ export const copy: Record<Locale, Copy> = {
 			try: 'try it',
 			entries: 'entries',
 			published: 'published',
+			updated: 'updated',
+			related: 'related entries',
+			home: 'home',
 		},
 		about: {
 			title: 'About',
@@ -254,6 +260,9 @@ export const copy: Record<Locale, Copy> = {
 			try: 'pruébalo',
 			entries: 'entradas',
 			published: 'publicado',
+			updated: 'actualizado',
+			related: 'entradas relacionadas',
+			home: 'inicio',
 		},
 		about: {
 			title: 'Sobre mí',
