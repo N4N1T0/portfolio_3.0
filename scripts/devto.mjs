@@ -21,14 +21,23 @@ function parse(file) {
 	const tags = field('tags')
 		.replace(/^\[|\]$/g, '')
 		.split(',')
-		.map((tag) => tag.trim().replace(/^['"]|['"]$/g, '').toLowerCase())
+		.map((tag) =>
+			tag
+				.trim()
+				.replace(/^['"]|['"]$/g, '')
+				.toLowerCase(),
+		)
 		.filter(Boolean);
 
 	return {
 		slug: file.replace(/\.md$/, ''),
 		publishAt: field('devto'),
-		title: field('title').replace(/^['"]|['"]$/g, '').replace(/''/g, "'"),
-		excerpt: field('excerpt').replace(/^['"]|['"]$/g, '').replace(/''/g, "'"),
+		title: field('title')
+			.replace(/^['"]|['"]$/g, '')
+			.replace(/''/g, "'"),
+		excerpt: field('excerpt')
+			.replace(/^['"]|['"]$/g, '')
+			.replace(/''/g, "'"),
 		tags: tags.slice(0, 4),
 		body: body.trim().replace(/\]\(\//g, `](https://${HOST}/`),
 	};
