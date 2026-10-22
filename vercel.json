@@ -10,6 +10,36 @@
 			"permanent": true
 		},
 		{
+			"source": "/en/blog/astro-actions-y-vanilla-para-formularios",
+			"destination": "/en/blog/astro-actions-and-vanilla-for-form/",
+			"permanent": true
+		},
+		{
+			"source": "/en/blog/astro-actions-y-vanilla-para-formularios/",
+			"destination": "/en/blog/astro-actions-and-vanilla-for-form/",
+			"permanent": true
+		},
+		{
+			"source": "/es/blog/8-tips-to-optimize-your-ecommerce",
+			"destination": "/es/blog/8-tips-para-optimizar-ecommerce/",
+			"permanent": true
+		},
+		{
+			"source": "/es/blog/8-tips-to-optimize-your-ecommerce/",
+			"destination": "/es/blog/8-tips-para-optimizar-ecommerce/",
+			"permanent": true
+		},
+		{
+			"source": "/en/blog/introducion-a-redsys-en-nextjs-15",
+			"destination": "/en/blog/redsys-implementation-on-nextjs-15/",
+			"permanent": true
+		},
+		{
+			"source": "/en/blog/introducion-a-redsys-en-nextjs-15/",
+			"destination": "/en/blog/redsys-implementation-on-nextjs-15/",
+			"permanent": true
+		},
+		{
 			"source": "/es/blog/usando-notion-para-mejorar-tus-royectos",
 			"destination": "/es/blog/usando-notion-para-mejorar-tus-proyectos/",
 			"permanent": true
