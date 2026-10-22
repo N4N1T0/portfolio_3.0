@@ -1,23 +1,24 @@
 ---
-title: 'Astro 5: qué cambia y por qué importa para el SEO'
+title: 'Qué cambia Astro de verdad para el SEO'
 date: 2024-12-27
 dateModified: 2026-10-22
-excerpt: 'Astro 5 trajo Content Layer, server islands y astro:env. Qué cambia cada uno, de dónde sale de verdad la mejora de SEO y cuándo gana una SPA.'
+excerpt: 'Astro no posiciona por sí solo. HTML estático, islas opcionales y una capa de contenido tipada son lo que recibe el crawler. Dónde gana y dónde no.'
 author: 'Adrian "Nano" Alvarez'
 counterpartId: 'en/astro-the-future-of-web-development'
 tags: ['astro', 'performance', 'seo']
 ---
 
-## Qué trajo de verdad Astro 5
+## Qué cambia Astro de verdad
 
-Astro 5 (diciembre de 2024) no es un rediseño. Cierra tres huecos que antes empujaban a los equipos de vuelta a un framework completo: contenido desde cualquier sitio, renderizado en servidor por componente y variables de entorno tipadas.
+Astro no es un rediseño de la web, y esa es la idea. Tres cambios cerraron los huecos que empujaban a un equipo de vuelta a un framework completo: contenido desde cualquier sitio, renderizado en servidor por componente y variables de entorno tipadas. Llegaron en Astro 5 y siguen definiendo el framework.
 
 ### Content Layer
 
-Antes del Content Layer, una colección tenía que ser Markdown local o un CMS consultado a mano. Astro 5 introdujo los [loaders](https://docs.astro.build/en/guides/content-collections/), así que una colección puede leer del sistema de ficheros, de una API de CMS o de una base de datos y seguir exponiendo la misma API `getCollection()`:
+Antes del Content Layer, una colección tenía que ser Markdown local o un CMS consultado a mano. Astro introdujo los [loaders](https://docs.astro.build/en/guides/content-collections/), así que una colección puede leer del sistema de ficheros, de una API de CMS o de una base de datos y seguir exponiendo la misma API `getCollection()`:
 
 ```ts
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { z } from 'astro/zod';
 import { glob } from 'astro/loaders';
 
 const blog = defineCollection({
@@ -75,9 +76,9 @@ El enfoque estático encaja mal cuando la página es la aplicación. Si toda la 
 
 Astro cubre ese caso con SSR y server islands, pero es un punto intermedio. Elígelo cuando la página tenga un núcleo público y cacheable y un borde dinámico pequeño. Elige una SPA cuando casi cada píxel es dinámico.
 
-## Actualizar: qué se rompe
+## Actualizar desde Astro 4
 
-Los errores de la actualización son bastante honestos, y cada uno apunta a un cambio real:
+Si vienes de Astro 4, los errores son bastante honestos y cada uno apunta a un cambio real:
 
 1. **Las colecciones pasan a loaders.** Las entradas con `type: 'content'` se sustituyen por loaders `glob()` o `file()`, y `entry.slug` pasa a ser `entry.id`. Las plantillas que usaban `slug` hay que tocarlas.
 2. **`entry.render()` desaparece.** Se renderiza con `render(entry)` importado de `astro:content`, que además devuelve `Content` y `headings` para el layout.

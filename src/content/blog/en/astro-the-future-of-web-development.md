@@ -1,23 +1,24 @@
 ---
-title: 'Astro 5: What Changed and Why It Matters for SEO'
+title: 'What Astro Actually Changes for SEO'
 date: 2024-12-27
 dateModified: 2026-10-22
-excerpt: 'Astro 5 brought the Content Layer, server islands and astro:env. What each one changes, where the SEO gain really comes from, and when a SPA wins.'
+excerpt: 'Astro does not rank by itself. Static HTML, opt-in islands and a typed content layer are what the crawler gets. Where it wins and where a SPA does.'
 author: 'Adrian "Nano" Alvarez'
 counterpartId: 'es/astro-el-futuro-del-desarrollo-web'
 tags: ['astro', 'performance', 'seo']
 ---
 
-## What Astro 5 actually shipped
+## What Astro actually changes
 
-Astro 5 (December 2024) is not a redesign. It closes three gaps that used to force teams back to a full framework: content from anywhere, per-component server rendering and typed environment variables.
+Astro is not a redesign of the web, and that is the point. Three changes closed the gaps that used to push a team back to a full framework: content from anywhere, per-component server rendering and typed environment variables. They landed in Astro 5 and still shape the framework today.
 
 ### Content Layer
 
-Before the Content Layer, a collection had to be local Markdown or a CMS fetched by hand. Astro 5 introduced [loaders](https://docs.astro.build/en/guides/content-collections/), so a collection can read from the filesystem, a CMS API or a database and still expose the same `getCollection()` API:
+Before the Content Layer, a collection had to be local Markdown or a CMS fetched by hand. Astro introduced [loaders](https://docs.astro.build/en/guides/content-collections/), so a collection can read from the filesystem, a CMS API or a database and still expose the same `getCollection()` API:
 
 ```ts
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { z } from 'astro/zod';
 import { glob } from 'astro/loaders';
 
 const blog = defineCollection({
@@ -75,9 +76,9 @@ Static-first is a bad fit when the page is the application. If the whole screen 
 
 Astro handles this with SSR and server islands, but that is a middle ground. Choose it when the page has a public, cacheable core and a small dynamic edge. Choose a SPA when almost every pixel is dynamic.
 
-## Upgrading: what breaks
+## Upgrading from Astro 4
 
-The upgrade errors are mostly honest, and each one points at a real change:
+Coming from Astro 4, the upgrade errors are mostly honest, and each one points at a real change:
 
 1. **Content collections move to loaders.** `type: 'content'` entries are replaced by `glob()` or `file()` loaders, and `entry.slug` becomes `entry.id`. Templates that used `slug` need updating.
 2. **`entry.render()` is gone.** Render through `render(entry)` imported from `astro:content`, which also returns the `Content` and `headings` used by layouts.
