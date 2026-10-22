@@ -169,6 +169,10 @@ changes, using `scripts/devto-state.json` to remember the article id and a hash 
 
 Publishing is immediate when the date arrives, so set the date on a post you have already reviewed.
 
+The Forem API has no scheduling: `published_at` is read-only, so a post can only be created as a
+draft or published at once. To schedule one, create it by hand in the dev.to editor and leave the
+`devto` line out of the frontmatter; adding it later would create a second article.
+
 ## Next steps
 
 - Request indexing in Search Console for the six URLs that were crawled but not indexed, and only
