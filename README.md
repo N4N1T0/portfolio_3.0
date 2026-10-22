@@ -152,7 +152,10 @@ indexing" there.
 - Request indexing in Search Console for the six URLs that were crawled but not indexed, and only
   the ones that include `/blog/` in the path.
 - Watch the "Crawled, currently not indexed" bucket for two to four weeks after the rewrites.
-- Cross-post three articles to dev.to with a canonical back to the site: Astro 5 and SEO, TinaCMS,
-  and Redsys on Next.js 15 (one per week, tracked in the vault).
+- Fix the canonical URL of the seven posts already on dev.to: five point at dev.to itself and two at
+  `www.adrian-alvarez.dev`, which no longer resolves.
+- Cross-post three more articles to dev.to with a canonical back to the site: Astro 5 and SEO, Claude
+  Code with any model through OpenRouter, and the rate limiter postmortem (one per week, tracked in
+  the vault).
 - Revisit the remaining 2023–2024 posts that were not rewritten, and decide whether the migrated
   posts keep their original date or take the republishing date.
