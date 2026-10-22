@@ -2,6 +2,8 @@
 	"$schema": "https://raw.githubusercontent.com/fallow-rs/fallow/main/schema.json",
 	// build-time frameworks: imported by astro.config.mjs, never by app code
 	"ignoreDependencies": ["astro", "@astrojs/preact"],
+	// the Vercel build calls it from buildCommand, so nothing imports it
+	"entry": ["scripts/indexnow.mjs"],
 	"rules": {
 		// @resvg/resvg-js and wawoff2 render the OG image at build time and
 		// @tailwindcss/typography is a Tailwind plugin: none of them ship

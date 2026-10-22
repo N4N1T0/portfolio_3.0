@@ -108,3 +108,51 @@ serves the output and the redirects.
 vercel link
 vercel --prod
 ```
+
+## SEO
+
+The blog is a static Astro build served from Vercel, and the whole pass is about what a crawler
+receives:
+
+- Every post ships `BlogPosting` and `BreadcrumbList` JSON-LD, with `dateModified` when the entry
+  changed, absolute breadcrumb URLs and a real `x-default`.
+- Hreflang is derived from `counterpartId`, so the pair of translations points at each other even
+  when the file names differ.
+- The schema requires `tags` and caps `excerpt` at 160 characters, which keeps the meta description
+  inside the length Google actually renders.
+- The related block is built from tags, with the newest posts as filler when a tag is alone.
+- Three slugs with typos were renamed and covered by `308` redirects in `vercel.json`, with and
+  without the trailing slash. Vercel's `permanent: true` returns `308`, which Google treats as
+  permanent.
+- Thin 2023–2024 posts were rewritten and now cite primary sources (Google Search Essentials,
+  web.dev, MDN, W3C, the Scrum Guide, Baymard, the Astro docs).
+
+## IndexNow
+
+`scripts/indexnow.mjs` submits the generated sitemap to
+[IndexNow](https://www.indexnow.org/) (Bing, Yandex, Seznam, Naver) at the end of every production
+build, so the notification travels with the deploy instead of depending on a CI run:
+
+```json
+"buildCommand": "pnpm run build && node scripts/indexnow.mjs"
+```
+
+The key is hosted at `/59f7c7ccca1744c980a0a1638d246e89.txt`. Preview deploys are skipped through
+`VERCEL_ENV`, and a failed ping logs a warning without failing the build. To run it by hand:
+
+```bash
+INDEXNOW_FORCE=1 node scripts/indexnow.mjs
+```
+
+Google ignores IndexNow; its channel is Search Console, and new posts still need "Request
+indexing" there.
+
+## Next steps
+
+- Request indexing in Search Console for the six URLs that were crawled but not indexed, and only
+  the ones that include `/blog/` in the path.
+- Watch the "Crawled, currently not indexed" bucket for two to four weeks after the rewrites.
+- Cross-post three articles to dev.to with a canonical back to the site: Astro 5 and SEO, TinaCMS,
+  and Redsys on Next.js 15 (one per week, tracked in the vault).
+- Revisit the remaining 2023–2024 posts that were not rewritten, and decide whether the migrated
+  posts keep their original date or take the republishing date.
