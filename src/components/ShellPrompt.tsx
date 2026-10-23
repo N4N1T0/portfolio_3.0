@@ -141,6 +141,8 @@ export default function ShellPrompt({
 
 	function focusInput() {
 		if (document.documentElement.dataset.booting === 'true') return;
+		// mobile keyboards must not open by themselves
+		if (!window.matchMedia('(min-width: 640px)').matches) return;
 		inputRef.current?.focus({ preventScroll: true });
 	}
 

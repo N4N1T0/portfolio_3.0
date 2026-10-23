@@ -23,7 +23,7 @@ export default function CommandList({ commands, altLocale, language, newTab, onR
 						class="group flex min-w-0 items-baseline gap-3 px-1 py-1.5 transition-colors hover:bg-accent/10"
 					>
 						<span class="w-20 shrink-0 text-accent group-hover:underline">{command.label}</span>
-						<span class="min-w-0 break-words text-phosphor-dim">{command.hint}</span>
+						<span class="min-w-0 truncate text-phosphor-dim">{command.hint}</span>
 						<span class="ml-auto hidden shrink-0 text-accent sm:inline">
 							{command.external ? `[${newTab}]` : '->'}
 						</span>
