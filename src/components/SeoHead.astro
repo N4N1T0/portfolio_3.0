@@ -1,5 +1,6 @@
 ---
 import { profile } from '@/data/profile';
+import { feedPath } from '@/lib/rss';
 import { type SeoProps } from '@/lib/seo';
 import SocialMeta from '@/components/SocialMeta.astro';
 
@@ -99,6 +100,7 @@ const jsonLd = {
 		<link rel="alternate" hreflang="x-default" href={defaultHref} />
 	</>
 )}
+<link rel="alternate" type="application/rss+xml" title="RSS" href={feedPath(locale)} />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
 <SocialMeta
