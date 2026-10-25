@@ -1,0 +1,47 @@
+{
+	"title": "Comercify",
+	"date": "2026-10-25",
+	"excerpt": "Utilidades de e-commerce tipadas y sin dependencias para TypeScript: precios e impuestos, descuentos, carritos, envíos y catálogo. Se instala desde npm, o se copia el código fuente al proyecto con su CLI y el código pasa a ser tuyo.",
+	"images": [],
+	"liveLink": "https://www.npmjs.com/package/comercify",
+	"colors": "#CB3837",
+	"techStack": [
+		{
+			"title": "TypeScript",
+			"link": "https://www.typescriptlang.org"
+		},
+		{
+			"title": "tsup (build ESM + CJS)",
+			"link": "https://tsup.egoist.dev"
+		},
+		{
+			"title": "Vitest",
+			"link": "https://vitest.dev"
+		},
+		{
+			"title": "Node.js 20+",
+			"link": "https://nodejs.org"
+		},
+		{
+			"title": "ESLint",
+			"link": "https://eslint.org"
+		},
+		{
+			"title": "Prettier",
+			"link": "https://prettier.io"
+		},
+		{
+			"title": "GitHub Actions (CI)",
+			"link": "https://github.com/features/actions"
+		},
+		{
+			"title": "npm",
+			"link": "https://www.npmjs.com"
+		}
+	],
+	"testimonial": null,
+	"challenge": "Cada tienda online reimplementa las mismas piezas pequeñas: redondear dinero sin ruido de coma flotante, sacar el IVA de un precio con impuestos incluidos, elegir el mejor descuento, decirle al comprador cuánto le falta para el envío gratis. El desafío fue publicarlas en un solo paquete que siga sin dependencias y sea tree-shakeable, con tipos que resuelvan en todos los moduleResolution de TypeScript, y que además permita a un equipo copiar el código fuente a su proyecto en vez de instalarlo. Comercify crece por módulos, una carpeta por colaborador, así que el build, los exports y la CLI tenían que funcionar para un número de módulos desconocido.",
+	"solution": "Escribí cada utilidad como una función pequeña y tipada con sus propios tests unitarios, agrupadas en una carpeta de módulo que el paquete exporta como subruta (comercify/adrian) con builds ESM y CommonJS, declaraciones para los dos modos de resolución y sideEffects a false. Una CLI copia un módulo entero al proyecto, como shadcn/ui copia componentes, con opciones de módulo, salida, listado y force, y nunca sobrescribe un archivo sin --force. CI ejecuta lint, typecheck, format check, tests, build y publint en Node 20, 22 y 24, y la publicación comprueba que el tag coincide con package.json, pasa los tests antes y publica con npm provenance.",
+	"comingSoon": false,
+	"counterpartId": "en/comercify"
+}
