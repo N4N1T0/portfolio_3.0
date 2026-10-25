@@ -38,6 +38,7 @@ export type Copy = {
 	collections: {
 		projectsTitle: string;
 		projectsSubtitle: string;
+		projectsNote: string;
 		blogTitle: string;
 		blogSubtitle: string;
 		snippetsTitle: string;
@@ -158,6 +159,8 @@ export const copy: Record<Locale, Copy> = {
 			projectsTitle: 'Projects',
 			projectsSubtitle:
 				'Product and platform work in production: eCommerce, APIs, data and interfaces.',
+			projectsNote:
+				'There are more projects I built under different agencies that I cannot publish for privacy reasons. If you need more information, I can walk you through them or send the details.',
 			blogTitle: 'Blog',
 			blogSubtitle: 'Notes on Astro, eCommerce, performance and engineering practice.',
 			snippetsTitle: 'Snippets',
@@ -274,6 +277,8 @@ export const copy: Record<Locale, Copy> = {
 			projectsTitle: 'Proyectos',
 			projectsSubtitle:
 				'Producto y plataformas en producción: eCommerce, APIs, datos e interfaces.',
+			projectsNote:
+				'Hay más proyectos que hice bajo distintas agencias y que no puedo publicar por privacidad. Si necesitas más información, te los cuento o te envío los detalles.',
 			blogTitle: 'Blog',
 			blogSubtitle: 'Notas sobre Astro, eCommerce, rendimiento y práctica de ingeniería.',
 			snippetsTitle: 'Snippets',

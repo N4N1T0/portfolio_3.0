@@ -1,6 +1,6 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n';
-import { type Locale } from '@/data/copy';
+import { copy, type Locale } from '@/data/copy';
 import { getProjects } from '@/lib/content';
 import CollectionIndex from '@/components/collection/CollectionIndex.astro';
 import { type Row } from '@/components/collection/EntryList.astro';
@@ -10,6 +10,7 @@ interface Props {
 }
 
 const { locale } = Astro.props;
+const t = copy[locale];
 const projects = await getProjects(locale);
 
 const rows: Row[] = projects.map((project) => ({
@@ -26,4 +27,5 @@ const rows: Row[] = projects.map((project) => ({
 	subtitleKey="projectsSubtitle"
 	length={projects.length}
 	rows={rows}
+	note={t.collections.projectsNote}
 />
