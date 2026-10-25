@@ -214,6 +214,7 @@ export const copy: Record<Locale, Copy> = {
 		},
 		commands: [
 			{ id: 'about', hint: 'who I am', external: false },
+			{ id: 'cv', hint: 'download my CV (PDF)', external: false },
 			{ id: 'projects', hint: 'case studies', external: false },
 			{ id: 'blog', hint: 'writing', external: false },
 			{ id: 'snippets', hint: 'small components', external: false },
@@ -332,6 +333,7 @@ export const copy: Record<Locale, Copy> = {
 		},
 		commands: [
 			{ id: 'about', hint: 'quién soy', external: false },
+			{ id: 'cv', hint: 'descargar mi CV (PDF)', external: false },
 			{ id: 'projects', hint: 'casos de estudio', external: false },
 			{ id: 'blog', hint: 'escritos', external: false },
 			{ id: 'snippets', hint: 'componentes pequeños', external: false },

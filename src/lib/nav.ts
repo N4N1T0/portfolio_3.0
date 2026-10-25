@@ -29,6 +29,7 @@ export function buildCommands(locale: Locale): Command[] {
 	const t = copy[locale];
 	const local: Record<string, string> = {
 		about: getRelativeLocaleUrl(locale, 'about'),
+		cv: '/cv/adrian-alvarez-alonso-cv.pdf',
 		projects: getRelativeLocaleUrl(locale, 'projects'),
 		blog: getRelativeLocaleUrl(locale, 'blog'),
 		snippets: getRelativeLocaleUrl(locale, 'snippets'),
