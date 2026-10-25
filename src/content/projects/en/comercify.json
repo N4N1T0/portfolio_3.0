@@ -1,0 +1,47 @@
+{
+	"title": "Comercify",
+	"date": "2026-10-25",
+	"excerpt": "Typed, dependency-free e-commerce utilities for TypeScript: prices and taxes, discounts, carts, shipping and catalog. Install it from npm, or copy the source into your project with the CLI and own the code.",
+	"images": [],
+	"liveLink": "https://www.npmjs.com/package/comercify",
+	"colors": "#CB3837",
+	"techStack": [
+		{
+			"title": "TypeScript",
+			"link": "https://www.typescriptlang.org"
+		},
+		{
+			"title": "tsup (ESM + CJS build)",
+			"link": "https://tsup.egoist.dev"
+		},
+		{
+			"title": "Vitest",
+			"link": "https://vitest.dev"
+		},
+		{
+			"title": "Node.js 20+",
+			"link": "https://nodejs.org"
+		},
+		{
+			"title": "ESLint",
+			"link": "https://eslint.org"
+		},
+		{
+			"title": "Prettier",
+			"link": "https://prettier.io"
+		},
+		{
+			"title": "GitHub Actions (CI)",
+			"link": "https://github.com/features/actions"
+		},
+		{
+			"title": "npm",
+			"link": "https://www.npmjs.com"
+		}
+	],
+	"testimonial": null,
+	"challenge": "Every online store reimplements the same small pieces: rounding money without floating point noise, taking VAT out of a gross price, picking the best discount, telling the shopper how far they are from free shipping. The challenge was publishing them as a single package that stays dependency-free and tree-shakeable, ships types that resolve under every TypeScript moduleResolution, and also lets a team copy the source into its own project instead of installing it. Comercify grows by modules, one folder per contributor, so the build, the exports and the CLI had to work for an unknown number of them.",
+	"solution": "Wrote each utility as a small typed function with its own unit tests, grouped in a module folder that the package exports as a subpath (comercify/adrian) with ESM and CommonJS builds, declarations for both resolution modes and sideEffects set to false. A CLI copies a whole module into the project, the way shadcn/ui copies components, with options for module, output, listing and force, and it never overwrites a file without --force. CI runs lint, typecheck, format check, tests, build and publint on Node 20, 22 and 24, and publishing checks that the tag matches package.json, runs the tests first and publishes with npm provenance.",
+	"comingSoon": false,
+	"counterpartId": "es/comercify"
+}
