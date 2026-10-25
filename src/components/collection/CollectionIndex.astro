@@ -14,9 +14,10 @@ interface Props {
 	subtitleKey: keyof Copy['collections'];
 	length: number;
 	rows: Row[];
+	note?: string;
 }
 
-const { locale, path, titleKey, subtitleKey, length, rows } = Astro.props;
+const { locale, path, titleKey, subtitleKey, length, rows, note } = Astro.props;
 const t = copy[locale];
 const alt: Locale = locale === 'en' ? 'es' : 'en';
 
@@ -50,6 +51,15 @@ const numericEntries = rows.map((row, index) => ({
 			<div class="mt-4">
 				<EntryList rows={rows} />
 			</div>
+			{note && (
+				<p
+					data-collection-note
+					class="mt-4 max-w-2xl border-t border-edge pt-3 font-mono text-xs leading-relaxed text-phosphor-dim"
+				>
+					<span data-text>{note}</span>
+					<span data-cursor class="terminal-cursor" aria-hidden="true" hidden></span>
+				</p>
+			)}
 			<div class="mt-4">
 				<BackRow
 					backHref={getRelativeLocaleUrl(locale)}
@@ -63,3 +73,13 @@ const numericEntries = rows.map((row, index) => ({
 </TerminalLayout>
 
 <NumericNavSetter client:load entries={numericEntries} />
+
+<script>
+	import { typeLine } from '@/lib/terminal-typing';
+
+	const note = document.querySelector<HTMLElement>('[data-collection-note]');
+	if (note && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+		const text = note.querySelector('[data-text]')?.textContent ?? '';
+		typeLine(note, [{ type: 'type', text }], 12);
+	}
+</script>
