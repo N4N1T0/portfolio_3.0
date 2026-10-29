@@ -36,3 +36,6 @@ lefthook-local.yml
 
 # impeccable review captures: working evidence, not part of the site
 .impeccable/review/
+
+# openchamber screenshots: working evidence, not part of the site
+.openchamber/
