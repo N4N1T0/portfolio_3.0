@@ -148,6 +148,43 @@ const { preview, tryLabel } = Astro.props;
 		</div>
 	)}
 
+	{preview === 'price-odometer' && (
+		<div class="mt-3 flex flex-col items-center justify-center gap-6 py-10">
+			<div class="odometer flex items-end gap-2">
+				<div class="digit" aria-hidden="true" style="--d: 4">
+					<span>0</span>
+					<span>1</span>
+					<span>2</span>
+					<span>3</span>
+					<span>4</span>
+					<span>5</span>
+					<span>6</span>
+					<span>7</span>
+					<span>8</span>
+					<span>9</span>
+					<span>0</span>
+				</div>
+				<div class="digit" aria-hidden="true" style="--d: 5">
+					<span>0</span>
+					<span>1</span>
+					<span>2</span>
+					<span>3</span>
+					<span>4</span>
+					<span>5</span>
+					<span>6</span>
+					<span>7</span>
+					<span>8</span>
+					<span>9</span>
+					<span>0</span>
+				</div>
+			</div>
+			<label class="font-mono text-xs text-phosphor-dim flex items-center gap-2 cursor-pointer select-none">
+				<input type="checkbox" id="plan-toggle" class="text-phosphor-bright" />
+				yearly
+			</label>
+		</div>
+	)}
+
 	{preview === 'split-button' && (
 		<div class="mt-3 flex justify-center py-6">
 			<div class="split-button flex">
@@ -474,6 +511,28 @@ const { preview, tryLabel } = Astro.props;
 		opacity: 0.14;
 		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 	}
+
+	/* An odometer: each digit is a stack of 0-9-0 in a 1-line-high window, and
+	   one custom property slides it. Utility classes can't hold a per-digit
+	   offset, so it lives in inline style. */
+	.odometer {
+		font-family: var(--font-mono);
+		font-size: 1.75rem;
+		font-variant-numeric: tabular-nums;
+		color: var(--color-phosphor-bright);
+	}
+
+	.digit {
+		height: 1lh;
+		overflow: hidden;
+	}
+
+	.digit span {
+		display: block;
+		width: 1ch;
+		translate: 0 calc(var(--d) * -1lh);
+		transition: translate 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+	}
 </style>
 
 <script>
@@ -541,5 +600,17 @@ const { preview, tryLabel } = Astro.props;
 			spark.addEventListener('animationend', () => spark.remove());
 			likeButton.append(spark);
 		}
+	});
+
+	/* The price odometer: one attribute drives two digits, and CSS slides
+	   each stack. No script in the animation itself. */
+	const planToggle = document.querySelector<HTMLInputElement>('#plan-toggle');
+	const tens = document.querySelector<HTMLElement>('.odometer .digit:first-child');
+	const ones = document.querySelector<HTMLElement>('.odometer .digit:last-child');
+
+	planToggle?.addEventListener('change', () => {
+		const yearly = planToggle.checked;
+		tens?.style.setProperty('--d', yearly ? '4' : '5');
+		ones?.style.setProperty('--d', yearly ? '0' : '5');
 	});
 </script>
