@@ -70,6 +70,40 @@ const { preview, tryLabel } = Astro.props;
 			</button>
 		</div>
 	)}
+
+	{preview === 'fab-menu' && (
+		<div class="mt-3 flex justify-center pt-20 pb-6">
+			<div class="fab-stage relative">
+				<ul id="fab-menu" class="fab-menu">
+					<li class="fab-row" style="--i: 2">
+						<button type="button" class="fab-item">
+							event
+						</button>
+					</li>
+					<li class="fab-row" style="--i: 1">
+						<button type="button" class="fab-item">
+							note
+						</button>
+					</li>
+					<li class="fab-row" style="--i: 0">
+						<button type="button" class="fab-item">
+							photo
+						</button>
+					</li>
+				</ul>
+				<button
+					id="fab-toggle"
+					type="button"
+					aria-expanded="false"
+					aria-controls="fab-menu"
+					class="size-11 border border-edge bg-panel font-mono text-lg text-phosphor-bright focus-visible:outline-2 focus-visible:outline-phosphor-bright"
+				>
+					<span class="sr-only">open the menu</span>
+					<span aria-hidden="true">+</span>
+				</button>
+			</div>
+		</div>
+	)}
 </div>
 
 <style>
@@ -151,6 +185,65 @@ const { preview, tryLabel } = Astro.props;
 		translate: 100% 0;
 		transition: translate 800ms ease;
 	}
+
+	/* The menu animates out of `display: none`, which only `allow-discrete` and
+	   `@starting-style` can do, and neither has a Tailwind utility. */
+	.fab-menu {
+		position: absolute;
+		right: 0;
+		bottom: calc(100% + 0.5rem);
+		display: none;
+		flex-direction: column;
+		gap: 0.5rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		transition: display 400ms allow-discrete;
+	}
+
+	.fab-stage:has(#fab-toggle[aria-expanded='true']) .fab-menu {
+		display: flex;
+	}
+
+	.fab-row {
+		opacity: 0;
+		translate: 0 0.75rem;
+		scale: 0.9;
+		transition:
+			opacity 200ms ease,
+			translate 200ms ease,
+			scale 200ms ease;
+		transition-delay: calc(var(--i) * 60ms);
+	}
+
+	.fab-stage:has(#fab-toggle[aria-expanded='true']) .fab-row {
+		opacity: 1;
+		translate: 0 0;
+		scale: 1;
+	}
+
+	@starting-style {
+		.fab-stage:has(#fab-toggle[aria-expanded='true']) .fab-row {
+			opacity: 0;
+			translate: 0 0.75rem;
+			scale: 0.9;
+		}
+	}
+
+	.fab-item {
+		width: 100%;
+		border: 1px solid var(--color-edge);
+		background: var(--color-panel);
+		padding: 0.375rem 0.75rem;
+		font-family: inherit;
+		font-size: 0.875rem;
+		color: var(--color-phosphor);
+		white-space: nowrap;
+	}
+
+	.fab-item:hover {
+		color: var(--color-phosphor-bright);
+	}
 </style>
 
 <script>
@@ -167,5 +260,24 @@ const { preview, tryLabel } = Astro.props;
 		if (!input) return;
 		const valid = input.checkValidity();
 		input.setAttribute(valid ? 'aria-valid' : 'aria-invalid', 'true');
+	});
+
+	/* The menu is CSS: the script only flips the attribute the selector reads. */
+	const fabToggle = document.querySelector<HTMLButtonElement>('#fab-toggle');
+
+	const setFabOpen = (open: boolean) => fabToggle?.setAttribute('aria-expanded', String(open));
+
+	fabToggle?.addEventListener('click', () => {
+		setFabOpen(fabToggle.getAttribute('aria-expanded') !== 'true');
+	});
+
+	document.addEventListener('keydown', (event) => {
+		if (event.key === 'Escape') setFabOpen(false);
+	});
+
+	document.addEventListener('click', (event) => {
+		if (!fabToggle) return;
+		const target = event.target as Node;
+		if (!fabToggle.closest('.fab-stage')?.contains(target)) setFabOpen(false);
 	});
 </script>
