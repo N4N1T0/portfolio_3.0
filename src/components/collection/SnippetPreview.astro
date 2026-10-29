@@ -117,6 +117,21 @@ const { preview, tryLabel } = Astro.props;
 			</figure>
 		</div>
 	)}
+
+	{preview === 'voice-orb' && (
+		<div class="mt-3 flex items-center justify-center gap-4 py-6">
+			<div id="voice-orb" class="voice-orb" data-state="idle" aria-hidden="true"></div>
+			<button
+				id="voice-orb-toggle"
+				type="button"
+				aria-pressed="false"
+				aria-controls="voice-orb"
+				class="border border-edge px-3 py-2 font-mono text-sm text-phosphor transition-colors hover:text-phosphor-bright focus-visible:outline-2 focus-visible:outline-phosphor-bright"
+			>
+				listening
+			</button>
+		</div>
+	)}
 </div>
 
 <style>
@@ -266,6 +281,61 @@ const { preview, tryLabel } = Astro.props;
 		background: linear-gradient(135deg, #0a1020 0%, #1d4ed8 55%, #4d9dff 100%);
 	}
 
+	/* Two conic gradients spinning at different speeds under a blur: no utility
+	   class reaches a pseudo-element's background or its animation. */
+	.voice-orb {
+		--orb-speed: 9s;
+		--orb-blur: 7px;
+
+		position: relative;
+		width: 4rem;
+		aspect-ratio: 1;
+		overflow: hidden;
+		border-radius: 50%;
+		isolation: isolate;
+		background: var(--color-ground);
+	}
+
+	.voice-orb[data-state='listening'] {
+		--orb-speed: 3s;
+		--orb-blur: 5px;
+	}
+
+	.voice-orb::before,
+	.voice-orb::after {
+		content: '';
+		position: absolute;
+		inset: -25%;
+		filter: blur(var(--orb-blur));
+		animation: orb-spin var(--orb-speed) linear infinite;
+		transition: filter 400ms ease;
+	}
+
+	.voice-orb::before {
+		background: conic-gradient(from 0deg, #22d3ee, #4d9dff, #a855f7, #22d3ee);
+	}
+
+	.voice-orb::after {
+		background: conic-gradient(from 90deg, #a855f7, #06b6d4, #c084fc, #a855f7);
+		opacity: 0.7;
+		mix-blend-mode: screen;
+		animation-duration: calc(var(--orb-speed) * 0.65);
+		animation-direction: reverse;
+	}
+
+	@keyframes orb-spin {
+		to {
+			rotate: 1turn;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.voice-orb::before,
+		.voice-orb::after {
+			animation: none;
+		}
+	}
+
 	.grain-sample--grain::after {
 		content: '';
 		position: absolute;
@@ -309,5 +379,15 @@ const { preview, tryLabel } = Astro.props;
 		if (!fabToggle) return;
 		const target = event.target as Node;
 		if (!fabToggle.closest('.fab-stage')?.contains(target)) setFabOpen(false);
+	});
+
+	/* The orb's state is two custom properties; the script only names it. */
+	const orb = document.querySelector<HTMLElement>('#voice-orb');
+	const orbToggle = document.querySelector<HTMLButtonElement>('#voice-orb-toggle');
+
+	orbToggle?.addEventListener('click', () => {
+		const listening = orb?.dataset.state === 'listening';
+		if (orb) orb.dataset.state = listening ? 'idle' : 'listening';
+		orbToggle.setAttribute('aria-pressed', String(!listening));
 	});
 </script>
