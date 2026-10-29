@@ -104,6 +104,19 @@ const { preview, tryLabel } = Astro.props;
 			</div>
 		</div>
 	)}
+
+	{preview === 'gradient-grain' && (
+		<div class="mt-3 grid gap-3 sm:grid-cols-2">
+			<figure class="m-0">
+				<div class="grain-sample"></div>
+				<figcaption class="mt-1 font-mono text-xs text-phosphor-dim">opacity: 0</figcaption>
+			</figure>
+			<figure class="m-0">
+				<div class="grain-sample grain-sample--grain"></div>
+				<figcaption class="mt-1 font-mono text-xs text-phosphor-dim">opacity: 0.14</figcaption>
+			</figure>
+		</div>
+	)}
 </div>
 
 <style>
@@ -243,6 +256,23 @@ const { preview, tryLabel } = Astro.props;
 
 	.fab-item:hover {
 		color: var(--color-phosphor-bright);
+	}
+
+	/* The grain is an inline SVG filter rendered into a background image, which
+	   no utility class can express. */
+	.grain-sample {
+		position: relative;
+		height: 8rem;
+		background: linear-gradient(135deg, #0a1020 0%, #1d4ed8 55%, #4d9dff 100%);
+	}
+
+	.grain-sample--grain::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+		opacity: 0.14;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 	}
 </style>
 
