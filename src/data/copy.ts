@@ -65,6 +65,8 @@ export type Copy = {
 		stack: string;
 		certifications: string;
 		contributions: string;
+		starwind: string;
+		tiptap: string;
 		present: string;
 		commits: string;
 	};
@@ -186,7 +188,9 @@ export const copy: Record<Locale, Copy> = {
 			experience: '$ cat experience.log',
 			stack: '$ cat stack.txt',
 			certifications: '$ cat certifications.txt',
-			contributions: '$ git log --since=2026-01-01 --oneline',
+			contributions: 'Contribuciones en open source',
+			starwind: 'Starwind UI',
+			tiptap: 'tiptap-shadcn',
 			present: 'present',
 			commits: 'commits in 2026',
 		},
@@ -305,7 +309,9 @@ export const copy: Record<Locale, Copy> = {
 			experience: '$ cat experience.log',
 			stack: '$ cat stack.txt',
 			certifications: '$ cat certifications.txt',
-			contributions: '$ git log --since=2026-01-01 --oneline',
+			contributions: 'Contribuciones en código abierto',
+			starwind: 'Starwind UI',
+			tiptap: 'tiptap-shadcn',
 			present: 'actualidad',
 			commits: 'commits en 2026',
 		},
