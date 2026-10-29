@@ -162,6 +162,28 @@ const levelClass = ['bg-edge', 'bg-accent/25', 'bg-accent/45', 'bg-accent/70', '
 
 				<section class="mt-6 font-mono" style="--i: 7">
 					<p class="text-accent">{t.about.contributions}</p>
+					<ul class="mt-2 space-y-1 text-sm text-phosphor-dim">
+						<li>
+							<a
+								href="https://github.com/starwind-ui/starwind-ui"
+								target="_blank"
+								rel="noopener noreferrer"
+								class="underline underline-offset-4 text-phosphor"
+							>
+								{t.about.starwind}
+							</a>
+						</li>
+						<li>
+							<a
+								href="https://github.com/ehtisham-afzal/tiptap-shadcn"
+								target="_blank"
+								rel="noopener noreferrer"
+								class="underline underline-offset-4 text-phosphor"
+							>
+								{t.about.tiptap}
+							</a>
+						</li>
+					</ul>
 					<p class="mt-2 text-sm text-phosphor-dim">
 						{commits.toLocaleString(locale)} {t.about.commits}
 					</p>
