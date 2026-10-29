@@ -132,6 +132,21 @@ const { preview, tryLabel } = Astro.props;
 			</button>
 		</div>
 	)}
+
+	{preview === 'like-confetti' && (
+		<div class="mt-3 flex items-center justify-center gap-4 py-10">
+			<button
+				id="like-button"
+				type="button"
+				class="like-button border border-edge px-3 py-2 font-mono text-sm text-phosphor transition-colors hover:text-phosphor-bright focus-visible:outline-2 focus-visible:outline-phosphor-bright"
+			>
+				++
+			</button>
+			<output id="like-count" class="font-mono text-sm text-phosphor-dim" aria-live="polite">
+				0
+			</output>
+		</div>
+	)}
 </div>
 
 <style>
@@ -281,6 +296,39 @@ const { preview, tryLabel } = Astro.props;
 		background: linear-gradient(135deg, #0a1020 0%, #1d4ed8 55%, #4d9dff 100%);
 	}
 
+	/* Each particle carries its own --x, --r and --d, so one keyframe animates
+	   all of them: a utility class cannot hold a per-element random value. */
+	.like-button {
+		position: relative;
+	}
+
+	/* Global on purpose: the script creates these spans at runtime, so they
+	   never carry Astro's scoping attribute. */
+	:global(.like-spark) {
+		position: absolute;
+		top: 0;
+		left: 50%;
+		animation: like-float var(--d) ease-out forwards;
+		color: var(--color-accent);
+		font-size: 0.75rem;
+		pointer-events: none;
+	}
+
+	@keyframes like-float {
+		0% {
+			opacity: 0;
+		}
+
+		15% {
+			opacity: 1;
+		}
+
+		100% {
+			opacity: 0;
+			transform: translate(var(--x), -4.5rem) rotate(var(--r));
+		}
+	}
+
 	/* Two conic gradients spinning at different speeds under a blur: no utility
 	   class reaches a pseudo-element's background or its animation. */
 	.voice-orb {
@@ -389,5 +437,27 @@ const { preview, tryLabel } = Astro.props;
 		const listening = orb?.dataset.state === 'listening';
 		if (orb) orb.dataset.state = listening ? 'idle' : 'listening';
 		orbToggle.setAttribute('aria-pressed', String(!listening));
+	});
+
+	/* The script hands each particle three random values; CSS does the rest. */
+	const likeButton = document.querySelector<HTMLButtonElement>('#like-button');
+	const likeCount = document.querySelector<HTMLElement>('#like-count');
+	const calm = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+	likeButton?.addEventListener('click', () => {
+		if (likeCount) likeCount.textContent = String(Number(likeCount.textContent) + 1);
+		if (calm.matches) return;
+
+		for (let i = 0; i < 8; i += 1) {
+			const spark = document.createElement('span');
+			spark.className = 'like-spark';
+			spark.textContent = '+1';
+			spark.setAttribute('aria-hidden', 'true');
+			spark.style.setProperty('--x', `${Math.random() * 100 - 50}px`);
+			spark.style.setProperty('--r', `${Math.random() * 180 - 90}deg`);
+			spark.style.setProperty('--d', `${0.6 + Math.random() * 0.6}s`);
+			spark.addEventListener('animationend', () => spark.remove());
+			likeButton.append(spark);
+		}
 	});
 </script>
