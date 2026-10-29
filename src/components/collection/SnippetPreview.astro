@@ -10,27 +10,6 @@ const { preview, tryLabel } = Astro.props;
 <div class="border border-edge p-4">
 	<p class="text-xs text-phosphor-dim">{tryLabel}</p>
 
-	{preview === 'terminal-caret' && (
-		<p class="mt-3 font-mono text-sm text-phosphor">
-			<span class="terminal-cursor" aria-hidden="true" />
-			<span class="text-phosphor-dim">type here</span>
-		</p>
-	)}
-
-	{preview === 'scanline-overlay' && (
-		<div class="relative mt-3 h-24 overflow-hidden border border-edge bg-ground">
-			<div class="crt-scanlines absolute inset-0 opacity-60" aria-hidden="true" />
-			<div class="crt-vignette absolute inset-0" aria-hidden="true" />
-			<p class="relative px-3 py-2 font-mono text-sm text-phosphor">scanlines + vignette</p>
-		</div>
-	)}
-
-	{preview === 'typewriter-text' && (
-		<p class="mt-3 font-mono text-sm text-phosphor" data-typewriter>
-			Senior Fullstack Engineer
-		</p>
-	)}
-
 	{preview === 'input-state-animation' && (
 		<form id="snippet-form" class="mt-3 flex flex-col gap-3 sm:flex-row" novalidate>
 			<label class="sr-only" for="snippet-input">
@@ -53,7 +32,41 @@ const { preview, tryLabel } = Astro.props;
 			</button>
 		</form>
 	)}
+
+	{preview === 'cover-glow' && (
+		<div class="cover-glow-stage mt-3 flex justify-center py-8">
+			<div class="cover-glow-art"></div>
+		</div>
+	)}
 </div>
+
+<style>
+	/* The glow is a pseudo-element behind the cover: no Tailwind utility sets
+	   `background: inherit`, and the isolate keeps the negative z-index from
+	   sinking behind the terminal window's own background. */
+	.cover-glow-stage {
+		isolation: isolate;
+	}
+
+	.cover-glow-art {
+		position: relative;
+		width: 7.5rem;
+		height: 7.5rem;
+		border-radius: 0.5rem;
+		background: linear-gradient(135deg, #ff6b6b 0%, #4d9dff 55%, #ffd166 100%);
+	}
+
+	.cover-glow-art::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		border-radius: inherit;
+		background: inherit;
+		filter: blur(26px) saturate(1.8);
+		scale: 1.18;
+	}
+</style>
 
 <script>
 	const form = document.querySelector<HTMLFormElement>('#snippet-form');
@@ -70,28 +83,4 @@ const { preview, tryLabel } = Astro.props;
 		const valid = input.checkValidity();
 		input.setAttribute(valid ? 'aria-valid' : 'aria-invalid', 'true');
 	});
-
-	// the typewriter demo: writes the line, erases it and writes it again
-	const target = document.querySelector<HTMLElement>('[data-typewriter]');
-	if (target) {
-		const words = ['Senior Frontend', 'Senior Backend', 'Senior Fullstack Engineer'];
-		let word = 0;
-		const type = async () => {
-			while (word < words.length) {
-				const text = words[word];
-				for (let i = 0; i <= text.length; i++) {
-					target.textContent = text.slice(0, i);
-					await new Promise((resolve) => setTimeout(resolve, 18));
-				}
-				await new Promise((resolve) => setTimeout(resolve, 500));
-				for (let i = text.length; i >= 0; i--) {
-					target.textContent = text.slice(0, i);
-					await new Promise((resolve) => setTimeout(resolve, 12));
-				}
-				await new Promise((resolve) => setTimeout(resolve, 180));
-				word += 1;
-			}
-		};
-		void type();
-	}
 </script>
