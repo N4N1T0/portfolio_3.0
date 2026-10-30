@@ -111,7 +111,7 @@ Contar desde el botón hacia fuera (primero el más cercano) se lee como un men�
 
 El CSS de arriba solo necesita un atributo al que reaccionar. Tres formas de cambiarlo, de menos a más código:
 
-- **Popover nativo.** `popovertarget="menu"` en el botón y `popover` en el menú: cero script, y el `Esc` y el click fuera vienen de serie. La pega es la colocación: un popover vive en la capa superior, así que se posiciona contra el viewport y hace falta anchor positioning de CSS para anclarlo a su botón.
+- **Popover nativo.** `popovertarget="menu"` en el botón y `popover` en el menú: cero script, y el `Esc` y el click fuera vienen de serie. La colocación pide un paso más: un popover vive en la capa superior, así que se posiciona contra el viewport hasta que el anchor positioning de CSS lo ancla a su botón, y eso es Baseline desde enero de 2026.
 - **`<details>`.** Semántica y teclado gratis, el estilado se pelea contigo.
 - **Un atributo.** `aria-expanded` en el botón, `:has()` en el selector y cuatro líneas de script. Es lo que hace la demo de arriba:
 
