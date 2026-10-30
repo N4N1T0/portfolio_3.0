@@ -21,6 +21,14 @@ const { locale } = Astro.props;
 const t = copy[locale];
 const alt: Locale = locale === 'en' ? 'es' : 'en';
 
+// Turn plain URLs in the about copy into links: the copy is trusted (it lives
+// in site-data.ts), so set:html is safe here.
+const linkify = (text: string) =>
+	text.replace(
+		/(https?:\/\/[^\s)]+)/g,
+		(url) => `<a href="${url}" class="underline underline-offset-4 text-accent">${url}</a>`,
+	);
+
 const commits = GITHUB_CONTRIBUTIONS.reduce((total, day) => total + day.count, 0);
 
 type OverviewItem = (typeof USER_DATA.overview)[number];
@@ -73,7 +81,7 @@ const levelClass = ['bg-edge', 'bg-accent/25', 'bg-accent/45', 'bg-accent/70', '
 							<p class="text-accent">{profile.name}</p>
 							<p>{USER_DATA.sentences[locale]}</p>
 							{USER_DATA.about[locale].map((paragraph) => (
-								<p>{paragraph}</p>
+								<p set:html={linkify(paragraph)} />
 							))}
 						</div>
 					</div>
