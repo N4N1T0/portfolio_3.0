@@ -75,12 +75,14 @@ export const USER_DATA = {
 	about: {
 		en: [
 			'I am Adrián Álvarez, a Senior Fullstack Engineer. I build APIs, interfaces and data systems that run in production.',
+			'I am also the founder of Ohmu Online Operations, a marketing and development agency (https://www.ohmuonlineoperations.com/).',
 			'Most of my work sits between the database and the browser: Node.js and NestJS services, REST and event-driven APIs, React and Astro interfaces, and the data models that connect them. I care about the boring parts: schema design, caching, observability and deployments that do not surprise anyone.',
 			'I have worked with agencies and startups across Europe and the US on eCommerce platforms, internal tools and data pipelines. That usually means designing a schema, wiring an integration, shipping a UI and staying around when it breaks.',
 			'I use AI tools in my workflow to move faster without lowering the bar on review. If you need someone who can own a feature from schema to interface, we should talk.',
 		],
 		es: [
 			'Soy Adrián Álvarez, Desarrollador Fullstack Senior. Construyo APIs, interfaces y sistemas de datos que funcionan en producción.',
+			'También soy el fundador de Ohmu Online Operations, una agencia de marketing y desarrollo (https://www.ohmuonlineoperations.com/).',
 			'La mayor parte de mi trabajo está entre la base de datos y el navegador: servicios con Node.js y NestJS, APIs REST y orientadas a eventos, interfaces en React y Astro, y los modelos de datos que las conectan. Me importan las partes aburridas: diseño de esquemas, caché, observabilidad y despliegues que no sorprenden a nadie.',
 			'He trabajado con agencias y startups de Europa y Estados Unidos en plataformas eCommerce, herramientas internas y pipelines de datos. Normalmente eso significa diseñar un esquema, conectar una integración, publicar una interfaz y quedarme cuando algo falla.',
 			'Uso herramientas de IA en mi flujo de trabajo para avanzar más rápido sin bajar el listón en la revisión. Si necesitas a alguien que pueda hacerse cargo de una funcionalidad del esquema a la interfaz, hablemos.',
