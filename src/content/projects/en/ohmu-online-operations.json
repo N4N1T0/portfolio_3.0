@@ -1,0 +1,47 @@
+{
+	"title": "Ohmu Online Operations",
+	"date": "2026-10-14",
+	"excerpt": "Agency site that sells web development and growth as one service: bilingual Astro build with localized slugs, native view transitions, anime.js motion and a build-time SEO pipeline.",
+	"images": [],
+	"liveLink": "https://www.ohmuonlineoperations.com/",
+	"colors": "#3346A6",
+	"techStack": [
+		{
+			"title": "Astro 7 (Static Output)",
+			"link": "https://astro.build/"
+		},
+		{
+			"title": "TypeScript (strict)",
+			"link": "https://www.typescriptlang.org/"
+		},
+		{
+			"title": "Tailwind CSS v4",
+			"link": "https://tailwindcss.com/"
+		},
+		{
+			"title": "anime.js 4",
+			"link": "https://animejs.com/"
+		},
+		{
+			"title": "Astro View Transitions",
+			"link": "https://docs.astro.build/en/guides/view-transitions/"
+		},
+		{
+			"title": "Resend (Contact Form)",
+			"link": "https://resend.com/"
+		},
+		{
+			"title": "n8n (SEO Automation)",
+			"link": "https://n8n.io/"
+		},
+		{
+			"title": "Vercel",
+			"link": "https://vercel.com/"
+		}
+	],
+	"testimonial": null,
+	"challenge": "The site had to prove the agency's own pitch instead of claiming it: two languages with translated URLs, real case studies, no invented numbers, and a page weight that stands up to the Core Web Vitals it sells. Marketing content also had to stay editable without touching markup, and every new page needed canonical tags, hreflang, structured data and an OG image without a manual step.",
+	"solution": "Static Astro output where each screen exists once as a view and thin routes mount it per locale, so Spanish and English cannot drift apart. Localized slugs and typed i18n strings fail the build when a translation is missing, and case studies live in a YAML collection read by both languages. Motion runs through anime.js modules bound to the view transition lifecycle and honours prefers-reduced-motion. SEO is generated at build: canonical and hreflang, OG images, sitemap, RSS, llms.txt and JSON-LD, with n8n publishing the content calendar. The contact form posts to a serverless endpoint that sends through Resend.",
+	"comingSoon": false,
+	"counterpartId": "es/ohmu-online-operations"
+}

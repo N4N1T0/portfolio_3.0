@@ -1,0 +1,47 @@
+{
+	"title": "Ohmu Online Operations",
+	"date": "2026-10-14",
+	"excerpt": "Web de agencia que vende desarrollo y crecimiento como un solo servicio: build bilingüe en Astro con slugs localizados, transiciones nativas, motion con anime.js y una tubería SEO generada en build.",
+	"images": [],
+	"liveLink": "https://www.ohmuonlineoperations.com/",
+	"colors": "#3346A6",
+	"techStack": [
+		{
+			"title": "Astro 7 (salida estática)",
+			"link": "https://astro.build/"
+		},
+		{
+			"title": "TypeScript (strict)",
+			"link": "https://www.typescriptlang.org/"
+		},
+		{
+			"title": "Tailwind CSS v4",
+			"link": "https://tailwindcss.com/"
+		},
+		{
+			"title": "anime.js 4",
+			"link": "https://animejs.com/"
+		},
+		{
+			"title": "Astro View Transitions",
+			"link": "https://docs.astro.build/en/guides/view-transitions/"
+		},
+		{
+			"title": "Resend (formulario)",
+			"link": "https://resend.com/"
+		},
+		{
+			"title": "n8n (automatización SEO)",
+			"link": "https://n8n.io/"
+		},
+		{
+			"title": "Vercel",
+			"link": "https://vercel.com/"
+		}
+	],
+	"testimonial": null,
+	"challenge": "La web tenía que demostrar el argumento de la agencia en vez de enunciarlo: dos idiomas con URLs traducidas, casos reales, ningún número inventado y un peso de página que aguante los Core Web Vitals que vende. Además el contenido de marketing debía seguir siendo editable sin tocar marcado, y cada página nueva necesitaba canonical, hreflang, datos estructurados e imagen OG sin un paso manual.",
+	"solution": "Salida estática de Astro donde cada pantalla existe una sola vez como vista y las rutas finas la montan por idioma, así el español y el inglés no pueden divergir. Los slugs localizados y los textos tipados de i18n rompen el build si falta una traducción, y los casos de estudio viven en una colección YAML que leen los dos idiomas. El motion va en módulos de anime.js ligados al ciclo de las view transitions y respeta prefers-reduced-motion. El SEO se genera en build: canonical y hreflang, imágenes OG, sitemap, RSS, llms.txt y JSON-LD, con n8n publicando el calendario de contenidos. El formulario de contacto apunta a un endpoint serverless que envía con Resend.",
+	"comingSoon": false,
+	"counterpartId": "en/ohmu-online-operations"
+}
