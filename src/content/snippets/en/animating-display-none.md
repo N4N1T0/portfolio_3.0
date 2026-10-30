@@ -111,7 +111,7 @@ Counting from the button outwards (the closest item first) reads as the menu gro
 
 The CSS above only needs an attribute to react to. Three ways to flip it, in order of how little you write:
 
-- **Native popover.** `popovertarget="menu"` on the button and `popover` on the menu: no script at all, and `Esc` plus click-outside come for free. The catch is placement — a popover lives in the top layer, so it is positioned against the viewport and you need CSS anchor positioning to pin it to its button.
+- **Native popover.** `popovertarget="menu"` on the button and `popover` on the menu: no script at all, and `Esc` plus click-outside come for free. Placement needs one extra step — a popover lives in the top layer, so it is positioned against the viewport until CSS anchor positioning pins it to its button, which has been Baseline since January 2026.
 - **`<details>`.** Semantics and keyboard behaviour for free, styling fights you.
 - **One attribute.** `aria-expanded` on the button, `:has()` in the selector, four lines of script. That is what the demo above does:
 
