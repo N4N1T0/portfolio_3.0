@@ -25,5 +25,11 @@ export const profile = {
 			handle: 'adrian.alvarezalonso1991@gmail.com',
 			url: 'mailto:adrian.alvarezalonso1991@gmail.com',
 		},
+		{
+			id: 'ohmu',
+			label: 'Ohmu Online Operations',
+			handle: 'ohmuonlineoperations',
+			url: 'https://www.ohmuonlineoperations.com/',
+		},
 	],
 } as const;
