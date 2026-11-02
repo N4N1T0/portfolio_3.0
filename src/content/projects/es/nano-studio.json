@@ -48,7 +48,6 @@
 			"link": "https://tailwindcss.com/"
 		}
 	],
-	"testimonial": null,
 	"challenge": "Desarrollar una experiencia de usuario que simulara la estética de lujo y movimiento refinado de las agencias de diseño de alta gama, manteniendo al mismo tiempo un rendimiento excelente. El desafío clave fue orquestar animaciones complejas impulsadas por GSAP (preloader, slider, revelación de texto con SplitText) y gestionar un flujo de correo electrónico seguro y limpio usando Astro Actions.",
 	"solution": "Construcción de sitio de alto rendimiento usando Astro para generación estática con optimizaciones server-side para SEO y Core Web Vitals. Implementación de infraestructura de email backend usando Astro Actions con API Resend para envíos transaccionales seguros de formularios de contacto. Coreografía de animaciones complejas usando GSAP con CustomEase y SplitText para motion design premium. Integración de workflow de desarrollo asistido por IA para scaffolding de componentes y optimización. Implementación de rate limiting y validación de formularios con Redis.",
 	"comingSoon": false,

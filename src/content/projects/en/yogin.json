@@ -44,11 +44,6 @@
 			"link": "https://tailwindcss.com/"
 		}
 	],
-	"testimonial": {
-		"name": "Victoria González López",
-		"quote": "Adrian's expertise and dedication helped transform our vision into reality. The platform he built not only streamlined our operations but created a seamless experience for our yoga community.",
-		"role": "Owner of Yog-IN"
-	},
 	"challenge": "Build a modern SaaS platform for yoga students and instructors to manage events, classes, profiles, and payments, with advanced filtering and subscription analytics, maintaining a secure and scalable architecture.",
 	"solution": "Architected a scalable backend using Node.js and Express with RESTful APIs for event management, class scheduling, and subscription billing. Implemented Passport.js for stateless JWT authentication with role-based access control (RBAC). Built MongoDB-backed data models for efficient user, class, and subscription storage with indexed queries for analytics. Frontend uses React with TanStack Query for optimized API caching and real-time data synchronization. Docker containerization ensures cloud-ready deployment and horizontal scaling.",
 	"comingSoon": false,

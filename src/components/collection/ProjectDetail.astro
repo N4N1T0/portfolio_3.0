@@ -7,7 +7,6 @@ type Labels = {
 	stack: string;
 	challenge: string;
 	solution: string;
-	testimonial: string;
 };
 
 interface Props {
@@ -89,13 +88,4 @@ const { data } = project;
 			))}
 		</ul>
 	</section>
-
-	{data.testimonial && (
-		<blockquote class="mt-6 border-l border-phosphor-dim pl-4">
-			<p class="max-w-2xl text-sm leading-relaxed">“{data.testimonial.quote}”</p>
-			<footer class="mt-2 text-xs text-phosphor-dim">
-				{data.testimonial.name} — {data.testimonial.role}
-			</footer>
-		</blockquote>
-	)}
 </article>
