@@ -48,7 +48,6 @@ export type Copy = {
 		stack: string;
 		challenge: string;
 		solution: string;
-		testimonial: string;
 		try: string;
 		entries: string;
 		published: string;
@@ -172,7 +171,6 @@ export const copy: Record<Locale, Copy> = {
 			stack: 'stack',
 			challenge: 'challenge',
 			solution: 'solution',
-			testimonial: 'testimonial',
 			try: 'try it',
 			entries: 'entries',
 			published: 'published',
@@ -293,7 +291,6 @@ export const copy: Record<Locale, Copy> = {
 			stack: 'stack',
 			challenge: 'reto',
 			solution: 'solución',
-			testimonial: 'testimonio',
 			try: 'pruébalo',
 			entries: 'entradas',
 			published: 'publicado',

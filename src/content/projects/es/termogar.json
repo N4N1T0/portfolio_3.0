@@ -36,11 +36,6 @@
 			"link": "https://resend.com/"
 		}
 	],
-	"testimonial": {
-		"name": "Alvaro Perez Muñoz",
-		"quote": "Ha sido un placer trabajar con Adrian, su dedicación y profesionalismo son ejemplares en el desarrollo de Termogar.",
-		"role": "CEO de Termogar"
-	},
 	"challenge": "Reemplazar una plataforma WordPress desactualizada con una arquitectura backend moderna escalable y optimizada para conversiones de e-commerce",
 	"solution": "Backend e-commerce moderno usando Next.js API routes con NextAuth para autenticación segura basada en sesiones y gestión de usuarios con roles. Integración de Sanity CMS como warehouse de datos para inventario de productos, precios y contenido con sincronización en tiempo real mediante webhooks. Implementación de Server-Side Rendering (SSR) e Incremental Static Regeneration (ISR) para optimización SEO y rendimiento. Infraestructura de email transaccional con Resend para confirmaciones de pedidos y notificaciones de clientes.",
 	"comingSoon": false,
