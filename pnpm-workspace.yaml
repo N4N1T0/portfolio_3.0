@@ -43,3 +43,6 @@ minimumReleaseAgeExclude:
 permissions:
   fallow:
     skills: true
+
+overrides:
+  '@emnapi/runtime': 1.11.3
