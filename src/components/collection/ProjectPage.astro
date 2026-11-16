@@ -16,6 +16,12 @@ const { locale, id } = Astro.props;
 const t = copy[locale];
 const alt: Locale = locale === 'en' ? 'es' : 'en';
 const project = await getProject(locale, id);
+
+// the counterpart is keyed by collection prefix (`es/<slug>`), so the language
+// switch has to resolve it instead of reusing the current slug.
+const counterpartSlug = project?.data.counterpartId?.replace(`${alt}/`, '');
+const counterpart = counterpartSlug ? await getProject(alt, counterpartSlug) : undefined;
+const altHref = getRelativeLocaleUrl(alt, counterpart ? `projects/${counterpartSlug}` : 'projects');
 ---
 
 <TerminalLayout
@@ -35,7 +41,7 @@ const project = await getProject(locale, id);
 				<BackRow
 					backHref={getRelativeLocaleUrl(locale, 'projects')}
 					backLabel={t.collections.back}
-					altLocale={{ label: alt, href: getRelativeLocaleUrl(alt, `projects/${id}`) }}
+					altLocale={{ label: alt, href: altHref }}
 					language={t.language}
 				/>
 			</div>

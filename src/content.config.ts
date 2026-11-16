@@ -29,7 +29,7 @@ const projects = defineCollection({
 					alt: z.string(),
 				}),
 			),
-			liveLink: z.url(),
+			liveLink: z.url().nullable(),
 			colors: z.string(),
 			techStack: z.array(
 				z.object({

@@ -1,5 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256"><title>Adrián Nano Álvarez</title><g transform="translate(-73.89 -79.87) scale(1.624)">
-  
-  <path d="M48.63 81.47 L108.45 128 L48.63 174.53 L63.37 193.47 L147.55 128 L63.37 62.53 Z" fill="#000"/>
-  <rect x="152" y="152" width="48" height="32" fill="#000"/>
-</g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <title>Adrián Nano Álvarez</title>
+  <style>
+    .brand-icon {
+      fill: #05070D;
+    }
+    @media (prefers-color-scheme: dark) {
+      .brand-icon {
+        fill: #4894F1
+      }
+    }
+  </style>
+  <g transform="translate(-73.89 -79.87) scale(1.624)">
+    <path class="brand-icon" d="M48.63 81.47 L108.45 128 L48.63 174.53 L63.37 193.47 L147.55 128 L63.37 62.53 Z" />
+    <rect class="brand-icon" x="152" y="152" width="48" height="32" />
+  </g>
+</svg>
