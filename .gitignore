@@ -39,3 +39,7 @@ lefthook-local.yml
 
 # openchamber screenshots: working evidence, not part of the site
 .openchamber/
+
+# playwright
+.playwright
+.playwright-mcp
