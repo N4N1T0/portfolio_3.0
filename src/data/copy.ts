@@ -4,6 +4,7 @@ export type Locale = 'en' | 'es';
 
 export type Copy = {
 	lang: string;
+	header: string;
 	meta: {
 		title: string;
 		description: string;
@@ -113,6 +114,7 @@ const fullstackTyping = (prefix: string, suffix: string) =>
 export const copy: Record<Locale, Copy> = {
 	en: {
 		lang: 'en',
+		header: 'ADRIAN ALVAREZ · PORTFOLIO TERMINAL v3.0',
 		meta: {
 			title: 'Adrián Álvarez — Senior Fullstack Engineer',
 			description:
@@ -233,6 +235,7 @@ export const copy: Record<Locale, Copy> = {
 	},
 	es: {
 		lang: 'es',
+		header: 'ADRIAN ALVAREZ · TERMINAL DEL PORTFOLIO v3.0',
 		meta: {
 			title: 'Adrián Álvarez — Ingeniero Fullstack Senior',
 			description:

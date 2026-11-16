@@ -1,9 +1,16 @@
+import { brandMark } from '@/data/brand';
+
 const GROUND = '#070a12';
 const PANEL = '#0b1018';
 const EDGE = '#1b2333';
 const ACCENT = '#4d9dff';
 const BRIGHT = '#e9f0ff';
 const DIM = '#6d809f';
+
+// The prompt mark, 1.2x, top right of the panel. Offsets put its ink box at x 960, y 140.
+const MARK_SCALE = 1.2;
+const MARK_X = 960 - MARK_SCALE * 48.63;
+const MARK_Y = 140 - MARK_SCALE * 62.53;
 
 type OgCopy = {
 	role: string;
@@ -20,6 +27,10 @@ export function ogSvg({ role, pitch, command }: OgCopy): string {
 	<rect x="104" y="68" width="14" height="14" fill="${DIM}" />
 	<rect x="128" y="68" width="14" height="14" fill="${DIM}" />
 	<text x="166" y="84" font-family="Geist Mono" font-size="20" fill="${DIM}">adrian@portfolio:~</text>
+	<g transform="translate(${MARK_X} ${MARK_Y}) scale(${MARK_SCALE})" fill="${ACCENT}">
+		<path d="${brandMark.chevron}" />
+		<rect x="${brandMark.cursor.x}" y="${brandMark.cursor.y}" width="${brandMark.cursor.width}" height="${brandMark.cursor.height}" />
+	</g>
 	<text x="80" y="228" font-family="Geist Pixel" font-size="88" fill="${BRIGHT}" letter-spacing="3">ADRIÁN ÁLVAREZ</text>
 	<text x="80" y="296" font-family="Geist Mono" font-size="34" fill="${ACCENT}">${role}</text>
 	<text x="80" y="356" font-family="Geist Mono" font-size="26" fill="${DIM}">${pitch}</text>

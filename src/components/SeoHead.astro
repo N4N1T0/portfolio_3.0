@@ -2,6 +2,7 @@
 import { profile } from '@/data/profile';
 import { feedPath } from '@/lib/rss';
 import { type SeoProps } from '@/lib/seo';
+import BrandIcons from '@/components/BrandIcons.astro';
 import SocialMeta from '@/components/SocialMeta.astro';
 
 type Props = SeoProps;
@@ -101,7 +102,7 @@ const jsonLd = {
 	</>
 )}
 <link rel="alternate" type="application/rss+xml" title="RSS" href={feedPath(locale)} />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<BrandIcons />
 
 <SocialMeta
 	locale={locale}

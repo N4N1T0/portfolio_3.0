@@ -1,0 +1,22 @@
+---
+import { brandMark } from '@/data/brand';
+
+interface Props {
+	class?: string;
+}
+
+const { class: className } = Astro.props;
+const { cursor } = brandMark;
+---
+
+<svg
+	xmlns="http://www.w3.org/2000/svg"
+	viewBox={brandMark.viewBox}
+	fill="currentColor"
+	class={className}
+	aria-hidden="true"
+	focusable="false"
+>
+	<path d={brandMark.chevron} />
+	<rect x={cursor.x} y={cursor.y} width={cursor.width} height={cursor.height} />
+</svg>

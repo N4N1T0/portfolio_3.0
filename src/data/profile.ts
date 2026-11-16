@@ -1,6 +1,5 @@
 export const profile = {
 	name: "Adrián 'Nano' Álvarez Alonso",
-	initials: 'AAA',
 	role: 'Senior Fullstack Engineer',
 	company: 'Kreitech',
 	location: 'Asturias, España',
