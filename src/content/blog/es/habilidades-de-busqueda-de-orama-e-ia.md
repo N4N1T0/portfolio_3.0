@@ -89,14 +89,12 @@ Además, aprovechamos el historial de navegación y los productos en la wishlist
 
 ## Técnicas de CRO implementadas
 
-Al combinar búsqueda potenciada por IA con UX inteligente, conseguimos:
+Al combinar búsqueda con IA y UX inteligente, conseguimos:
 
 - **Páginas de 404 y de búsqueda vacía personalizadas** que sugieren productos reales en vez de un callejón sin salida
 - **Carruseles inteligentes basados en la wishlist** en fichas de producto y carrito
 - **Corrección de errores de escritura en slugs de producto**, para que un typo lleve al producto correcto y no a un 404
 - **Reordenamiento de resultados** según comportamiento previo, no solo coincidencia de texto
-
-> Estas micro-mejoras redujeron la tasa de rebote y empujaron más sesiones hacia el flujo de compra.
 
 ## Qué medimos
 
@@ -120,7 +118,7 @@ Más sobre la tienda: [8 consejos para optimizar tu eCommerce](/es/blog/8-tips-p
 - REST, CLI y SDKs integrados para automatizar flujos
 - Diseñada para developers con configuración instantánea en local
 
-Nos dio flexibilidad **potenciada por IA sin los dolores de cabeza de los precios SaaS**.
+Nos dio flexibilidad sin los dolores de cabeza de los precios SaaS.
 
 ---
 

@@ -12,7 +12,7 @@ tags: ['ecommerce', 'sanity', 'scraping', 'automation']
 
 Construir **sitios web de comercio electrónico** siempre ha sido un desafío emocionante para mí, especialmente en proyectos de alto impacto como la venta de cosméticos de una marca reconocida. Recientemente me encargaron una tienda en línea para un cliente distribuidor oficial de una marca de cosméticos. El proyecto parecía sencillo al principio, pero **había un giro inesperado**: necesitaba automatizar la importación de productos directamente en **Sanity CMS** desde un sitio externo basado en **WordPress**.
 
-Habiendo trabajado en muchos sitios de e-commerce, siempre he abrazado nuevos desafíos, pero este era único. Con un sitio fuente construido en WordPress y una **API pública** disponible, vi una oportunidad para crear un proceso de automatización que ahorraría mucho tiempo y esfuerzo al cliente. En esta publicación, te explicaré cómo abordé esta tarea, las herramientas que utilicé y cómo construí un sistema automatizado de importación de productos eficiente, escalable y de bajo mantenimiento.
+Habiendo trabajado en muchos sitios de e-commerce, siempre he abrazado nuevos desafíos, pero este era único. Con un sitio fuente construido en WordPress y una API pública disponible, vi una oportunidad para crear un proceso de automatización que ahorraría mucho tiempo y esfuerzo al cliente.
 
 ## Extrayendo los datos
 
@@ -73,7 +73,7 @@ En este punto tenía la mayor parte de los detalles, pero me encontré con **err
 
 ## Validación y enriquecimiento
 
-Faltaba una pieza crucial: **el precio**. El cliente me proporcionó un PDF con los precios de distribuidor, así que necesitaba cruzar esa información con los datos extraídos.
+Faltaba el precio. El cliente me proporcionó un PDF con los precios de distribuidor, así que necesitaba cruzar esa información con los datos extraídos.
 
 Aquí recurrí a **ChatGPT** para ayudarme a extraer los detalles necesarios del PDF. Con un poco de **ingeniería de prompts** (pronto escribiré un artículo sobre esto), pude crear un proceso que extraía automáticamente los nombres de los productos, códigos de referencia y precios del PDF.
 

@@ -7,11 +7,9 @@ counterpartId: 'en/redsys-implementation-on-nextjs-15'
 tags: ['nextjs', 'payments', 'redsys']
 ---
 
-Hoy en día, todos intentan ganar dinero en línea, ya sea a través de un SaaS, una tienda en línea u otros tipos de aplicaciones web. Si bien los procesadores de pago globales como Stripe y PayPal son comunes, diferentes países tienen sus propias plataformas de pago preferidas.
+En España, prácticamente todas las transacciones bancarias en línea pasan por Redsys, una plataforma API basada en SOAP diseñada para facilitar y asegurar los pagos digitales dentro de la red bancaria española. Aunque Redsys es potente, también puede ser complicado de gestionar e implementar debido a sus requisitos de integración únicos.
 
-En España, prácticamente todas las transacciones bancarias en línea pasan por **Redsys**, una plataforma API basada en SOAP diseñada para facilitar y asegurar los pagos digitales dentro de la red bancaria española. Aunque Redsys es potente, también puede ser complicado de gestionar e implementar debido a sus requisitos de integración únicos.
-
-En este tutorial, utilizaremos **Next.js 15** y **Server Actions** para crear un flujo de pago basado en redirección con Redsys. Al final, tendrás una implementación funcional que permite a los clientes completar pagos a través de Redsys con una configuración mínima.
+En este tutorial creamos un flujo de pago basado en redirección con Redsys, usando Next.js 15 y Server Actions. Al final tendrás una implementación funcional que permite a los clientes completar pagos a través de Redsys con una configuración mínima.
 
 ---
 
@@ -36,7 +34,7 @@ A continuación, instala `redsys-easy` para manejar las solicitudes y respuestas
 npm install redsys-easy
 ```
 
-Con esta configuración completada, ¡ahora podemos pasar a implementar el flujo de pago!
+Con esta configuración completada, pasamos a implementar el flujo de pago.
 
 ---
 
@@ -58,7 +56,7 @@ Asegúrate de **no** prefijar estas variables con `NEXT_PUBLIC_`, ya que deben p
 
 Hay varias formas de interactuar con la API de Redsys, pero por ahora, usaremos el método de **formulario de redirección**. Este enfoque genera un formulario HTML que redirige a los usuarios a una pasarela de pago segura alojada por Redsys, asegurando transacciones seguras.
 
-Crea un nuevo archivo `src/lib/redsys.ts` y agrega lo siguiente
+Crea un nuevo archivo `src/lib/redsys.ts`:
 
 ```ts
 import { createRedsysAPI, SANDBOX_URLS, PRODUCTION_URLS } from 'redsys-easy';
@@ -229,15 +227,15 @@ const PaymentForm = ({ form }: { form: RedirectForm | null }) => {
 
 ## Conclusión
 
-En este tutorial, hemos integrado exitosamente **Redsys** con **Next.js 15** para crear un flujo de pago optimizado utilizando el método de **formulario de redirección**. Al aprovechar el poder de **Server Actions**, generamos eficientemente el formulario de pago necesario y redirigimos automáticamente al usuario a la pasarela de pago de Redsys.
+En este tutorial, hemos integrado exitosamente Redsys con Next.js 15 para crear un flujo de pago optimizado utilizando el método de formulario de redirección. Al aprovechar el poder de Server Actions, generamos eficientemente el formulario de pago necesario y redirigimos automáticamente al usuario a la pasarela de pago de Redsys.
 
 Ahora tienes una implementación funcional de una pasarela de pago segura que se puede personalizar aún más con parámetros adicionales como información del comercio, idioma y tipos de transacción. Una vez que el usuario complete el pago, el servidor manejará la respuesta para una transacción exitosa o fallida.
 
 Esta integración permite a las empresas que operan en España implementar fácilmente Redsys como su solución de pago, asegurando transacciones seguras y eficientes.
 
-## ¿Qué Sigue?
+## ¿Qué sigue?
 
-Mantente atento a la próxima actualización, donde compartiré un par de trucos para mejorar este flujo, mejorar el rendimiento y hacer que la integración sea aún más fluida para entornos de producción. ¡Estén atentos a las próximas mejoras!
+Mantente atento a la próxima actualización, donde compartiré un par de trucos para mejorar este flujo, mejorar el rendimiento y hacer que la integración sea aún más fluida para entornos de producción.
 
 ### Nota al pie
 
