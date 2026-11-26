@@ -214,3 +214,5 @@ el stack pasa a ser:
 Con OpenRouter como capa intermedia tienes una clave de API, una factura, un catálogo, routing entre proveedores con failover y seguimiento de uso en un solo panel. Cambiar de modelo es un argumento, no una migración.
 
 Mantienes el flujo de Claude Code que ya conoces, y aun así puedes descubrir qué hace un modelo distinto dentro de él.
+
+La misma idea aplica en [Extensiones OpenChamber](/es/projects/openchamber-extensiones/): paneles en el rail para gestionar agentes, skills y servidores MCP de OpenCode sin salir del navegador.

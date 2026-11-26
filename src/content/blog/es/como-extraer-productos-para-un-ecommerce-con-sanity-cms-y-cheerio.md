@@ -181,3 +181,5 @@ También añadí **notificaciones por correo** con Resend para avisar al cliente
 Este proyecto demostró cómo la automatización y las integraciones inteligentes pueden mejorar la gestión de productos en e-commerce. Al combinar Cheerio para el scraping, Sanity CMS para la gestión de contenido y un proxy propio para las llamadas desde el navegador, el catálogo se mantiene actualizado sin intervención manual.
 
 El siguiente paso natural fue llevar esos productos a Google: [automatizar el feed de Merchant Center con Node.js](/es/blog/automatiza-tu-feed-google-merchant-nodejs/) usa la misma fuente de datos. Y una vez que el catálogo está limpio, lo que decide la venta es la ficha: [buscar en el catálogo](/es/blog/habilidades-de-busqueda-de-orama-e-ia/).
+
+Las utilidades tipadas de e-commerce que extraigo aquí viven en [Comercify](/es/projects/comercify/), mi paquete npm sin dependencias para precios, descuentos y carritos.

@@ -73,3 +73,5 @@ I would keep the shared types, the validators and the typed client. They turned 
 The repository puts the three apps where you can see them change together. It does not make a change safe on its own. The types, the checks and the deploy order do that.
 
 A real bug inside that same monorepo: [The Rate Limiter Was the Outage](/en/blog/the-rate-limiter-was-the-outage/).
+
+The shared types, validators and typed client structure is the same I use in [The Forge](/en/projects/the-forge/), my workspace boilerplate with Next.js 15 and Appwrite.

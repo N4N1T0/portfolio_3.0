@@ -214,3 +214,5 @@ the stack becomes:
 With OpenRouter as that middle layer you get one API key, one bill, one catalog, provider routing with failover, and usage tracking in one dashboard. Switching models is an argument, not a migration.
 
 You keep the Claude Code workflow you already know, and you can still find out what a different model does inside it.
+
+The same idea runs in [OpenChamber extensions](/en/projects/openchamber-extensions/): panels on the rail to manage OpenCode agents, skills and MCP servers without leaving the browser.

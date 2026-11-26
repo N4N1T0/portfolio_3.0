@@ -115,6 +115,8 @@ The zero-result list was the most useful output. Half of the queries were plural
 
 More on the storefront side: [importing products](/en/blog/automate-product-imports-ecommerce-sanity-cheerio/).
 
+The typed product catalogue that feeds this search lives in [Comercify](/en/projects/comercify/), my dependency-free e-commerce utilities package.
+
 ---
 
 ## Why Orama Over Meilisearch/Typesense/Algolia?

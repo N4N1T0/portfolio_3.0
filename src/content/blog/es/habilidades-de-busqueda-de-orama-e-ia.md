@@ -140,4 +140,6 @@ Y para traer esos productos al catálogo: [importar productos con Cheerio y Sani
 
 Ayudo a marcas de eCommerce a implementar UX inteligentes con stacks modernos: desde buscadores y chatbots hasta CRO y arquitecturas headless.
 
+El catálogo tipado de productos que alimenta este buscador vive en [Comercify](/es/projects/comercify/), mi paquete de utilidades de e-commerce sin dependencias.
+
 [Cuéntame](/es/about/) | [Mis Proyectos](/es/projects/)

@@ -73,3 +73,5 @@ Mantendría los tipos compartidos, los validadores y el cliente tipado. Convirti
 El repositorio pone las tres apps en un mismo sitio, donde se ve cómo cambian juntas. Por sí solo no hace seguro un cambio. Lo hacen los tipos, las comprobaciones y el orden de despliegue.
 
 Un bug real dentro de ese mismo monorepo: [El rate limiter era la caída](/es/blog/el-rate-limiter-era-la-caida/).
+
+La estructura de tipos compartidos, validadores y cliente tipado es la misma que uso en [The Forge](/es/projects/the-forge/), mi boilerplate de workspaces con Next.js 15 y Appwrite.
