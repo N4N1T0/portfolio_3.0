@@ -1,0 +1,45 @@
+{
+	"title": "Pomodoro Warrior",
+	"date": "2026-10-15",
+	"excerpt": "Focus timer de pago para Android: cada sesión de foco es una pelea de píxeles contra un monstruo, y cada descanso es una hoguera. No hay anuncios, ni tier gratis, ni números inventados.",
+	"liveLink": "https://www.pomodorowarrior.com/",
+	"colors": "#e63946",
+	"techStack": [
+		{
+			"title": "Expo SDK 57 · React Native 0.86",
+			"link": "https://expo.dev/"
+		},
+		{
+			"title": "React 19 · TypeScript (strict)",
+			"link": "https://www.typescriptlang.org/"
+		},
+		{
+			"title": "Astro 7 (Static Output)",
+			"link": "https://astro.build/"
+		},
+		{
+			"title": "Tailwind CSS v4",
+			"link": "https://tailwindcss.com/"
+		},
+		{
+			"title": "Preact 11",
+			"link": "https://preactjs.com/"
+		},
+		{
+			"title": "Appwrite",
+			"link": "https://appwrite.io/"
+		},
+		{
+			"title": "RevenueCat",
+			"link": "https://www.revenuecat.com/"
+		},
+		{
+			"title": "PostHog",
+			"link": "https://posthog.com/"
+		}
+	],
+	"challenge": "Un contador pomodoro solo no da nada que mirar, así que la gente abandona el método. Había que convertir cada sesión de foco en algo que merezca la pena ver: un combate pixel-art donde el guerrero golpea mientras el reloj corre y descansa cuando para, sin castigar al que vuelve, sin anuncios y sin un nivel gratuito que diluya el producto.",
+	"solution": "App nativa de Android con expo-router y cuatro cartuchos de tema (Dark, Dawn, Light, Dusk). El temporizador está atado al guerrero: batalla mientras corre, descanso en la hoguera cuando para. Oleadas de monstruos, experiencia y rangos, quests que pagan oro, tabernas que se reconstruyen pieza a pieza y un hard paywall sin salidas alternas. Backend en Appwrite, pagos por RevenueCat sobre Google Play, analítica en PostHog, sin conexión con cola de reintentos idempotente.",
+	"comingSoon": false,
+	"counterpartId": "es/pomodoro-warrior"
+}

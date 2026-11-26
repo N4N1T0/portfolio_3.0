@@ -2,7 +2,6 @@
 	"title": "Comercify",
 	"date": "2026-10-25",
 	"excerpt": "Utilidades de e-commerce tipadas y sin dependencias para TypeScript: precios e impuestos, descuentos, carritos, envíos y catálogo. Se instala desde npm, o se copia el código fuente al proyecto con su CLI y el código pasa a ser tuyo.",
-	"images": [],
 	"liveLink": "https://www.npmjs.com/package/comercify",
 	"colors": "#CB3837",
 	"techStack": [

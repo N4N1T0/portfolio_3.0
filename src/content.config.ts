@@ -18,17 +18,11 @@ const blog = defineCollection({
 
 const projects = defineCollection({
 	loader: glob({ pattern: '**/*.json', base: './src/content/projects' }),
-	schema: ({ image }) =>
+	schema: () =>
 		z.object({
 			title: z.string().max(60),
 			date: z.string(),
 			excerpt: z.string(),
-			images: z.array(
-				z.object({
-					src: image().optional(),
-					alt: z.string(),
-				}),
-			),
 			liveLink: z.url().nullable(),
 			colors: z.string(),
 			techStack: z.array(

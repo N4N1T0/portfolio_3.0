@@ -2,16 +2,6 @@
 	"title": "The Forge (Boilerplate)",
 	"date": "2025-01-15",
 	"excerpt": "Production-ready SaaS boilerplate with serverless Edge API architecture (Hono), Appwrite backend infrastructure, and role-based access control (RBAC). Optimized for scalable workspace and project management with type-safe data modeling.",
-	"images": [
-		{
-			"src": "@/assets/projects/the-forge-1.webp",
-			"alt": "The Forge Auth Screen"
-		},
-		{
-			"src": "@/assets/projects/the-forge-2.webp",
-			"alt": "The Forge Dashboard Overview"
-		}
-	],
 	"liveLink": "https://github.com/N4N1T0/forge",
 	"colors": "#EDEDED",
 	"techStack": [
