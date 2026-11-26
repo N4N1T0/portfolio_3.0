@@ -16,7 +16,7 @@ Our client runs a personalized padel t-shirt eCommerce site. They wanted:
 - The ability to personalize empty state experiences
 - Future integration with an AI chatbot
 
-This wasn’t just about search — it was about **making intelligent UX part of conversion rate optimization (CRO).**
+This wasn’t just about search. It was about making intelligent UX part of conversion rate optimization (CRO).
 
 ---
 
@@ -28,7 +28,7 @@ We chose [Orama.search](https://orama.dev) for its:
 - Native support for vector-based search (with OpenAI embeddings)
 - Developer-friendly API (can be updated via REST, CLI, SDKs)
 
-It let us go beyond standard search to implement **answer engine logic**, automations, and personalized search outputs — all while staying fully headless.
+It let us go beyond standard search to implement **answer engine logic**, automations, and personalized search outputs while staying fully headless.
 
 ## Dynamic Product Updates (Sanity + Cron + GROQ)
 
@@ -142,6 +142,6 @@ With Orama’s answer engine and embeddings already in place, this will be a smo
 
 ## Want to Build Something Like This?
 
-I help eCommerce brands implement intelligent UX with modern stacks — from search and chatbots to CRO and headless architectures.
+I help eCommerce brands implement intelligent UX with modern stacks, from search and chatbots to CRO and headless architectures.
 
 [Let’s Talk](/en/about/) | [See More Projects](/en/projects/)

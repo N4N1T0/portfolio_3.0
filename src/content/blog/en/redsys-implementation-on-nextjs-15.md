@@ -7,7 +7,7 @@ counterpartId: 'es/introduccion-a-redsys-en-nextjs-15'
 tags: ['nextjs', 'payments', 'redsys']
 ---
 
-Nowadays, everyone is trying to make money online—whether through a SaaS, an eCommerce store, or other types of web applications. While global payment processors like Stripe and PayPal are common, different countries have their own preferred payment platforms.
+Nowadays, everyone is trying to make money online, whether through a SaaS, an eCommerce store, or other types of web applications. While global payment processors like Stripe and PayPal are common, different countries have their own preferred payment platforms.
 
 In Spain, practically all online banking transactions go through **Redsys**, a SOAP-based API platform designed to make digital payments within the Spanish banking network easier and more secure. While Redsys is powerful, it can also be challenging to manage and deploy due to its unique integration requirements.
 
@@ -129,7 +129,7 @@ export async function initiatePayment(orderId: string, amount: number) {
 
 ### 4. Create the Form and Return
 
-Now, we create the form to use on the frontend. The `DS_MERCHANT_URL` variables are very important as they determine where the user will be redirected after the payment—either to a success page (OK) or an error page (KO). Redsys will append a code to the URL, which you can use to verify the request.
+Now, we create the form to use on the frontend. The `DS_MERCHANT_URL` variables determine where the user will be redirected after the payment, either to a success page (OK) or an error page (KO). Redsys will append a code to the URL, which you can use to verify the request.
 
 ```ts
 export async function initiatePayment(orderId: string, amount: number) {

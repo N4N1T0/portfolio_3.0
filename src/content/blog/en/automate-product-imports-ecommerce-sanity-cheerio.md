@@ -77,7 +77,7 @@ Now that I had a way to scrape product details, I ran into **CORS errors** when 
 
 ## Validating and Enriching the Data
 
-At this point, I had most of the product details I needed, but there was one crucial piece of information still missing — the price. My client provided me with a PDF that contained the distributor’s pricing information. To make sure I had accurate data, I needed to cross-reference the prices with the ones in the PDF.
+At this point, I had most of the product details I needed, but there was one piece of information still missing: the price. My client provided me with a PDF that contained the distributor’s pricing information. To make sure I had accurate data, I needed to cross-reference the prices with the ones in the PDF.
 
 Here, I turned to **ChatGPT** to help me extract the necessary details from the PDF. With a bit of prompt engineering (an article coming soon), I was able to create a process that automatically extracted the product names, reference codes, and prices from the PDF.
 
@@ -180,7 +180,7 @@ export default defineConfig({
 
 ## Automation
 
-With the product data now successfully imported into Sanity CMS, I turned my attention to automating the entire process. To make sure the product catalog stayed up-to-date, I set up a **cron job** to run daily at 00:01 AM (its a good time to have server idle). This cron job would fetch the latest products from the WordPress API and automatically update the Sanity CMS.
+With the product data now successfully imported into Sanity CMS, I turned my attention to automating the entire process. To make sure the product catalog stayed up-to-date, I set up a **cron job** to run daily at 00:01 AM (it's a good time to have server idle). This cron job would fetch the latest products from the WordPress API and automatically update the Sanity CMS.
 
 ```javascript
 const cron = require('node-cron');

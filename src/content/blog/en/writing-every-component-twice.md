@@ -54,11 +54,11 @@ export const heroComponentRegistry = {
 };
 ```
 
-and one root object spreads all sixteen barrels together, with the mirror registry alongside it. Lookups go through a string id with a cast, so a catalogue entry with no matching key fails at runtime rather than at compile time — both call sites handle the `undefined`, but the type system is not helping there and I know it.
+and one root object spreads all sixteen barrels together, with the mirror registry alongside it. Lookups go through a string id with a cast, so a catalogue entry with no matching key fails at runtime rather than at compile time; both call sites handle the `undefined`, but the type system is not helping there and I know it.
 
 The discipline held better than I expected. All eighty example files use container-query variants. Only two component files do, and those are deliberate. The rule stuck.
 
-The leakage went the other way: thirty-one of the eighty example files still carry viewport breakpoints _alongside_ their container queries. Harmless in the panel — a media query that never matches simply does nothing — but it means a third of the mirrors were converted by adding variants rather than by replacing them, and the intent is now ambiguous to the next person reading them.
+The leakage went the other way: thirty-one of the eighty example files still carry viewport breakpoints _alongside_ their container queries. Harmless in the panel. A media query that never matches simply does nothing, but it means a third of the mirrors were converted by adding variants rather than by replacing them, and the intent is now ambiguous to the next person reading them.
 
 ## The part that actually hurt
 
@@ -75,13 +75,13 @@ Two files with the same name, no shared source of truth, and nothing checking th
 
 The demo copy has no `Play` import at all. Its secondary CTA is a labelled outline button reading "Get More Info".
 
-So the thing you preview is not the thing you install. Not a breakpoint difference — a different component wearing the same name. And there is no test suite in this repo to catch it: no runner, no test files, nothing. The guard rails are `eslint --fix` and `tsc --noEmit` on a pre-commit hook, which will happily let two files diverge in content forever, because both of them compile.
+So the thing you preview is not the thing you install. Not a breakpoint difference — a different component wearing the same name. And there is no test suite in this repo to catch it: no runner, no test files. The guard rails are `eslint --fix` and `tsc --noEmit` on a pre-commit hook, which will happily let two files diverge in content forever, because both of them compile.
 
 If I were starting again I would not write two files. I would write one, take `breakpoint: 'viewport' | 'container'` as a prop or a class-prefix token, and generate the second. The duplication is only tolerable while it is mechanical, and it stopped being mechanical the first time someone improved one twin and not the other.
 
 ## A second lesson, cheaper to state
 
-The components are deliberately dependency-free. I grepped every import across all eighty: outside the local UI primitives, `lucide-react`, `next/image`, `next/link`, `react` and a `cn` helper, there is exactly **one** foreign import in the entire set — `embla-carousel-autoplay`. Installing a component adds no runtime library to your project. That constraint was worth enforcing and cost almost nothing to hold.
+The components are deliberately dependency-free. I grepped every import across all eighty: outside the local UI primitives, `lucide-react`, `next/image`, `next/link`, `react` and a `cn` helper, there is exactly **one** foreign import in the entire set: `embla-carousel-autoplay`. Installing a component adds no runtime library to your project. That constraint was worth enforcing and cost almost nothing to hold.
 
 Seventy-two of eighty also inline their own mock data as a top-of-file constant rather than taking props. An older rules file in the repo forbids exactly that. The code won, and it won for a good reason: a copy-paste component has to render the moment it lands in your project, before you have wired anything up. Sometimes the rule is wrong and the drift is the codebase telling you so.
 
