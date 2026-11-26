@@ -71,3 +71,5 @@ A shared package also means one change can reach three apps. That is the point o
 I would keep the shared types, the validators and the typed client. They turned a runtime 404 into a type error, and that is the cheapest kind of bug to find.
 
 The repository puts the three apps where you can see them change together. It does not make a change safe on its own. The types, the checks and the deploy order do that.
+
+A real bug inside that same monorepo: [The Rate Limiter Was the Outage](/en/blog/the-rate-limiter-was-the-outage/).

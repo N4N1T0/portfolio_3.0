@@ -101,4 +101,4 @@ SEO on a static site breaks silently. Three habits keep it honest:
 10. Structured data that matches visible content.
 11. Sitemap diff and Search Console review after each deploy.
 
-Nothing on that list is exotic. The reason sites fail it is that nobody owns the check between launches. For an eCommerce catalogue, the same discipline applies one level deeper: [product pages carry most of the technical risk](/en/blog/8-tips-to-optimize-your-ecommerce/) because they multiply everything by the number of SKUs.
+Nothing on that list is exotic. The reason sites fail it is that nobody owns the check between launches. For an eCommerce catalogue, the same discipline applies one level deeper: product pages carry most of the technical risk because they multiply everything by the number of SKUs.

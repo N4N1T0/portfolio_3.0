@@ -71,3 +71,5 @@ Un paquete compartido también significa que un cambio puede llegar a tres apps.
 Mantendría los tipos compartidos, los validadores y el cliente tipado. Convirtieron un 404 en tiempo de ejecución en un error de tipos, que es la forma más barata de encontrar un bug.
 
 El repositorio pone las tres apps en un mismo sitio, donde se ve cómo cambian juntas. Por sí solo no hace seguro un cambio. Lo hacen los tipos, las comprobaciones y el orden de despliegue.
+
+Un bug real dentro de ese mismo monorepo: [El rate limiter era la caída](/es/blog/el-rate-limiter-era-la-caida/).

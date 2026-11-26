@@ -124,3 +124,5 @@ The signed session travels in the cookie for a minute, so the common case answer
 I also dropped React Query's `retry` from 3 to 1 in both frontends. Three retries turn one failing query into four requests, and retrying a 429 is precisely what a rate limit is asking you not to do.
 
 The note that went into the project's docs is one line: never put a per-request counter in KV, and check anything new that touches KV against the write budget. A platform's pricing model is part of its API surface. I found that out from a billing alert.
+
+This was all inside the Turborepo + Hono + D1 monorepo described in [From three apps to one monorepo](/en/blog/from-three-apps-to-one-monorepo/).

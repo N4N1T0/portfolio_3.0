@@ -132,6 +132,8 @@ La siguiente fase del proyecto será conectar Orama con OpenAI para crear un asi
 
 Con el motor de respuestas y los embeddings ya en marcha, será una evolución natural.
 
+Y para traer esos productos al catálogo: [importar productos con Cheerio y Sanity](/es/blog/como-extraer-productos-para-un-ecommerce-con-sanity-cms-y-cheerio/).
+
 ---
 
 ## ¿Quieres construir algo así?

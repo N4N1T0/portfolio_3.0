@@ -113,7 +113,7 @@ Search work is easy to argue about and hard to prove, so we tracked four numbers
 
 The zero-result list was the most useful output. Half of the queries were plurals, typos or synonyms the index did not know, which is a data problem, not a search-engine problem. Fixing the index beat changing the engine.
 
-More on the storefront side: [8 tips to optimize your eCommerce](/en/blog/8-tips-to-optimize-your-ecommerce/).
+More on the storefront side: [importing products](/en/blog/automate-product-imports-ecommerce-sanity-cheerio/).
 
 ---
 

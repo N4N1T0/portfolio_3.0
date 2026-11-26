@@ -124,3 +124,5 @@ La sesión firmada viaja en la cookie durante un minuto, así que el caso común
 También bajé el `retry` de React Query de 3 a 1 en los dos frontends. Tres reintentos convierten una query fallida en cuatro peticiones, y reintentar un 429 es justo lo contrario de lo que pide un rate limit.
 
 La nota que acabó en la documentación del proyecto es una línea: nunca metas un contador por petición en KV, y contrasta contra el presupuesto de escrituras cualquier cosa nueva que toque KV. El modelo de precios de una plataforma es parte de su superficie de API. Me enteré por una alerta de facturación.
+
+Todo esto ocurrió dentro del monorepo Turborepo + Hono + D1 descrito en [De tres apps a un monorepo](/es/blog/de-tres-apps-a-un-monorepo/).

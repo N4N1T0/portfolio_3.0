@@ -52,7 +52,7 @@ When a project ends, the client row stays. That is where future work comes from,
 - **Invoices.** The accounting tool owns those. Notion holds the reference, not the document.
 - **Time tracking, minute by minute.** I log hours per day per project. More granularity is a hobby, not a management system.
 
-For team projects with a client who needs to see progress every two weeks, Notion alone is not enough structure: [Scrum for web projects](/en/blog/scrum-project-management/) covers the ceremonies and the roles that make a sprint review useful.
+For team projects with a client who needs to see progress every two weeks, Notion alone is not enough structure: Scrum for web projects covers the ceremonies and the roles that make a sprint review useful.
 
 ## A template is only worth it if it is short
 

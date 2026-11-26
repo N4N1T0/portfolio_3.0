@@ -52,7 +52,7 @@ Cuando termina un proyecto, la fila del cliente se queda. De ahí sale el trabaj
 - **Facturas.** Las lleva la herramienta de contabilidad. Notion guarda la referencia, no el documento.
 - **Control de tiempo al minuto.** Apunto horas por día y proyecto. Más granularidad es un pasatiempo, no un sistema de gestión.
 
-Para proyectos en equipo con un cliente que necesita ver avance cada dos semanas, Notion solo no basta: [Scrum para proyectos web](/es/blog/gestion-en-scrum/) cubre las ceremonias y los roles que hacen útil una review.
+Para proyectos en equipo con un cliente que necesita ver avance cada dos semanas, Notion solo no basta: Scrum para proyectos web cubre las ceremonias y los roles que hacen útil una review.
 
 ## Una plantilla solo vale si es corta
 

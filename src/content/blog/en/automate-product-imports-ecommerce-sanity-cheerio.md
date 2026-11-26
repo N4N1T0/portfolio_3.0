@@ -227,4 +227,4 @@ I also set up **email notifications** to alert the client whenever new products 
 
 This project was a good example of how automation and smart integrations improve product management on an eCommerce site. Cheerio handled extraction, Sanity CMS the content model, and a proxy the browser-only calls: the catalogue stays current without manual intervention.
 
-The next step was getting those products into Google: [automating the Merchant Center feed with Node.js](/en/blog/automate-google-merchant-feed-nodejs/) consumes the same data source. Once the catalogue is clean, the sale is decided on the page: [eight product page fixes](/en/blog/8-tips-to-optimize-your-ecommerce/).
+The next step was getting those products into Google: [automating the Merchant Center feed with Node.js](/en/blog/automate-google-merchant-feed-nodejs/) consumes the same data source. Once the catalogue is clean, the sale is decided on the page: [searching the catalogue](/en/blog/search-capabilities-and-ai/).

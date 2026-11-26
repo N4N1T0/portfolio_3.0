@@ -91,4 +91,4 @@ Ninguno es cosmético: cada uno sustituye un comportamiento implícito por uno e
 
 Este sitio es un build estático de Astro: colecciones para posts y proyectos, islas de Preact solo donde hay estado y un prompt de terminal que es el único componente pesado en cliente. El resultado es un build que genera HTML plano por ruta y envía script para una isla, no para el sitio.
 
-Si estás comparando Astro con una SPA para un producto con mucho contenido, [cuéntame el proyecto](/es/about/) y te digo qué partes deben quedarse estáticas. Si tus formularios necesitan trabajo en servidor, [Astro Actions con formularios vanilla](/es/blog/astro-actions-y-vanilla-para-formularios/) cubre el patrón sin framework de cliente.
+Si estás comparando Astro con una SPA para un producto con mucho contenido, [cuéntame el proyecto](/es/about/) y te digo qué partes deben quedarse estáticas. Si tus formularios necesitan trabajo en servidor, Astro Actions con formularios vanilla cubre el patrón sin framework de cliente.

@@ -101,4 +101,4 @@ El SEO de un sitio estático se degrada en silencio. Tres hábitos lo mantienen 
 10. Datos estructurados que coinciden con el contenido visible.
 11. Diff del sitemap y revisión de Search Console tras cada despliegue.
 
-Nada de esa lista es exótico. Los sitios fallan porque nadie es dueño de la comprobación entre lanzamientos. En un catálogo eCommerce la disciplina se aplica un nivel más abajo: [las páginas de producto concentran casi todo el riesgo técnico](/es/blog/8-tips-para-optimizar-ecommerce/) porque multiplican cada decisión por el número de referencias.
+Nada de esa lista es exótico. Los sitios fallan porque nadie es dueño de la comprobación entre lanzamientos. En un catálogo eCommerce la disciplina se aplica un nivel más abajo: las páginas de producto concentran casi todo el riesgo técnico porque multiplican cada decisión por el número de referencias.

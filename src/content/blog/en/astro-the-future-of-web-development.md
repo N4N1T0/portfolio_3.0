@@ -91,4 +91,4 @@ None of these are cosmetic: each one replaces an implicit behaviour with an expl
 
 This site is a static Astro build: content collections for posts and projects, Preact islands only where there is state, and a terminal prompt that is the only client-heavy component. The result is a build that produces plain HTML per route and ships script for one island, not for the site.
 
-If you are weighing Astro against a SPA for a content-heavy product, [tell me about the project](/en/about/) and I will tell you which parts should stay static. If your forms need server work, [Astro Actions with vanilla JS forms](/en/blog/astro-actions-and-vanilla-for-form/) covers the pattern without a client framework.
+If you are weighing Astro against a SPA for a content-heavy product, [tell me about the project](/en/about/) and I will tell you which parts should stay static. If your forms need server work, Astro Actions with vanilla JS forms covers the pattern without a client framework.
