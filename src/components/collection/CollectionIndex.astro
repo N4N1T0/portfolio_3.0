@@ -28,7 +28,7 @@ const alt: Locale = locale === 'en' ? 'es' : 'en';
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const breadcrumbs = [
-	{ name: t.collections.back, href: getRelativeLocaleUrl(locale) },
+	{ name: t.collections.home, href: getRelativeLocaleUrl(locale) },
 	{ name: t.collections[titleKey], href: canonical },
 ];
 

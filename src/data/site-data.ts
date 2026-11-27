@@ -1,4 +1,4 @@
-import Avatar from '@/assets/images/Adrian_Profile.jpg';
+import Avatar from '@/assets/images/Adrian_Profile.webp';
 
 export type Activity = {
 	date: string;
