@@ -3,6 +3,8 @@ import '@fontsource/geist-pixel/latin-400.css';
 import '@fontsource/geist-mono/latin-400.css';
 import '@fontsource/geist-mono/latin-500.css';
 import '../styles/global.css';
+import monoUrl from '@fontsource/geist-mono/files/geist-mono-latin-400-normal.woff2?url';
+import pixelUrl from '@fontsource/geist-pixel/files/geist-pixel-latin-400-normal.woff2?url';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { copy } from '@/data/copy';
 import { type SeoProps } from '@/lib/seo';
@@ -42,6 +44,8 @@ const isHome = currentPath === `/${locale}`;
 <!doctype html>
 <html lang={locale}>
 	<head>
+		<link rel="preload" href={monoUrl} as="font" type="font/woff2" crossorigin />
+		<link rel="preload" href={pixelUrl} as="font" type="font/woff2" crossorigin />
 		<SeoHead
 			locale={locale}
 			title={title}

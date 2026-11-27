@@ -15,8 +15,26 @@
 	--color-accent: #4d9dff;
 	--color-signal: #ff6b6b;
 
-	--font-display: 'Geist Pixel', ui-monospace, monospace;
-	--font-mono: 'Geist Mono', ui-monospace, monospace;
+	--font-display: 'Geist Pixel', 'Geist Pixel Fallback', ui-monospace, monospace;
+	--font-mono: 'Geist Mono', 'Geist Mono Fallback', ui-monospace, monospace;
+}
+
+@font-face {
+	font-family: 'Geist Mono Fallback';
+	src: local('Courier New'), local('Courier');
+	size-adjust: 100%;
+	ascent-override: 100.5%;
+	descent-override: 29.5%;
+	line-gap-override: 0%;
+}
+
+@font-face {
+	font-family: 'Geist Pixel Fallback';
+	src: local('Courier New'), local('Courier');
+	size-adjust: 105.3%;
+	ascent-override: 95.4%;
+	descent-override: 28%;
+	line-gap-override: 0%;
 }
 
 @layer base {
