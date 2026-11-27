@@ -39,6 +39,8 @@ const commands: Command[] = t.commands.map((command) => ({
 	title={t.meta.title}
 	description={t.meta.description}
 	ogAlt={t.meta.ogAlt}
+	alternateHref={getRelativeLocaleUrl(altLocale)}
+	alternateLang={altLocale}
 >
 	<Terminal
 		client:load
