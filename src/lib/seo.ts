@@ -16,4 +16,24 @@ export type SeoProps = {
 		image?: string;
 		url: string;
 	};
+	project?: {
+		name: string;
+		description: string;
+		url: string;
+		image?: string;
+		dateCreated: string;
+	};
+	codeSnippet?: {
+		title: string;
+		description: string;
+		programmingLanguage: string;
+		dateCreated?: string;
+		author: string;
+		url: string;
+	};
+	collectionPage?: {
+		title: string;
+		description: string;
+		url: string;
+	};
 };

@@ -8,7 +8,16 @@ import SocialMeta from '@/components/SocialMeta.astro';
 type Props = SeoProps;
 
 const { locale, title, description, ogAlt } = Astro.props;
-const { alternateHref, alternateLang, breadcrumbs, blogPosting, noindex = false } = Astro.props;
+const {
+	alternateHref,
+	alternateLang,
+	breadcrumbs,
+	blogPosting,
+	project,
+	codeSnippet,
+	collectionPage,
+	noindex = false,
+} = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const alternateAbsolute = alternateHref ? new URL(alternateHref, Astro.site).href : undefined;
@@ -65,6 +74,61 @@ const jsonLd = {
 							'@type': 'WebPage',
 							'@id': canonical,
 						},
+					},
+				]
+			: []),
+		...(project
+			? [
+					{
+						'@type': 'Project',
+						'@id': `${canonical}#project`,
+						url: project.url,
+						name: project.name,
+						description: project.description,
+						...(project.image && { image: project.image }),
+						dateCreated: project.dateCreated,
+						author: {
+							'@type': 'Person',
+							name: 'Adrián Álvarez',
+						},
+						publisher: {
+							'@type': 'Organization',
+							name: 'Adrian Alvarez',
+							url: Astro.site,
+						},
+					},
+				]
+			: []),
+		...(codeSnippet
+			? [
+					{
+						'@type': 'Code',
+						'@id': `${canonical}#snippet`,
+						url: codeSnippet.url,
+						name: codeSnippet.title,
+						description: codeSnippet.description,
+						programmingLanguage: codeSnippet.programmingLanguage,
+						...(codeSnippet.dateCreated && { dateCreated: codeSnippet.dateCreated }),
+						author: {
+							'@type': 'Person',
+							name: codeSnippet.author,
+						},
+						publisher: {
+							'@type': 'Organization',
+							name: 'Adrian Alvarez',
+							url: Astro.site,
+						},
+					},
+				]
+			: []),
+		...(collectionPage
+			? [
+					{
+						'@type': 'CollectionPage',
+						'@id': `${canonical}#collection`,
+						url: collectionPage.url,
+						name: collectionPage.title,
+						description: collectionPage.description,
 					},
 				]
 			: []),

@@ -1,6 +1,6 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n';
-import { type Locale } from '@/data/copy';
+import { copy, type Locale } from '@/data/copy';
 import { getSnippets } from '@/lib/content';
 import CollectionIndex from '@/components/collection/CollectionIndex.astro';
 import { type Row } from '@/components/collection/EntryList.astro';
@@ -10,6 +10,7 @@ interface Props {
 }
 
 const { locale } = Astro.props;
+const t = copy[locale];
 const snippets = await getSnippets(locale);
 
 const rows: Row[] = snippets.map((snippet) => ({
@@ -18,6 +19,13 @@ const rows: Row[] = snippets.map((snippet) => ({
 	badge: snippet.data.isNew ? '*' : undefined,
 	href: getRelativeLocaleUrl(locale, `snippets/${snippet.id}`),
 }));
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const collectionPage = {
+	title: t.collections.snippetsTitle,
+	description: t.collections.snippetsSubtitle,
+	url: canonical,
+};
 ---
 
 <CollectionIndex
@@ -27,4 +35,5 @@ const rows: Row[] = snippets.map((snippet) => ({
 	subtitleKey="snippetsSubtitle"
 	length={snippets.length}
 	rows={rows}
+	collectionPage={collectionPage}
 />

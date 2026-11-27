@@ -15,9 +15,14 @@ interface Props {
 	length: number;
 	rows: Row[];
 	note?: string;
+	collectionPage?: {
+		title: string;
+		description: string;
+		url: string;
+	};
 }
 
-const { locale, path, titleKey, subtitleKey, length, rows, note } = Astro.props;
+const { locale, path, titleKey, subtitleKey, length, rows, note, collectionPage } = Astro.props;
 const t = copy[locale];
 const alt: Locale = locale === 'en' ? 'es' : 'en';
 
@@ -40,6 +45,7 @@ const numericEntries = rows.map((row, index) => ({
 	description={t.collections[subtitleKey]}
 	ogAlt={`${t.collections[titleKey]} — Adrián Álvarez`}
 	breadcrumbs={breadcrumbs}
+	collectionPage={collectionPage}
 >
 	<div class="mx-auto w-full max-w-4xl px-4 py-6 sm:px-6">
 		<TerminalWindow path={`~/${path}`}>

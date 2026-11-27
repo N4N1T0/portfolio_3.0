@@ -16,6 +16,50 @@ const { locale, id } = Astro.props;
 const t = copy[locale];
 const alt: Locale = locale === 'en' ? 'es' : 'en';
 const snippet = await getSnippet(locale, id);
+
+// Find counterpart for alternate language link
+const counterpart = snippet
+	? await getSnippet(alt, snippet.data.counterpartId?.replace(`${alt}/`, '') ?? '')
+	: undefined;
+const counterpartSlug = counterpart?.id.replace(`${alt}/`, '');
+const altHref = getRelativeLocaleUrl(
+	alt,
+	counterpartSlug ? `snippets/${counterpartSlug}` : 'snippets',
+);
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+
+// Infer programming language from preview (these are CSS-focused snippets)
+const programmingLanguage = snippet?.data.preview
+	? [
+			'focus-within',
+			'cover-glow',
+			'card-shine',
+			'gradient-grain',
+			'split-button',
+			'fab-menu',
+		].includes(snippet.data.preview)
+		? 'CSS'
+		: 'JavaScript'
+	: 'CSS';
+
+const breadcrumbs = snippet
+	? [
+			{ name: t.collections.home, href: getRelativeLocaleUrl(locale) },
+			{ name: t.collections.snippetsTitle, href: getRelativeLocaleUrl(locale, 'snippets') },
+			{ name: snippet.data.title, href: canonical },
+		]
+	: undefined;
+
+const codeSnippet = snippet
+	? {
+			title: snippet.data.title,
+			description: snippet.data.excerpt,
+			programmingLanguage,
+			author: 'Adrián Álvarez',
+			url: canonical,
+		}
+	: undefined;
 ---
 
 <TerminalLayout
@@ -23,6 +67,10 @@ const snippet = await getSnippet(locale, id);
 	title={snippet ? `${snippet.data.title} — Adrián Álvarez` : 'Not found'}
 	description={snippet?.data.excerpt ?? t.collections.snippetsSubtitle}
 	ogAlt={snippet?.data.title ?? t.collections.snippetsTitle}
+	alternateHref={altHref}
+	alternateLang={alt}
+	breadcrumbs={breadcrumbs}
+	codeSnippet={codeSnippet}
 >
 	<div class="mx-auto w-full max-w-4xl px-4 py-6 sm:px-6">
 		<TerminalWindow path={`~/snippets/${id}`}>

@@ -23,6 +23,9 @@ const {
 	alternateLang,
 	breadcrumbs,
 	blogPosting,
+	project,
+	codeSnippet,
+	collectionPage,
 	noindex,
 } = Astro.props;
 const altLocale = locale === 'en' ? 'es' : 'en';
@@ -48,6 +51,9 @@ const isHome = currentPath === `/${locale}`;
 			alternateLang={alternateLang}
 			breadcrumbs={breadcrumbs}
 			blogPosting={blogPosting}
+			project={project}
+			codeSnippet={codeSnippet}
+			collectionPage={collectionPage}
 			noindex={noindex}
 		/>
 		<script is:inline>

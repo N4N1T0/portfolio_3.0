@@ -22,6 +22,9 @@ const project = await getProject(locale, id);
 const counterpartSlug = project?.data.counterpartId?.replace(`${alt}/`, '');
 const counterpart = counterpartSlug ? await getProject(alt, counterpartSlug) : undefined;
 const altHref = getRelativeLocaleUrl(alt, counterpart ? `projects/${counterpartSlug}` : 'projects');
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL(locale === 'en' ? '/og.png' : '/og-es.png', Astro.site).href;
 ---
 
 <TerminalLayout
@@ -29,6 +32,28 @@ const altHref = getRelativeLocaleUrl(alt, counterpart ? `projects/${counterpartS
 	title={project ? `${project.data.title} — Adrián Álvarez` : 'Not found'}
 	description={project?.data.excerpt ?? t.collections.projectsSubtitle}
 	ogAlt={project?.data.title ?? t.collections.projectsTitle}
+	alternateHref={altHref}
+	alternateLang={alt}
+	breadcrumbs={
+		project
+			? [
+					{ name: t.collections.home, href: getRelativeLocaleUrl(locale) },
+					{ name: t.collections.projectsTitle, href: getRelativeLocaleUrl(locale, 'projects') },
+					{ name: project.data.title, href: canonical },
+				]
+			: undefined
+	}
+	project={
+		project
+			? {
+					name: project.data.title,
+					description: project.data.excerpt,
+					url: canonical,
+					image: ogImage,
+					dateCreated: new Date(project.data.date).toISOString(),
+				}
+			: undefined
+	}
 >
 	<div class="mx-auto w-full max-w-4xl px-4 py-6 sm:px-6">
 		<TerminalWindow path={`~/projects/${id}`}>
