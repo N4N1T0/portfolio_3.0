@@ -51,7 +51,7 @@ const levelClass = ['bg-edge', 'bg-accent/25', 'bg-accent/45', 'bg-accent/70', '
 	description={t.about.subtitle}
 	ogAlt={`${t.about.title} — Adrián Álvarez`}
 	breadcrumbs={[
-		{ name: t.collections.back, href: getRelativeLocaleUrl(locale) },
+		{ name: t.collections.home, href: getRelativeLocaleUrl(locale) },
 		{ name: t.about.title, href: new URL(Astro.url.pathname, Astro.site).href },
 	]}
 >
@@ -71,7 +71,7 @@ const levelClass = ['bg-edge', 'bg-accent/25', 'bg-accent/45', 'bg-accent/70', '
 					<div class="mt-2 flex gap-4">
 						<img
 							src={USER_DATA.avatar.src}
-							alt={USER_DATA.displayName}
+							alt={t.about.avatarAlt}
 							width={USER_DATA.avatar.width}
 							height={USER_DATA.avatar.height}
 							loading="lazy"

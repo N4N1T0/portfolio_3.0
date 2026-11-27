@@ -69,6 +69,7 @@ export type Copy = {
 		tiptap: string;
 		present: string;
 		commits: string;
+		avatarAlt: string;
 	};
 	footer: {
 		copyright: string;
@@ -193,6 +194,7 @@ export const copy: Record<Locale, Copy> = {
 			tiptap: 'tiptap-shadcn',
 			present: 'present',
 			commits: 'commits in 2026',
+			avatarAlt: 'Portrait of Adrián Álvarez, smiling, with dark hair and a full beard, in a café',
 		},
 		footer: {
 			copyright: '© 2026 Adrián Álvarez',
@@ -314,6 +316,7 @@ export const copy: Record<Locale, Copy> = {
 			tiptap: 'tiptap-shadcn',
 			present: 'actualidad',
 			commits: 'commits en 2026',
+			avatarAlt: 'Retrato de Adrián Álvarez, sonriendo, con pelo oscuro y barba, en una cafetería',
 		},
 		footer: {
 			copyright: '© 2026 Adrián Álvarez',

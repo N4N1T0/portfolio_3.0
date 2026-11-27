@@ -1,5 +1,6 @@
 ---
 import { profile } from '@/data/profile';
+import { USER_DATA } from '@/data/site-data';
 import { feedPath } from '@/lib/rss';
 import { type SeoProps } from '@/lib/seo';
 import BrandIcons from '@/components/BrandIcons.astro';
@@ -26,6 +27,13 @@ const alternateEn = new URL('/en/', Astro.site).href;
 const defaultHref = locale === 'en' ? canonical : (alternateAbsolute ?? alternateEn);
 const ogImage = new URL(locale === 'en' ? '/og.png' : '/og-es.png', Astro.site).href;
 
+const personId = `${Astro.site}#person`;
+const organizationId = `${Astro.site}#organization`;
+// sameAs only takes public profiles, the email has its own property
+const organizationProfiles = profile.socials.filter(
+	({ id }) => id === 'github' || id === 'linkedin',
+);
+
 const jsonLd = {
 	'@context': 'https://schema.org',
 	'@graph': [
@@ -39,7 +47,7 @@ const jsonLd = {
 		},
 		{
 			'@type': 'Person',
-			'@id': `${Astro.site}#person`,
+			'@id': personId,
 			name: profile.name,
 			url: canonical,
 			jobTitle: profile.role,
@@ -47,6 +55,16 @@ const jsonLd = {
 			telephone: profile.phone,
 			homeLocation: { '@type': 'Place', name: profile.location },
 			sameAs: profile.socials.map((social) => social.url),
+		},
+		{
+			'@type': 'Organization',
+			'@id': organizationId,
+			name: USER_DATA.displayName,
+			url: Astro.site,
+			logo: new URL('/icon-512.png', Astro.site).href,
+			email: profile.email,
+			founder: { '@id': personId },
+			sameAs: organizationProfiles.map((social) => social.url),
 		},
 		...(blogPosting
 			? [
@@ -64,11 +82,7 @@ const jsonLd = {
 							'@type': 'Person',
 							name: blogPosting.author,
 						},
-						publisher: {
-							'@type': 'Organization',
-							name: 'Adrian Alvarez',
-							url: Astro.site,
-						},
+						publisher: { '@id': organizationId },
 						...(blogPosting.image && { image: blogPosting.image }),
 						mainEntityOfPage: {
 							'@type': 'WebPage',
@@ -91,11 +105,7 @@ const jsonLd = {
 							'@type': 'Person',
 							name: 'Adrián Álvarez',
 						},
-						publisher: {
-							'@type': 'Organization',
-							name: 'Adrian Alvarez',
-							url: Astro.site,
-						},
+						publisher: { '@id': organizationId },
 					},
 				]
 			: []),
@@ -113,11 +123,7 @@ const jsonLd = {
 							'@type': 'Person',
 							name: codeSnippet.author,
 						},
-						publisher: {
-							'@type': 'Organization',
-							name: 'Adrian Alvarez',
-							url: Astro.site,
-						},
+						publisher: { '@id': organizationId },
 					},
 				]
 			: []),
